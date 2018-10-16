@@ -29,3 +29,4 @@ wp_theme/**/.fuse_hidden*
 /.idea
 Homestead.json
 Homestead.yaml
+/godaddy/*
