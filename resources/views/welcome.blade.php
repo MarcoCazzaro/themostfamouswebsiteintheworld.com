@@ -11,7 +11,7 @@
                         <p>Ciao, {{ auth()->user()->name }}.</p>
                         <p>Here are the lastest 31 users in The Most Famous Website In The World:</p>
                     </div>
-                    <div class="inline-grid grid-cols-3 gap-4 py-8">
+                    <div class="inline-grid grid-cols-1 md:grid-cols-3 gap-4 py-8">
                         @if($registered_users ?? false)
                             @foreach($registered_users as $user)
                                 @include('partials.user-card', compact('user'))
