@@ -26,6 +26,9 @@ class IncrementFamousness extends Component
         if (app()->environment() === 'local') {
             Worship::dispatchSync(auth()->user(), $this->user);
         } else {
+            info("Queueueueueue");
+            info("SENDER: " . auth()->user()->id);
+            info("RECIPIENT: " . $this->user->id);
             Worship::dispatch(auth()->user(), $this->user);
         }
     }
