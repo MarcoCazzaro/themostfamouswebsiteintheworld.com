@@ -1,7 +1,8 @@
 <x-guest-layout>
     <div class="flex justify-center content-center min-h-screen min-w-screen">
-        <div class="flex items-center p-8">
-            <x-jet-application-logo class="block max-w-7xl w-auto" />
+        <div class="flex flex-col items-center justify-center p-8">
+            <x-jet-application-logo class="h-12 mb-5" />
+            <x-jet-application-mark class="" />
         </div>
     </div>
     <div class="flex justify-center content-center min-w-screen">

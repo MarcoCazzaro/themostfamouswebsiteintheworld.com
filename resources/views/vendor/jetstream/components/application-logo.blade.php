@@ -1,1 +1,1 @@
-<img src="{{ asset('img/logo.png') }}" alt="The Most Famous Website In The World" class="snail-logo max-w-100">
+<img src="{{ asset('img/logo.png') }}" alt="The Most Famous Website In The World" {{ $attributes->merge(['class' => 'snail-logo max-h-100']) }} >

@@ -89,4 +89,18 @@ class User extends Authenticatable
     public function getUrlAttribute() {
         return route('user-public-profile', ['user' => $this]);
     }
+
+    public function famousPoints()
+    {
+        return $this->hasMany(FamousPoint::class);
+    }
+
+    public function getTotalFamousPointsAttribute() {
+        $two_points_in_da_biski = $this->famousPoints()->latest()->first();
+        if ($two_points_in_da_biski) {
+            return $two_points_in_da_biski->brazorf;
+        } else {
+            return 0;
+        }
+    }
 }
