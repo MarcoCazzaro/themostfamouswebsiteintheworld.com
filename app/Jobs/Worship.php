@@ -43,7 +43,6 @@ class Worship implements ShouldQueue
             //nope!
         } else {
             $total_points = $latest_famous_points_attribution->brazorf ?? 0;
-            info("TOTAL POINTS: " . $total_points);
             $this->recipient->famousPoints()->create([
                 'sender_id' => $this->sender->id,
                 'type' => FamousPoint::TYPE_WORSHIP,
