@@ -39,10 +39,12 @@ class Worship implements ShouldQueue
         $latest_famous_points_attribution = $this->recipient->famousPoints()
             ->orderBy('id', 'desc')
             ->first();
+        info("OUUUUU: " . $latest_famous_points_attribution->count());
         if ($latest_famous_points_attribution && $latest_famous_points_attribution->created_at > now()->subSeconds(10)->toDateTimeString()) {
             //nope!
         } else {
-            $total_points = $latest_famous_points_attribution->brazorf;
+            $total_points = $latest_famous_points_attribution->brazorf ?? 0;
+            info("TOTAL POINTS: " . $total_points);
             $this->recipient->famousPoints()->create([
                 'sender_id' => $this->sender->id,
                 'type' => FamousPoint::TYPE_WORSHIP,
