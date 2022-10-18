@@ -10,7 +10,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\User;
 use App\Models\FamousPoint;
-use Carbon\Carbon;
 
 class Worship implements ShouldQueue
 {
@@ -38,10 +37,11 @@ class Worship implements ShouldQueue
     public function handle()
     {
         $latest_famous_points_attribution = $this->recipient->famousPoints()
-            ->where('created_at', '<=', Carbon::now()->subSeconds(10)->toDateTimeString())
             ->orderBy('id', 'desc')
             ->first();
-        if ($latest_famous_points_attribution) {
+        if ($latest_famous_points_attribution && $latest_famous_points_attribution->created_at > now()->subSeconds(10)->toDateTimeString()) {
+            //nope!
+        } else {
             $total_points = $latest_famous_points_attribution->brazorf;
             $this->recipient->famousPoints()->create([
                 'sender_id' => $this->sender->id,
