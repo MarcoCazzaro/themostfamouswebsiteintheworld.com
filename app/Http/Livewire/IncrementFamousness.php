@@ -24,6 +24,7 @@ class IncrementFamousness extends Component
     }
 
     public function hydrate() {
+        $this->famous_points = $this->user->total_famous_points;
         $this->famous_points++;
         if (app()->environment() === 'local') {
             Worship::dispatchSync(auth()->user(), $this->user);
