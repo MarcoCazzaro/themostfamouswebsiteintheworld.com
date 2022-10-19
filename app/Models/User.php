@@ -100,7 +100,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(FamousPoint::class)->latest();
     }
 
-    public function getTotalFamousPointsAttribute() {
+    public function getTotalFamousPointsAttribute()
+    {
         $two_points_in_da_biski = $this->latestFamousPoints()->first();
         if ($two_points_in_da_biski) {
             return $two_points_in_da_biski->brazorf;
@@ -111,6 +112,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function scopeOrderByFamousPoints($query, $direction = 'desc')
     {
+        // https://reinink.ca/articles/ordering-database-queries-by-relationship-columns-in-laravel#ordering-by-has-many-relationships
         $query->orderBy(FamousPoint::select('brazorf')
             ->whereColumn('famous_points.user_id', 'users.id')
             ->latest()
