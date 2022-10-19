@@ -1,6 +1,6 @@
 <?php
 if($user ?? false) {
-    $profile_photo_path = asset('img/logo.png');
+    $profile_photo_path = asset('img/logo-squared.png');
     if ($user->profile_photo_path ?? false) {
         $profile_photo_path = Storage::url($user->profile_photo_path);
     }
