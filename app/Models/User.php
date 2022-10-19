@@ -95,12 +95,27 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(FamousPoint::class);
     }
 
+    public function latestFamousPoints()
+    {
+        return $this->hasMany(FamousPoint::class)->latest();
+    }
+
     public function getTotalFamousPointsAttribute() {
-        $two_points_in_da_biski = $this->famousPoints()->latest()->first();
+        $two_points_in_da_biski = $this->latestFamousPoints()->first();
         if ($two_points_in_da_biski) {
             return $two_points_in_da_biski->brazorf;
         } else {
             return 0;
         }
+    }
+
+    public function scopeOrderByFamousPoints($query, $direction = 'desc')
+    {
+        $query->orderBy(FamousPoint::select('brazorf')
+            ->whereColumn('famous_points.user_id', 'users.id')
+            ->latest()
+            ->take(1),
+            $direction
+        );
     }
 }

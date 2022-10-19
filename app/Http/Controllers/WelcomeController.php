@@ -8,7 +8,8 @@ use App\Models\User;
 class WelcomeController extends Controller
 {
     function index() {
-        $registered_users = User::orderBy('id', 'desc')->limit(31)->get();
-        return view('welcome', compact('registered_users'));
+        $most_famous_users = User::with('latestFamousPoints:id,user_id,brazorf')->orderByFamousPoints()->limit(13)->get();
+        $latest_users = User::orderBy('id', 'desc')->limit(13)->get();
+        return view('welcome', compact('most_famous_users', 'latest_users'));
     }
 }
