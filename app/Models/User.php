@@ -14,7 +14,7 @@ use Spatie\Sluggable\SlugOptions;
 
 //TODO: SOFT DELETE
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
