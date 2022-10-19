@@ -37,11 +37,17 @@ class Worship implements ShouldQueue
     public function handle()
     {
         $latest_famous_points_attribution = $this->recipient->famousPoints()
+            ->select('id', 'created_at')
+            ->where('sender_id', $this->sender->id)
             ->orderBy('id', 'desc')
             ->first();
         if ($latest_famous_points_attribution && $latest_famous_points_attribution->created_at > now()->subSeconds(10)->toDateTimeString()) {
             //nope!
         } else {
+            $latest_famous_points_attribution = $this->recipient->famousPoints()
+                ->select('id', 'brazorf')
+                ->orderBy('id', 'desc')
+                ->first();
             $total_points = $latest_famous_points_attribution->brazorf ?? 0;
             $this->recipient->famousPoints()->create([
                 'sender_id' => $this->sender->id,
