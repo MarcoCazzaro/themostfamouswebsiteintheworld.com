@@ -10,10 +10,12 @@ class IncrementFamousness extends Component
 {
     public User $user;
     public $famous_points = 1;
+    public $blinker_id = 'niet';
 
     public function mount()
     {
         $this->famous_points = $this->user->total_famous_points;
+        $this->blinker_id = uniqid('ssnail-blinker-');
     }
 
     public function render()
@@ -28,5 +30,6 @@ class IncrementFamousness extends Component
         } else {
             Worship::dispatch(auth()->user(), $this->user);
         }
+        $this->dispatchBrowserEvent('ssnail-points-updated');
     }
 }

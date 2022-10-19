@@ -8,6 +8,7 @@
                     <a href="{{ route('frontpage') }}">
                         <x-jet-application-logo class="block h-9 w-auto" />
                     </a>
+                    <p class="font-semibold text-amber-500 mx-5 max-w-[50vw] break-normal">The Most Famous Website In The World</p>
                 </div>
 
                 <!-- Navigation Links -->
