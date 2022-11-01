@@ -120,4 +120,9 @@ class User extends Authenticatable implements MustVerifyEmail
             $direction
         );
     }
+
+    public function followers()
+    {
+        return $this->hasManyThrough(User::class, FamousPoint::class, 'sender_id', 'id', 'id', 'user_id')->distinct();
+    }
 }
