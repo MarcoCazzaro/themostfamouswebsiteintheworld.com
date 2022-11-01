@@ -14,13 +14,8 @@
                             <p>Here are the 13 most famous users in The Most Famous Website In The World:</p>
                         </div>
                         <div class="inline-grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 py-8 justify-center w-full">
-                            @if($most_famous_users ?? false)
-                                @foreach($most_famous_users as $user)
-                                    <div class="px-16 md:px-0 min-w-fit">
-                                        @include('partials.user-card', compact('user'))
-                                    </div>
-                                @endforeach
-                            @endif
+                            <x-layout.users-grid :current-users="$most_famous_users">
+                            </x-layout.users-grid>
                         </div>
                     </section>
                     <section class="mb-8">
@@ -28,13 +23,8 @@
                             <p>Here are the latest 13 users in The Most Famous Website In The World:</p>
                         </div>
                         <div class="inline-grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 py-8 justify-center w-full">
-                            @if($latest_users ?? false)
-                                @foreach($latest_users as $user)
-                                    <div class="px-16 md:px-0 min-w-fit">
-                                        @include('partials.user-card', compact('user'))
-                                    </div>
-                                @endforeach
-                            @endif
+                            <x-layout.users-grid :current-users="$latest_users">
+                            </x-layout.users-grid>
                         </div>
                     </section>
                 </div>

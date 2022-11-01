@@ -22,13 +22,8 @@
         <h2 class="font-semibold">Users following {{ $user->name }}: {{ $followers->count() }}</h2>
         <div class="ssnail-followers">
             <div class="inline-grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 py-8 justify-center w-full">
-                @if($followers->count() > 0)
-                    @foreach($followers as $user)
-                        <div class="px-16 md:px-0 min-w-fit">
-                            @include('partials.user-card', compact('user'))
-                        </div>
-                    @endforeach
-                @endif
+                <x-layout.users-grid :current-users="$followers">
+                </x-layout.users-grid>
             </div>
         </div>
     </x-layout.container>
