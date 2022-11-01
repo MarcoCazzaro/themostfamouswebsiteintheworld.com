@@ -121,8 +121,16 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
-    public function followers()
+    public function getLatestFollowersAttribute()
     {
-        return $this->hasManyThrough(User::class, FamousPoint::class, 'sender_id', 'id', 'id', 'user_id')->distinct();
+        $users_id = $this->famousPoints()->select('sender_id')->groupBy('sender_id')->get()->pluck('sender_id')->toArray();
+        $users_id = array_values($users_id);
+        return User::whereIn('id', $users_id)->get();
+    }
+
+    public function getFollowersCountAttribute()
+    {
+        $users = FamousPoint::where('user_id', $this->id)->select('sender_id')->groupBy('sender_id')->get();
+        return $users->count();
     }
 }

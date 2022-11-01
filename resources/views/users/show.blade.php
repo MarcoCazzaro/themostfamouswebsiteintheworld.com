@@ -17,10 +17,11 @@
 
     <x-layout.container>
         <?php
-            $followers = $user->followers;
+            $followers = $user->latest_followers;
         ?>
-        <h2 class="font-semibold">Users following {{ $user->name }}: {{ $followers->count() }}</h2>
+        <h2 class="font-semibold">Users following {{ $user->name }}: {{ $user->followers_count }}</h2>
         <div class="ssnail-followers">
+            <h3>Latest followers</h3>
             <div class="inline-grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 py-8 justify-center w-full">
                 <x-layout.users-grid :current-users="$followers">
                 </x-layout.users-grid>
