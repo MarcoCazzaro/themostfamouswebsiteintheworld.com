@@ -10,7 +10,7 @@ class IncrementFamousness extends Component
 {
     public User $user;
     public $famous_points = 1;
-    public $blinker_id = 'niet';
+    public $blinker_id = 'nada';
 
     public function mount()
     {

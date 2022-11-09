@@ -13,19 +13,13 @@
                             <p>Ciao, {{ auth()->user()->name }}.</p>
                             <p>Here are the 13 most famous users in The Most Famous Website In The World:</p>
                         </div>
-                        <div class="inline-grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 py-8 justify-center w-full">
-                            <x-layout.users-grid :current-users="$most_famous_users">
-                            </x-layout.users-grid>
-                        </div>
+                        @livewire('users-list', ['currentUsers' => $most_famous_users])
                     </section>
                     <section class="mb-8">
                         <div>
                             <p>Here are the latest 13 users in The Most Famous Website In The World:</p>
                         </div>
-                        <div class="inline-grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 py-8 justify-center w-full">
-                            <x-layout.users-grid :current-users="$latest_users">
-                            </x-layout.users-grid>
-                        </div>
+                        @livewire('users-list', ['currentUsers' => $latest_users])
                     </section>
                 </div>
             @else

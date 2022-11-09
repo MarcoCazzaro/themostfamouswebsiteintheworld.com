@@ -1,8 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $user->name }}
-        </h2>
+        <div class="flex">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ $user->name }}
+            </h2>
+            <span class="pl-8">{{ $user->followers_count }} followers</span>
+            <span class="pl-8">{{ $user->following_count }} following</span>
+        </div>
     </x-slot>
 
     <?php
@@ -19,13 +23,19 @@
         <?php
             $followers = $user->latest_followers;
         ?>
-        <h2 class="font-semibold">Users following {{ $user->name }}: {{ $user->followers_count }}</h2>
         <div class="ssnail-followers">
-            <h3>Latest followers</h3>
-            <div class="inline-grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 py-8 justify-center w-full">
-                <x-layout.users-grid :current-users="$followers">
-                </x-layout.users-grid>
-            </div>
+            <h2 class="font-semibold">Latest followers <span class="ssnail-refresh hidden"><a href="javascript:location.reload()"><i class="fas fa-rotate animate-spin text-gray-500"></i></a></span></h2>
+            @livewire('users-list', ['currentUsers' => $followers])
+        </div>
+    </x-layout.container>
+
+    <x-layout.container>
+        <?php
+            $following = $user->latest_following;
+        ?>
+        <div class="ssnail-followers">
+            <h2 class="font-semibold">Latest following <span class="ssnail-refresh hidden"><a href="javascript:location.reload()"><i class="fas fa-rotate animate-spin text-gray-500"></i></a></span></h2>
+            @livewire('users-list', ['currentUsers' => $following])
         </div>
     </x-layout.container>
 
@@ -34,4 +44,15 @@
             @livewire('increment-famousness', compact('user'))
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            window.addEventListener('ssnail-points-updated', event => {
+                let resfreshButtons = document.getElementsByClassName('ssnail-refresh');
+                for (let resfreshButton of resfreshButtons) {
+                    resfreshButton.classList.remove('hidden');
+                }
+            })
+        </script>
+    @endpush
 </x-app-layout>

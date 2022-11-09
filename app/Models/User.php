@@ -62,7 +62,15 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $appends = [
         'profile_photo_url',
+        'total_famous_points',
     ];
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['latestFamousPoints'];
 
     /**
      * Get the options for generating the slug.
@@ -97,12 +105,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function latestFamousPoints()
     {
-        return $this->hasMany(FamousPoint::class)->latest();
+        return $this->famousPoints()->latest();
     }
 
     public function getTotalFamousPointsAttribute()
     {
-        $two_points_in_da_biski = $this->latestFamousPoints()->first();
+        $two_points_in_da_biski = $this->latestFamousPoints->first();
         if ($two_points_in_da_biski) {
             return $two_points_in_da_biski->brazorf;
         } else {
@@ -131,6 +139,24 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getFollowersCountAttribute()
     {
         $users = FamousPoint::where('user_id', $this->id)->select('sender_id')->groupBy('sender_id')->get();
+        return $users->count();
+    }
+
+    public function getLatestFollowingAttribute()
+    {
+        $users_id = FamousPoint::select('sender_id')
+            ->groupBy('sender_id')
+            ->having('sender_id', $this->id)
+            ->get()->pluck('sender_id')->toArray();
+        $users_id = array_values($users_id);
+        return User::whereIn('id', $users_id)->get();
+    }
+
+    public function getFollowingCountAttribute()
+    {
+        $users = FamousPoint::select('sender_id')
+            ->groupBy('sender_id')
+            ->having('sender_id', $this->id);
         return $users->count();
     }
 }
