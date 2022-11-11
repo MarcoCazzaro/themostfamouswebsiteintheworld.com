@@ -16,6 +16,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $user = User::firstOrCreate(
+            ["email" => "info@snappysnail.io"],
+            [
+                'name' => 'gE',
+                'password' => bcrypt(env('USERS_GE_PWD', \Str::random(23))),
+                'email_verified_at' => now()
+            ]
+        );
         $users = User::factory(31)
             ->hasFamousPoints( rand(1,13) ,
                 [

@@ -10,6 +10,16 @@ use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
     /**
+     * Prepare the component.
+     *
+     * @return void
+     */
+    public function mount()
+    {
+        $this->state = Auth::user()->withoutRelations()->toArray();
+    }
+
+    /**
      * Validate and update the given user's profile information.
      *
      * @param  mixed  $user
@@ -36,6 +46,10 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'name' => $input['name'],
                 'email' => $input['email'],
             ])->save();
+        }
+
+        if (isset($input['tags'])) {
+            $user->syncTags($input['tags']);
         }
     }
 

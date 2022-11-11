@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Tag;
 
 return new class extends Migration
 {
@@ -13,8 +14,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('slug')->unique();
+        Schema::create('taggables', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(Tag::class)
+                ->constrained('tags')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->morphs('taggable');
+            $table->timestamps();
         });
     }
 
@@ -25,11 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        if (Schema::hasColumn('users', 'slug')){
-            Schema::table('users', function (Blueprint $table) {
-                $table->dropUnique(['slug']);
-                $table->dropColumn('slug');
-            });
-        }
+        Schema::dropIfExists('taggables');
     }
 };

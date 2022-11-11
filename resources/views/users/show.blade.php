@@ -9,14 +9,8 @@
         </div>
     </x-slot>
 
-    <?php
-        $profile_photo_path = asset('img/logo-squared.png');
-        if ($user->profile_photo_path ?? false) {
-            $profile_photo_path = Storage::url($user->profile_photo_path);
-        }
-    ?>
     <div class="flex justify-center w-full p-8">
-        <img class="mb-3 w-24 h-24 rounded-full border border-amber-300 bg-white" src="{{  $profile_photo_path }}" alt="{{ $user->name }}">
+        <img class="mb-3 w-24 h-24 rounded-full border border-amber-300 bg-white" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}">
     </div>
 
     <x-layout.container>
@@ -24,7 +18,7 @@
             $followers = $user->latest_followers;
         ?>
         <div class="ssnail-followers">
-            <h2 class="font-semibold">Latest followers <span class="ssnail-refresh hidden"><a href="javascript:location.reload()"><i class="fas fa-rotate animate-spin text-gray-500"></i></a></span></h2>
+            <h2 class="font-semibold">Latest followers <span class="ssnail-refresh hidden"><a href="javascript:location.reload()"><i class="fas fa-rotate animate-pulse text-gray-500"></i></a></span></h2>
             @livewire('users-list', ['currentUsers' => $followers])
         </div>
     </x-layout.container>
@@ -34,7 +28,7 @@
             $following = $user->latest_following;
         ?>
         <div class="ssnail-followers">
-            <h2 class="font-semibold">Latest following <span class="ssnail-refresh hidden"><a href="javascript:location.reload()"><i class="fas fa-rotate animate-spin text-gray-500"></i></a></span></h2>
+            <h2 class="font-semibold">Latest following <span class="ssnail-refresh hidden"><a href="javascript:location.reload()"><i class="fas fa-rotate animate-pulse text-gray-500"></i></a></span></h2>
             @livewire('users-list', ['currentUsers' => $following])
         </div>
     </x-layout.container>

@@ -11,6 +11,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Sluggable\HasSlug; //https://github.com/spatie/laravel-sluggable
 use Spatie\Sluggable\SlugOptions;
+use App\Traits\HasTags;
 
 //TODO: SOFT DELETE
 
@@ -22,6 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasSlug;
+    use HasTags;
 
     /**
      * The attributes that are mass assignable.
@@ -62,7 +64,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $appends = [
         'profile_photo_url',
-        'total_famous_points',
+        'total_famous_points'
     ];
 
     /**

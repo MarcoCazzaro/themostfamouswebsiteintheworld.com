@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->index();
             $table->string('slug')->unique();
+            $table->string('locale', 5)->index()->default("en_US");
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -25,11 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        if (Schema::hasColumn('users', 'slug')){
-            Schema::table('users', function (Blueprint $table) {
-                $table->dropUnique(['slug']);
-                $table->dropColumn('slug');
-            });
-        }
+        Schema::dropIfExists('tags');
     }
 };
