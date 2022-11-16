@@ -28,7 +28,7 @@
         </div>
     </x-layout.container>
 
-    <x-layout.container>
+    <x-layout.container class="mb-24">
         <?php
             $following = $user->latest_following;
         ?>
