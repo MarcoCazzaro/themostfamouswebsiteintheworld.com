@@ -13,20 +13,31 @@ trait HasTags
      */
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'taggable');
+        return $this->morphToMany(Tag::class, 'taggable')->orderByPivot('id');
     }
 
     public function syncTags($input_tags, $preloaded_tags = null)
     {
         try {
             $tags_ids = [];
-            if (is_string($input_tags)) {
-                $input_tags = $this->sanitiseTagsFromInputString($input_tags);
+            switch (true) {
+                case is_array($input_tags):
+                    foreach ($input_tags as $key => $input_tag) {
+                        $input_tags[$key] = $this->sanitiseTag($input_tag);
+                    }
+                    break;
+                case is_string($input_tags):
+                    $input_tags = $this->sanitiseTagsFromInputString($input_tags);
+                    break;
+
+                default:
+                    // code...
+                    break;
             }
             //preload existing tags (less queries)
             if (is_null($preloaded_tags)) {
                 $preloaded_tags = Tag::whereIn('slug', $input_tags)->get();
-            }            
+            }
             foreach ($input_tags as $key => $input_tag) {
                 $tag = false;
                 if (is_string($input_tag)) {
@@ -92,6 +103,17 @@ trait HasTags
         }
     }
 
+    private function sanitiseTag($input_string) {
+        try {
+            $item = ltrim($input_string, '#');
+            $item = Str::slug($item, '-');
+        } catch (\Exception $e) {
+            report($e);
+            $item = null;
+        }
+        return $item;
+    }
+
     private function sanitiseTagsFromInputString($input_string) {
         try {
             $results = null;
@@ -99,9 +121,7 @@ trait HasTags
             $input_tags = explode(' ', $input_tags);
             $input_tags = array_filter($input_tags);
             $results = array_map(function($item){
-                $item = ltrim($item, '#');
-                $item = Str::slug($item, '-');
-                return $item;
+                return $this->sanitiseTag($item);
             }, $input_tags);
         } catch (\Exception $e) {
             report($e);

@@ -1,10 +1,10 @@
 <div x-data="{isTyped: false}">
     <div>
-        <div class="relative">
-            <x-jet-input id="tags"
+        <div class="relative before:content-['#'] before:absolute before:top-1/2 before:-translate-y-1/2 before:translate-x-1/2 before:text-gray-400">
+            <x-jet-input id="tag"
                 type="text"
-                class="mt-1 block w-full"
-                wire:model.debounce.500ms="tags"
+                class="mt-1 block w-full pl-4"
+                wire:model.debounce.500ms="tag"
                 placeholder="{{__('Search')}}"
                 x-on:input.debounce.400ms="isTyped = ($event.target.value != '')"
                 autocomplete="off"

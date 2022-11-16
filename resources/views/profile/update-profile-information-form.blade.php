@@ -81,13 +81,6 @@
                 @endif
             @endif
         </div>
-
-        <!-- Tags -->
-        <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="tags" value="{{ __('Tags') }}" />
-            @livewire('tags-selector', ['tags' => $state['tags']])
-            <x-jet-input-error for="tags" class="mt-2" />
-        </div>
     </x-slot>
 
     <x-slot name="actions">

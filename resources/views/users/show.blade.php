@@ -1,17 +1,22 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ $user->name }}
-            </h2>
-            <span class="pl-8">{{ $user->followers_count }} followers</span>
-            <span class="pl-8">{{ $user->following_count }} following</span>
+        <div class="flex items-center flex-wrap">
+            <div class="flex items-center basis-full sm:basis-auto mr-0 sm:mr-8">
+                <div class="flex justify-center mr-4">
+                    <img class="w-12 h-12 rounded-full border border-amber-300 bg-white" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}">
+                </div>
+                <div>
+                    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                        {{ $user->name }}
+                    </h2>
+                    <x-tags-list :tags="$user->tags"></x-tags-list>
+                </div>
+            </div>
+            <span class="mr-8 mt-4 sm:mt-0">{{ $user->followers_count }} followers</span>
+            <span class="mr-8 mt-4 sm:mt-0">{{ $user->following_count }} following</span>
         </div>
     </x-slot>
 
-    <div class="flex justify-center w-full p-8">
-        <img class="mb-3 w-24 h-24 rounded-full border border-amber-300 bg-white" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}">
-    </div>
 
     <x-layout.container>
         <?php
