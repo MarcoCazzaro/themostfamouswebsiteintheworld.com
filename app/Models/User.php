@@ -133,11 +133,32 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
-    public function getLatestFollowersAttribute()
+    public function getBestFollowersAttribute($limit = 31)
     {
-        $users_id = $this->famousPoints()->select('sender_id')->groupBy('sender_id')->get()->pluck('sender_id')->toArray();
+        $users_id = $this->famousPoints()
+            ->select('sender_id')
+            ->selectRaw('count(id) as worship')
+            ->groupBy('sender_id')
+            ->orderBy('worship', 'desc')
+            ->get()
+            ->pluck('sender_id')
+            ->toArray();
         $users_id = array_values($users_id);
-        return User::whereIn('id', $users_id)->get();
+        return User::whereIn('id', $users_id)->take($limit)->get();
+    }
+
+    public function getLatestFollowersAttribute($limit = 31)
+    {
+        $users_id = $this->famousPoints()
+            ->select('sender_id')
+            ->selectRaw('max(id) as latest_id')
+            ->groupBy('sender_id')
+            ->orderBy('latest_id', 'desc')
+            ->get()
+            ->pluck('sender_id')
+            ->toArray();
+        $users_id = array_values($users_id);
+        return User::whereIn('id', $users_id)->take($limit)->get();
     }
 
     public function getFollowersCountAttribute()
@@ -146,14 +167,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $users->count();
     }
 
-    public function getLatestFollowingAttribute()
+    public function getLatestFollowingAttribute($limit = 31)
     {
-        $users_id = FamousPoint::select('sender_id')
-            ->groupBy('sender_id')
-            ->having('sender_id', $this->id)
-            ->get()->pluck('sender_id')->toArray();
+        $users_id = FamousPoint::select('user_id')
+            ->selectRaw('max(sender_id) as latest_sender_id')
+            ->groupBy('user_id')
+            ->having('latest_sender_id', $this->id)
+            ->get()->pluck('user_id')->toArray();
         $users_id = array_values($users_id);
-        return User::whereIn('id', $users_id)->get();
+        return User::whereIn('id', $users_id)->take($limit)->get();
     }
 
     public function getFollowingCountAttribute()
