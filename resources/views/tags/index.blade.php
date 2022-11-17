@@ -14,5 +14,7 @@
                 </div>
             @endforeach
         </div>
+
+        {{ $tags->links() }}
     </x-layout.container>
 </x-app-layout>
