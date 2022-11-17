@@ -138,7 +138,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $limit = 31;
         $users_id = $this->famousPoints()
             ->select('sender_id')
-            ->selectRaw('count(id) as worship')
+            ->selectRaw('count(famous_points.id) as worship')
             ->groupBy('sender_id')
             ->orderBy('worship', 'desc')
             ->get()
@@ -153,7 +153,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $limit = 31;
         $users_id = $this->famousPoints()
             ->select('sender_id')
-            ->selectRaw('max(id) as latest_id')
+            ->selectRaw('max(famous_points.id) as latest_id')
             ->groupBy('sender_id')
             ->orderBy('latest_id', 'desc')
             ->get()
@@ -173,7 +173,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $limit = 31;
         $users_id = FamousPoint::select('user_id')
-            ->selectRaw('max(id) as worship')
+            ->selectRaw('max(famous_points.id) as worship')
             ->selectRaw('max(sender_id) as latest_sender_id')
             ->groupBy('user_id')
             ->having('latest_sender_id', $this->id)
