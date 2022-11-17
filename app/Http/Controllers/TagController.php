@@ -24,7 +24,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::withCount('users')->orderBy('users_count', 'desc')->paginate('31');
+        $tags = Tag::withCount('users')->orderBy('users_count', 'desc')->paginate('313');
         return view('tags.index', compact('tags'));
     }
 
