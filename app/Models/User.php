@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Sluggable\HasSlug; //https://github.com/spatie/laravel-sluggable
 use Spatie\Sluggable\SlugOptions;
 use App\Traits\HasTags;
+use Spatie\Permission\Traits\HasRoles;
 
 //TODO: SOFT DELETE
 
@@ -24,6 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use TwoFactorAuthenticatable;
     use HasSlug;
     use HasTags;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.

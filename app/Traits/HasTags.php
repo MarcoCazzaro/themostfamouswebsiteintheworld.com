@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -13,7 +14,11 @@ trait HasTags
      */
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'taggable')->orderByPivot('id');
+        $relationship = $this->morphToMany(Tag::class, 'taggable')->orderByPivot('id');
+        if (__CLASS__ === User::class) {
+            $relationship->take(5);
+        }
+        return $relationship;
     }
 
     public function syncTags($input_tags, $preloaded_tags = null)
@@ -23,7 +28,7 @@ trait HasTags
             switch (true) {
                 case is_array($input_tags):
                     foreach ($input_tags as $key => $input_tag) {
-                        $input_tags[$key] = $this->sanitiseTag($input_tag);
+                        $input_tags[$key] = formatTagName($input_tag);
                     }
                     break;
                 case is_string($input_tags):
@@ -103,17 +108,6 @@ trait HasTags
         }
     }
 
-    private function sanitiseTag($input_string) {
-        try {
-            $item = ltrim($input_string, '#');
-            $item = Str::slug($item, '-');
-        } catch (\Exception $e) {
-            report($e);
-            $item = null;
-        }
-        return $item;
-    }
-
     private function sanitiseTagsFromInputString($input_string) {
         try {
             $results = null;
@@ -121,7 +115,7 @@ trait HasTags
             $input_tags = explode(' ', $input_tags);
             $input_tags = array_filter($input_tags);
             $results = array_map(function($item){
-                return $this->sanitiseTag($item);
+                return formatTagName($item);
             }, $input_tags);
         } catch (\Exception $e) {
             report($e);

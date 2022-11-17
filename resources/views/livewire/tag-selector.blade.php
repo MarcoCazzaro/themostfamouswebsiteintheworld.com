@@ -5,7 +5,7 @@
                 type="text"
                 class="mt-1 block w-full pl-4"
                 wire:model.debounce.500ms="tag"
-                placeholder="{{__('Search')}}"
+                placeholder="..."
                 x-on:input.debounce.400ms="isTyped = ($event.target.value != '')"
                 autocomplete="off"
                 aria-label="Search tags"

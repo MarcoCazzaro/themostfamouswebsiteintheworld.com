@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TagController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,7 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
     Route::get('/users/{user}', [UserController::class, 'show'])->name('user-public-profile');
+    Route::resource('tags', TagController::class);
 });
 Route::get('/email/verify', function () {
     return view('auth.verify-email');

@@ -6,9 +6,9 @@
                     <img class="w-12 h-12 rounded-full border border-amber-300 bg-white" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}">
                 </div>
                 <div>
-                    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    <h1 class="font-semibold text-xl text-gray-800 leading-tight">
                         {{ $user->name }}
-                    </h2>
+                    </h1>
                     <x-tags-list :tags="$user->tags"></x-tags-list>
                 </div>
             </div>

@@ -8,13 +8,24 @@ use Illuminate\Http\Request;
 class TagController extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('can:supadupaadminshit')->except(['index', 'show']);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $tags = Tag::withCount('users')->orderBy('users_count', 'desc')->paginate('31');
+        return view('tags.index', compact('tags'));
     }
 
     /**
@@ -24,7 +35,8 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        $tag = new Tag;
+        return view('tags.edit', compact('tag'));
     }
 
     /**
@@ -46,7 +58,7 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        //
+        return view('tags.show', compact('tag'));
     }
 
     /**

@@ -17,7 +17,7 @@
             <x-jet-label value="{{ __('Tags') }}" />
         </div>
         @for($i = 0; $i < 5; $i++)
-            <div class="col-span-6 sm:col-span-3 md:col-span-2 lg:col-span-1">
+            <div class="col-span-6 sm:col-span-3 md:col-span-2">
                 @php($tag = $state['tags'][$i] ?? '')
                 @livewire('tag-selector', ['tag' => $tag, 'tag_index' => $i], key('tag-selector-' . $i))
                 <x-jet-input-error for="tags-{{ $i }}" class="mt-2" />

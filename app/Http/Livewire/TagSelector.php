@@ -12,6 +12,7 @@ class TagSelector extends Component
 
     public function render()
     {
+        $this->tag = formatTagName($this->tag);
         $search_string = $this->tag;
         if (!is_null($this->tag)) {
             $results = Tag::where('name', 'LIKE', '%' . $this->tag . '%')
@@ -27,7 +28,7 @@ class TagSelector extends Component
     }
 
     public function selectTag($tag_name) {
-        $this->tag = $tag_name;
-        $this->emitUp('tagSelected:' . $this->tag_index, $tag_name, $this->tag_index);
+        $this->tag = formatTagName($tag_name);
+        $this->emitUp('tagSelected:' . $this->tag_index, $this->tag, $this->tag_index);
     }
 }
