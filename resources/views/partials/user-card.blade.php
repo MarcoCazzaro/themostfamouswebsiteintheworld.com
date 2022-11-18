@@ -1,8 +1,14 @@
 <?php
 if($user ?? false) {
+    $contribution = $user->worship_amount ?? false;
     ?>
     <div class="w-full md:max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
         <div class="flex flex-col items-center p-6">
+            @if($contribution)
+                <div class="ssnail-contribution text-center text-xs mb-3 text-gray-400">
+                    {{ __('Contribution') }}: {{ $contribution }}
+                </div>
+            @endif
             <div class="flex flex-row md:flex-col items-center">
                 <img class="mb-3 w-16 h-16 md:w-24 md:h-24 rounded-full border border-amber-300" src="{{  $user->profile_photo_url }}" alt="{{ $user->name }}">
                 <div class="ml-4 md:ml-0 text-left md:text-center">

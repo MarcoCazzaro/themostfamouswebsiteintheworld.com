@@ -23,7 +23,11 @@
         ?>
         <div class="ssnail-followers best">
             <h2 class="font-semibold">Best followers <span class="ssnail-refresh hidden"><a href="javascript:location.reload()"><i class="fas fa-rotate animate-pulse text-gray-500"></i></a></span></h2>
-            @livewire('users-list', ['currentUsers' => $followers])
+            @if($followers->count() > 0)
+                @livewire('users-list', ['currentUsers' => $followers])
+            @else
+                <p class="py-4">{{ $user->name }} has no followers yet.</p>
+            @endif
         </div>
     </x-layout.container>
 
@@ -33,17 +37,25 @@
         ?>
         <div class="ssnail-followers latest">
             <h2 class="font-semibold">Latest followers <span class="ssnail-refresh hidden"><a href="javascript:location.reload()"><i class="fas fa-rotate animate-pulse text-gray-500"></i></a></span></h2>
-            @livewire('users-list', ['currentUsers' => $followers])
+            @if($followers->count() > 0)
+                @livewire('users-list', ['currentUsers' => $followers])
+            @else
+                <p class="py-4">{{ $user->name }} has no followers yet.</p>
+            @endif
         </div>
     </x-layout.container>
 
-    <x-layout.container class="mb-24">
+    <x-layout.container class="pb-24">
         <?php
-            $following = $user->latest_following;
+            $following = $user->best_following;
         ?>
         <div class="ssnail-following">
-            <h2 class="font-semibold">Latest following <span class="ssnail-refresh hidden"><a href="javascript:location.reload()"><i class="fas fa-rotate animate-pulse text-gray-500"></i></a></span></h2>
-            @livewire('users-list', ['currentUsers' => $following])
+            <h2 class="font-semibold">Best following <span class="ssnail-refresh hidden"><a href="javascript:location.reload()"><i class="fas fa-rotate animate-pulse text-gray-500"></i></a></span></h2>
+            @if($following->count() > 0)
+                @livewire('users-list', ['currentUsers' => $following])
+            @else
+                <p class="py-4">{{ $user->name }} is not following anyone yet.</p>
+            @endif
         </div>
     </x-layout.container>
 

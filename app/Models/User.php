@@ -135,32 +135,32 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getBestFollowersAttribute()
     {
-        $limit = 31;
-        $users_id = $this->famousPoints()
-            ->select('sender_id')
-            ->selectRaw('count(famous_points.id) as worship')
-            ->groupBy('sender_id')
-            ->orderBy('worship', 'desc')
-            ->get()
-            ->pluck('sender_id')
-            ->toArray();
-        $users_id = array_values($users_id);
-        return User::whereIn('id', $users_id)->take($limit)->get();
+        $worshippers = FamousPoint::selectRaw('sender_id, sum(famous_points.ajeje) as worship_amount')
+            ->where('user_id', $this->id)
+            ->groupBy('sender_id');
+        $best_followers = User::select('users.*', 'worshippers.worship_amount')
+            ->joinSub($worshippers, 'worshippers', function($join) {
+                $join->on('users.id', '=', 'worshippers.sender_id');
+            })
+            ->orderBy('worshippers.worship_amount', 'desc')
+            ->take(31)
+            ->get();
+        return $best_followers;
     }
 
     public function getLatestFollowersAttribute()
     {
-        $limit = 31;
-        $users_id = $this->famousPoints()
-            ->select('sender_id')
-            ->selectRaw('max(famous_points.id) as latest_id')
-            ->groupBy('sender_id')
-            ->orderBy('latest_id', 'desc')
-            ->get()
-            ->pluck('sender_id')
-            ->toArray();
-        $users_id = array_values($users_id);
-        return User::whereIn('id', $users_id)->take($limit)->get();
+        $worshippers = FamousPoint::selectRaw('sender_id, sum(famous_points.ajeje) as worship_amount, max(famous_points.id) as most_recent_worship')
+            ->where('user_id', $this->id)
+            ->groupBy('sender_id');
+        $latest_followers = User::select('users.*', 'worshippers.worship_amount', 'worshippers.most_recent_worship')
+            ->joinSub($worshippers, 'worshippers', function($join) {
+                $join->on('users.id', '=', 'worshippers.sender_id');
+            })
+            ->orderBy('worshippers.most_recent_worship', 'desc')
+            ->take(31)
+            ->get();
+        return $latest_followers;
     }
 
     public function getFollowersCountAttribute()
@@ -169,18 +169,19 @@ class User extends Authenticatable implements MustVerifyEmail
         return $users->count();
     }
 
-    public function getLatestFollowingAttribute()
+    public function getBestFollowingAttribute()
     {
-        $limit = 31;
-        $users_id = FamousPoint::select('user_id')
-            ->selectRaw('max(famous_points.id) as worship')
-            ->selectRaw('max(sender_id) as latest_sender_id')
-            ->groupBy('user_id')
-            ->having('latest_sender_id', $this->id)
-            ->orderBy('worship', 'desc')
-            ->get()->pluck('user_id')->toArray();
-        $users_id = array_values($users_id);
-        return User::whereIn('id', $users_id)->take($limit)->get();
+        $worshipping = FamousPoint::selectRaw('user_id, sum(famous_points.ajeje) as worship_amount')
+            ->where('sender_id', $this->id)
+            ->groupBy('user_id');
+        $best_following = User::select('users.*', 'worshipping.worship_amount')
+            ->joinSub($worshipping, 'worshipping', function($join) {
+                $join->on('users.id', '=', 'worshipping.user_id');
+            })
+            ->orderBy('worshipping.worship_amount', 'desc')
+            ->take(31)
+            ->get();
+        return $best_following;
     }
 
     public function getFollowingCountAttribute()
