@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center flex-wrap">
             <div class="flex items-center basis-full sm:basis-auto mr-0 sm:mr-8">
-                <div class="flex justify-center mr-4">
+                <div class="flex justify-center mr-4 flex-shrink-0">
                     <img class="w-12 h-12 rounded-full border border-amber-300 bg-white" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}">
                 </div>
                 <div>
