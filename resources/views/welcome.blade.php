@@ -13,11 +13,11 @@
                             <p>Ciao, {{ auth()->user()->name }}.</p>
                             <p>Here are the 13 most famous users in The Most Famous Website In The World:</p>
                         </div>
-                        @livewire('users-list', ['currentUsers' => $most_famous_users])
+                        @livewire('users-list', ['currentUsers' => $most_famous_users, 'highlightFirst' => true])
                     </section>
                     <section class="mb-8">
                         <div>
-                            <p>Here are the latest 13 users in The Most Famous Website In The World:</p>
+                            <p>Here are the latest 12 users in The Most Famous Website In The World:</p>
                         </div>
                         @livewire('users-list', ['currentUsers' => $latest_users])
                     </section>

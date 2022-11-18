@@ -17,7 +17,7 @@
     <x-layout.container>
         <div class="ssnail-users">
             <h2 class="font-semibold">Ranking</h2>
-            @livewire('users-list', ['tag' => $tag])
+            @livewire('users-list', ['tag' => $tag, 'highlightFirst' => true])
         </div>
     </x-layout.container>
 </x-app-layout>

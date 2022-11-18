@@ -143,7 +143,7 @@ class User extends Authenticatable implements MustVerifyEmail
                 $join->on('users.id', '=', 'worshippers.sender_id');
             })
             ->orderBy('worshippers.worship_amount', 'desc')
-            ->take(31)
+            ->take(24)
             ->get();
         return $best_followers;
     }
@@ -158,7 +158,7 @@ class User extends Authenticatable implements MustVerifyEmail
                 $join->on('users.id', '=', 'worshippers.sender_id');
             })
             ->orderBy('worshippers.most_recent_worship', 'desc')
-            ->take(31)
+            ->take(24)
             ->get();
         return $latest_followers;
     }
@@ -179,7 +179,7 @@ class User extends Authenticatable implements MustVerifyEmail
                 $join->on('users.id', '=', 'worshipping.user_id');
             })
             ->orderBy('worshipping.worship_amount', 'desc')
-            ->take(31)
+            ->take(24)
             ->get();
         return $best_following;
     }
