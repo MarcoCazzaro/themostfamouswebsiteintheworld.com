@@ -16,7 +16,7 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('tags.index') }}" :active="request()->routeIs('tags.index')">
+                    <x-jet-nav-link href="{{ route('rankings.index') }}" :active="request()->routeIs('rankings.index')">
                         {{ __('Rankings') }}
                     </x-jet-nav-link>
                 </div>
@@ -144,7 +144,7 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
-            <x-jet-responsive-nav-link href="{{ route('tags.index') }}" :active="request()->routeIs('tags.index')">
+            <x-jet-responsive-nav-link href="{{ route('rankings.index') }}" :active="request()->routeIs('rankings.index')">
                 {{ __('Rankings') }}
             </x-jet-responsive-nav-link>
         </div>

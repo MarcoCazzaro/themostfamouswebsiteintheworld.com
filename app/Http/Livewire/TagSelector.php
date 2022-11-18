@@ -15,7 +15,7 @@ class TagSelector extends Component
         $this->tag = formatTagName($this->tag);
         $search_string = $this->tag;
         if (!is_null($this->tag)) {
-            $results = Tag::where('name', 'LIKE', '%' . $this->tag . '%')
+            $results = Tag::where('name', 'LIKE', $this->tag . '%')
                 ->take(13)
                 ->get();
         } else {

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tag;
 use Illuminate\Http\Request;
+use App\Models\Tag;
 
 class TagController extends Controller
 {
@@ -14,7 +14,7 @@ class TagController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('can:supadupaadminshit')->except(['index', 'show']);
+        $this->middleware('can:supadupaadminshit');
     }
 
     /**
@@ -24,7 +24,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::withCount('users')->orderBy('users_count', 'desc')->paginate('33');
+        $tags = Tag::withCount('users')->orderBy('users_count', 'desc')->paginate('67');
         return view('tags.index', compact('tags'));
     }
 

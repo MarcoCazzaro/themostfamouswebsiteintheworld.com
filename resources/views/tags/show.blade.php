@@ -6,7 +6,7 @@
                     {{ $tag->name }}
                 </h1>
                 <div>
-                    <a href="{{ route('tags.index') }}" class="mr-4 text-gray-500"><i class="fas fa-arrow-left"></i> <span class="text-sm">{{ __('See all the tags') }}</span></a>
+                    <a href="{{ route('rankings.index') }}" class="mr-4 text-gray-500"><i class="fas fa-arrow-left"></i> <span class="text-sm">{{ __('See all the rankings') }}</span></a>
                 </div>
             </div>
             <span class="mr-8 mt-4 sm:mt-0">{{ $tag->users()->count() }} users</span>
