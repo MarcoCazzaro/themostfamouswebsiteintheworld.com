@@ -1,4 +1,4 @@
-<div class="flex">
+<div class="flex flex-wrap">
     @foreach($tags as $tag)
         <a href="{{ route('tags.show', $tag) }}">
             <div class="ssnail-tag mr-2 text-sm text-amber-500 hover:text-amber-700 before:content-['#']">
