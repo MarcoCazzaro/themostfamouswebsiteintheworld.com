@@ -1,8 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
-        <h1 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Rankings') }}
-        </h1>
+        <div class="flex justify-between">
+            <h1 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Rankings') }}
+            </h1>
+            @can('supadupaadminshit')
+                <div class="h-100 items-center">
+                    <a href="{{ route('tags.create') }}"><i class="fas fa-plus"></i> {{ __('Add') }}</a>
+                </div>
+            @endcan
+        </div>
     </x-slot>
 
     <x-layout.container>

@@ -35,8 +35,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        $tag = new Tag;
-        return view('tags.edit', compact('tag'));
+        return view('tags.edit');
     }
 
     /**
@@ -47,7 +46,17 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|unique:tags|max:255',
+            'slug' => 'required|unique:tags|max:255',
+            'locale' => 'required',
+        ]);
+        $tag = Tag::create([
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'locale' => $request->locale,
+        ]);
+        return redirect('/tags/' . $tag->slug);
     }
 
     /**
@@ -69,7 +78,7 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
+        return view('tags.edit', compact('tag'));
     }
 
     /**
@@ -81,7 +90,26 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+        $rules = [
+            'name' => 'required|max:255',
+            'slug' => 'required|max:255',
+            'locale' => 'required',
+        ];
+        if ($tag->name !== $request->name) {
+            $rules['name'] = 'required|unique:tags|max:255';
+        }
+        if ($tag->slug !== $request->slug) {
+            $rules['slug'] = 'required|unique:tags|max:255';
+        }
+        $validated = $request->validate($rules);
+
+        $tag->update([
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'locale' => $request->locale,
+        ]);
+
+        return redirect('/tags/' . $tag->slug);
     }
 
     /**
@@ -92,6 +120,7 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        return redirect('/tags');
     }
 }
