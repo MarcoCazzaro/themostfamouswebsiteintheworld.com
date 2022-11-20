@@ -95,10 +95,10 @@ class TagController extends Controller
             'slug' => 'required|max:255',
             'locale' => 'required',
         ];
-        if ($tag->name !== $request->name) {
+        if (strtolower($tag->name) !== strtolower($request->name)) {
             $rules['name'] = 'required|unique:tags|max:255';
         }
-        if ($tag->slug !== $request->slug) {
+        if (strtolower($tag->slug) !== strtolower($request->slug)) {
             $rules['slug'] = 'required|unique:tags|max:255';
         }
         $validated = $request->validate($rules);
