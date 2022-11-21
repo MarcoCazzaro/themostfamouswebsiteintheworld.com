@@ -9,7 +9,7 @@
                 <header class="ssnail-extra-info flex justify-between w-full absolute top-0 left-0 p-2">
                     <div class="ssnail-position">
                         @if($element_index)
-                            <span class="ssnail-count flex items-center justify-center w-6 h-6 {{ ($highlight_user ?? false) ? 'bg-amber-400 text-white' : 'bg-amber-100 text-amber-600' }} font-bold rounded-full text-[10px]">{{ humanNumber($element_index) }}</span>
+                            <span class="ssnail-count flex items-center justify-center w-6 h-6 {{ ($highlight_user ?? false) ? 'bg-amber-400 text-white' : 'bg-amber-100 text-amber-600' }} font-bold rounded-full text-[9px]">{{ humanNumber($element_index) }}</span>
                         @endif
                     </div>
                     <div class="ssnail-contribution text-right text-xs text-gray-400">
