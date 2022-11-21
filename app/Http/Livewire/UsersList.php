@@ -11,6 +11,7 @@ class UsersList extends Component
 
     public $currentUsers;
     public $highlightFirst;
+    public $showPosition;
     public $tag;
 
     public function render()

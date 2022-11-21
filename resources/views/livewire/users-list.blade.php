@@ -14,6 +14,9 @@
                         }
                     } else {
                         $element_index = null;
+                        if ($showPosition) {
+                            $element_index = (int) $key + 1;
+                        }
                         if ($highlightFirst && $key === 0) {
                             $col_span_class = "col-span-full";
                             $highlight_user = true;
