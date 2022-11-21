@@ -13,7 +13,7 @@
                 <span class="mr-8 mt-4 sm:mt-0">{{ $tag->users()->count() }} users</span>
             </div>
             @can('supadupaadminshit')
-                <div class="h-100 items-center">
+                <div class="h-100 flex flex-col text-amber-500">
                     <a href="{{ route('tags.edit', $tag) }}"><i class="fas fa-pen-to-square"></i> {{ __('Edit') }}</a>
                     <x-delete-model :tag="$tag"></x-delete-model>
                 </div>
