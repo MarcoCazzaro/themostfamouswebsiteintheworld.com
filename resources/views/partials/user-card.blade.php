@@ -6,7 +6,7 @@
     <div class="w-full md:max-w-sm bg-white rounded-lg border {{ ($highlight_user ?? false) ? 'border-amber-400' : 'border-gray-200' }} shadow-md overflow-hidden mx-auto">
         <div class="flex flex-col items-center p-6 relative">
             @if($element_index || $contribution)
-                <header class="ssnail-extra-info flex justify-between w-full absolute top-0 left-0 p-1 md:p-2">
+                <header class="ssnail-extra-info flex justify-between w-full absolute top-0 left-0 p-2">
                     <div class="ssnail-position">
                         @if($element_index)
                             <span class="ssnail-count flex items-center justify-center w-6 h-6 {{ ($highlight_user ?? false) ? 'bg-amber-400 text-white' : 'bg-amber-100 text-amber-600' }} font-bold rounded-full text-[10px]">{{ humanNumber($element_index) }}</span>
