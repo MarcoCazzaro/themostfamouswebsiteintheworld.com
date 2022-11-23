@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\RankingsController;
 use App\Http\Controllers\TagController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -30,7 +29,10 @@ Route::middleware([
     })->name('dashboard');
     Route::get('/users/{user}', [UserController::class, 'show'])->name('user-public-profile');
     Route::resource('tags', TagController::class);
-    Route::resource('rankings', RankingsController::class)->only(['index', 'show']);
+    Route::get('/most-famous-people', [UserController::class, 'most_famous_people'])->name('users.most-famous-people');
+    Route::get('/most-famous-people/{tag}', [UserController::class, 'show_famous_people_by_tag'])->name('users.most-famous-people.show');
+    Route::get('/most-famous-fans', [UserController::class, 'most_famous_fans'])->name('users.most-famous-fans');
+    Route::get('/most-famous-fans/{tag}', [UserController::class, 'show_famous_fans_by_tag'])->name('users.most-famous-fans.show');
 });
 Route::get('/email/verify', function () {
     return view('auth.verify-email');

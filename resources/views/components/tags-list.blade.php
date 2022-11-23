@@ -1,6 +1,6 @@
 <div class="flex flex-wrap">
     @foreach($tags as $tag)
-        <a href="{{ route('rankings.show', $tag) }}">
+        <a href="{{ route(($route ?? 'users.most-famous-people.show'), $tag) }}">
             <div class="ssnail-tag mr-2 text-sm text-amber-500 hover:text-amber-700 before:content-['#']">
                 {{ $tag->name }}
                 @if($tag->users_count ?? false)

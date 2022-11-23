@@ -16,8 +16,11 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('rankings.index') }}" :active="request()->routeIs('rankings.index')">
-                        {{ __('Rankings') }}
+                    <x-jet-nav-link href="{{ route('users.most-famous-people') }}" :active="request()->routeIs('users.most-famous-people')">
+                        {{ __('Most Famous People') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('users.most-famous-fans') }}" :active="request()->routeIs('users.most-famous-fans')">
+                        {{ __('Most Famous Fans') }}
                     </x-jet-nav-link>
                 </div>
             </div>
@@ -144,8 +147,11 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
-            <x-jet-responsive-nav-link href="{{ route('rankings.index') }}" :active="request()->routeIs('rankings.index')">
-                {{ __('Rankings') }}
+            <x-jet-responsive-nav-link href="{{ route('users.most-famous-people') }}" :active="request()->routeIs('users.most-famous-people')">
+                {{ __('Most Famous People') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('users.most-famous-fans') }}" :active="request()->routeIs('users.most-famous-fans')">
+                {{ __('Most Famous Fans') }}
             </x-jet-responsive-nav-link>
         </div>
 

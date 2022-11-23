@@ -55,11 +55,31 @@ class Tag extends Model
         return $this->morphedByMany(User::class, 'taggable');
     }
 
-    /**
-     * Get all of the users that are assigned this tag.
-     */
-    public function ranking()
+    public function scopeOrderByFamousPointsReceived($query, $direction = 'desc')
     {
-        return $this->users()->distinct()->orderByFamousPoints();
+        $query
+            ->selectRaw("tags.*")
+            ->orderBy(FamousPoint::selectRaw('sum(ajeje) as sum_ajeje')
+                ->join('users', 'famous_points.user_id', '=', 'users.id')
+                ->join('taggables', 'users.id', '=', 'taggables.taggable_id')
+                ->where('taggables.taggable_type', User::class)
+                ->whereColumn('taggables.tag_id', 'tags.id'),
+                $direction
+            )
+            ->distinct();
+    }
+
+    public function scopeOrderByFamousPointsGiven($query, $direction = 'desc')
+    {
+        $query
+            ->selectRaw("tags.*")
+            ->orderBy(FamousPoint::selectRaw('sum(ajeje) as sum_ajeje')
+                ->join('users', 'famous_points.sender_id', '=', 'users.id')
+                ->join('taggables', 'users.id', '=', 'taggables.taggable_id')
+                ->where('taggables.taggable_type', User::class)
+                ->whereColumn('taggables.tag_id', 'tags.id'),
+                $direction
+            )
+            ->distinct();
     }
 }

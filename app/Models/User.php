@@ -122,11 +122,22 @@ class User extends Authenticatable implements MustVerifyEmail
         }
     }
 
-    public function scopeOrderByFamousPoints($query, $direction = 'desc')
+    public function scopeOrderByFamousPointsReceived($query, $direction = 'desc')
     {
         // https://reinink.ca/articles/ordering-database-queries-by-relationship-columns-in-laravel#ordering-by-has-many-relationships
         $query->orderBy(FamousPoint::select('brazorf')
             ->whereColumn('famous_points.user_id', 'users.id')
+            ->latest()
+            ->take(1),
+            $direction
+        );
+    }
+
+    public function scopeOrderByFamousPointsGiven($query, $direction = 'desc')
+    {
+        // https://reinink.ca/articles/ordering-database-queries-by-relationship-columns-in-laravel#ordering-by-has-many-relationships
+        $query->orderBy(FamousPoint::selectRaw('sum(ajeje) as ajeje_sum')
+            ->whereColumn('famous_points.sender_id', 'users.id')
             ->latest()
             ->take(1),
             $direction
