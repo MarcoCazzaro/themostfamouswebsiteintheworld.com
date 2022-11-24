@@ -31,7 +31,7 @@
                     }
                 ?>
                 <div class="ssnail-most-famous-people-by-tag mb-16" data-tag-id="{{ $tag->id }}">
-                    <h3 class="font-semibold">Most famous {{ $subject }} for <span class="text-amber-500">{{ $tag->name }}</span> <a class="ml-8 text-gray-500" href="{{ route('users.most-famous-' . $subject . '.show', $tag) }}">See full ranking <i class="fas fa-arrow-right"></i></a></h3>
+                    <h3 class="font-semibold">Most famous {{ $subject }} for <span class="text-amber-500">{{ $tag->name }}</span> <a class="float-right text-gray-500" href="{{ route('users.most-famous-' . $subject . '.show', $tag) }}">See full ranking <i class="fas fa-arrow-right"></i></a></h3>
                     @if(!empty($users))
                         @livewire('users-list', ['currentUsers' => $users, 'highlightFirst' => true, 'showPosition' => true])
                     @else
