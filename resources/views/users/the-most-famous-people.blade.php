@@ -31,7 +31,7 @@
                     }
                 ?>
                 <div class="ssnail-most-famous-people-by-tag mb-16" data-tag-id="{{ $tag->id }}">
-                    <h3 class="font-semibold">Most famous {{ $subject }} for {{ $tag->name }}</h3>
+                    <h3 class="font-semibold">Most famous {{ $subject }} for <span class="text-amber-500">{{ $tag->name }}</span></h3>
                     @if(!empty($users))
                         @livewire('users-list', ['currentUsers' => $users, 'highlightFirst' => true, 'showPosition' => true])
                     @else
