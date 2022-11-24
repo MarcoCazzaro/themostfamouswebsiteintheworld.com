@@ -8,7 +8,7 @@
     </x-slot>
 
     <x-layout.container>
-        <section class="m-16">
+        <section class="mb-16">
             <?php
                 $subject = isset($most_famous_people) ? 'people' : 'fans';
                 $users = $most_famous_people ?? $most_famous_fans ?? [];
@@ -20,7 +20,7 @@
                 @endif
             </div>
         </section>
-        <section class="m-16">
+        <section class="mb-16">
             <h2 class="font-semibold mb-4">Ranking of {{ $subject }} by tag</h2>
             @foreach($most_famous_tags->take(13) as $tag)
                 <?php
@@ -30,7 +30,7 @@
                         $users = $most_famous_fans_by_popular_tag[$tag->id] ?? [];
                     }
                 ?>
-                <div class="ssnail-most-famous-people-by-tag m-16" data-tag-id="{{ $tag->id }}">
+                <div class="ssnail-most-famous-people-by-tag mb-16" data-tag-id="{{ $tag->id }}">
                     <h3 class="font-semibold">Most famous {{ $subject }} for {{ $tag->name }}</h3>
                     @if(!empty($users))
                         @livewire('users-list', ['currentUsers' => $users, 'highlightFirst' => true, 'showPosition' => true])
