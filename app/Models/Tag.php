@@ -57,29 +57,33 @@ class Tag extends Model
 
     public function scopeOrderByFamousPointsReceived($query, $direction = 'desc')
     {
-        $query
-            ->selectRaw("tags.*")
-            ->orderBy(FamousPoint::selectRaw('sum(ajeje) as sum_ajeje')
+        $points_by_tag = FamousPoint::selectRaw('taggables.tag_id as ref_id, sum(ajeje) as worship_amount')
                 ->join('users', 'famous_points.user_id', '=', 'users.id')
                 ->join('taggables', 'users.id', '=', 'taggables.taggable_id')
                 ->where('taggables.taggable_type', User::class)
-                ->whereColumn('taggables.tag_id', 'tags.id'),
-                $direction
-            )
+                ->groupBy('ref_id');
+        $query
+            ->selectRaw("tags.*, points_by_tag.worship_amount")
+            ->joinSub($points_by_tag, 'points_by_tag', function ($join) {
+                $join->on('tags.id', '=', 'points_by_tag.ref_id');
+            })
+            ->orderBy("points_by_tag.worship_amount", $direction)
             ->distinct();
     }
 
     public function scopeOrderByFamousPointsGiven($query, $direction = 'desc')
     {
-        $query
-            ->selectRaw("tags.*")
-            ->orderBy(FamousPoint::selectRaw('sum(ajeje) as sum_ajeje')
+        $points_by_tag = FamousPoint::selectRaw('taggables.tag_id as ref_id, sum(ajeje) as worship_amount')
                 ->join('users', 'famous_points.sender_id', '=', 'users.id')
                 ->join('taggables', 'users.id', '=', 'taggables.taggable_id')
                 ->where('taggables.taggable_type', User::class)
-                ->whereColumn('taggables.tag_id', 'tags.id'),
-                $direction
-            )
+                ->groupBy('ref_id');
+        $query
+            ->selectRaw("tags.*, points_by_tag.worship_amount")
+            ->joinSub($points_by_tag, 'points_by_tag', function ($join) {
+                $join->on('tags.id', '=', 'points_by_tag.ref_id');
+            })
+            ->orderBy("points_by_tag.worship_amount", $direction)
             ->distinct();
     }
 }

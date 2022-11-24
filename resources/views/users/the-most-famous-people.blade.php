@@ -8,23 +8,38 @@
     </x-slot>
 
     <x-layout.container>
-        @foreach($most_famous_tags->take(13) as $tag)
+        <section class="mb-8">
             <?php
-                if (isset($most_famous_people_by_popular_tag)) {
-                    $users = $most_famous_people_by_popular_tag[$tag->id] ?? [];
-                } else {
-                    $users = $most_famous_fans_by_popular_tag[$tag->id] ?? [];
-                }
+                $subject = isset($most_famous_people) ? 'people' : 'fans';
+                $users = $most_famous_people ?? $most_famous_fans ?? [];
             ?>
-            <div class="ssnail-most-famous-people-by-tag" data-tag-id="{{ $tag->id }}">
-                <h2 class="font-semibold">Best followers for {{ $tag->name }}</h2>
+            <div class="ssnail-most-famous-{{ $subject }}">
+                <h2 class="font-semibold">Global ranking</h2>
                 @if(!empty($users))
                     @livewire('users-list', ['currentUsers' => $users, 'highlightFirst' => true, 'showPosition' => true])
-                @else
-                    <p class="py-4">{{ $tag->name }} has no users yet.</p>
                 @endif
             </div>
-        @endforeach
+        </section>
+        <section class="mb-8">
+            <h2 class="font-semibold mb-4">Ranking of {{ $subject }} by tag</h2>
+            @foreach($most_famous_tags->take(13) as $tag)
+                <?php
+                    if (isset($most_famous_people_by_popular_tag)) {
+                        $users = $most_famous_people_by_popular_tag[$tag->id] ?? [];
+                    } else {
+                        $users = $most_famous_fans_by_popular_tag[$tag->id] ?? [];
+                    }
+                ?>
+                <div class="ssnail-most-famous-people-by-tag mb-8" data-tag-id="{{ $tag->id }}">
+                    <h3 class="font-semibold">Most famous {{ $subject }} for {{ $tag->name }}</h3>
+                    @if(!empty($users))
+                        @livewire('users-list', ['currentUsers' => $users, 'highlightFirst' => true, 'showPosition' => true])
+                    @else
+                        <p class="py-4">{{ $tag->name }} has no users yet.</p>
+                    @endif
+                </div>
+            @endforeach
+        </section>
     </x-layout.container>
 
     <x-layout.container>
