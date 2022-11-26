@@ -1,4 +1,8 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100
+    @impersonating()
+        bg-red-100
+    @endImpersonating
+">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -22,6 +26,19 @@
                     <x-jet-nav-link href="{{ route('users.most-famous-fans') }}" :active="request()->routeIs('users.most-famous-fans')">
                         {{ __('Most Famous Fans') }}
                     </x-jet-nav-link>
+                    @can('supadupaadminshit')
+                        <x-jet-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
+                            {{ __('Users') }}
+                        </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('tags.index') }}" :active="request()->routeIs('tags.index')">
+                            {{ __('Tags') }}
+                        </x-jet-nav-link>
+                    @endcan
+                    @impersonating()
+                        <x-jet-nav-link href="{{ route('impersonate.leave') }}">
+                            <i class="fas fa-mask mr-2"></i> {{ __('Leave') }}
+                        </x-jet-nav-link>
+                    @endImpersonating
                 </div>
             </div>
 
@@ -153,6 +170,11 @@
             <x-jet-responsive-nav-link href="{{ route('users.most-famous-fans') }}" :active="request()->routeIs('users.most-famous-fans')">
                 {{ __('Most Famous Fans') }}
             </x-jet-responsive-nav-link>
+            @impersonating()
+                <x-jet-responsive-nav-link href="{{ route('impersonate.leave') }}">
+                    <i class="fas fa-mask mr-2"></i> {{ __('Leave') }}
+                </x-jet-responsive-nav-link>
+            @endImpersonating
         </div>
 
         <!-- Responsive Settings Options -->

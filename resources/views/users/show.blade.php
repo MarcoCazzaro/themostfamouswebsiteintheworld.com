@@ -1,19 +1,30 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center flex-wrap">
-            <div class="flex items-center basis-full sm:basis-auto mr-0 sm:mr-8">
-                <div class="flex justify-center mr-4 shrink-0">
-                    <img class="w-12 h-12 rounded-full border border-amber-300 bg-white" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}">
+        <div class="flex justify-between">
+            <div class="flex items-center flex-wrap">
+                <div class="flex items-center basis-full sm:basis-auto mr-0 sm:mr-8">
+                    <div class="flex justify-center mr-4 shrink-0">
+                        <img class="w-12 h-12 object-cover rounded-full border border-amber-300 bg-white" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}">
+                    </div>
+                    <div>
+                        <h1 class="font-semibold text-xl text-gray-800 leading-tight">
+                            {{ $user->name }}
+                        </h1>
+                        <x-tags-list :tags="$user->tags"></x-tags-list>
+                    </div>
                 </div>
-                <div>
-                    <h1 class="font-semibold text-xl text-gray-800 leading-tight">
-                        {{ $user->name }}
-                    </h1>
-                    <x-tags-list :tags="$user->tags"></x-tags-list>
-                </div>
+                <span class="mr-8 mt-4 sm:mt-0">{{ $user->followers_count }} followers</span>
+                <span class="mr-8 mt-4 sm:mt-0">{{ $user->following_count }} following</span>
             </div>
-            <span class="mr-8 mt-4 sm:mt-0">{{ $user->followers_count }} followers</span>
-            <span class="mr-8 mt-4 sm:mt-0">{{ $user->following_count }} following</span>
+            @can('supadupaadminshit')
+                <div class="h-100 flex flex-col text-amber-500">
+                    @canImpersonate($guard = null)
+                        <a href="{{ route('impersonate', $user->id) }}"><i class="fas fa-mask"></i> Impersonate</a>
+                    @endCanImpersonate
+                    <a href="{{ route('users.edit', $user) }}"><i class="fas fa-pen-to-square"></i> {{ __('Edit') }}</a>
+                    <x-delete-model :user="$user"></x-delete-model>
+                </div>
+            @endcan
         </div>
     </x-slot>
 

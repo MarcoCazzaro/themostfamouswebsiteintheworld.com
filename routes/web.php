@@ -20,19 +20,21 @@ use Illuminate\Http\Request;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('frontpage');
 Route::middleware([
-    'auth:sanctum',
+    //'auth:sanctum', https://github.com/404labfr/laravel-impersonate/issues/154
+    'auth:web',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::get('/users/{user}', [UserController::class, 'show'])->name('user-public-profile');
     Route::resource('tags', TagController::class);
     Route::get('/most-famous-people', [UserController::class, 'most_famous_people'])->name('users.most-famous-people');
     Route::get('/most-famous-people/{tag}', [UserController::class, 'show_famous_people_by_tag'])->name('users.most-famous-people.show');
     Route::get('/most-famous-fans', [UserController::class, 'most_famous_fans'])->name('users.most-famous-fans');
     Route::get('/most-famous-fans/{tag}', [UserController::class, 'show_famous_fans_by_tag'])->name('users.most-famous-fans.show');
+    Route::resource('users', UserController::class);
+    Route::impersonate();
 });
 Route::get('/email/verify', function () {
     return view('auth.verify-email');

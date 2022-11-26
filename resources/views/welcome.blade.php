@@ -21,6 +21,17 @@
                         </div>
                         @livewire('users-list', ['currentUsers' => $latest_users])
                     </section>
+                    <section class="mb-8">
+                        <p class="text-center">Find out more:</p>
+                        <div class="flex justify-center items-center">
+                            <form method="GET" action="{{ route('users.most-famous-people') }}">
+                                <x-jet-button type="submit" class="w-50 m-4">Most famous people</x-jet-button>
+                            </form>
+                            <form method="GET" action="{{ route('users.most-famous-fans') }}">
+                                <x-jet-button type="submit" class="w-50 m-4">Most famous fans</x-jet-button>
+                            </form>
+                        </div>
+                    </section>
                 </div>
             @else
                 <div class="flex items-center justify-center p-8 flex-wrap">

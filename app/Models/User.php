@@ -13,6 +13,7 @@ use Spatie\Sluggable\HasSlug; //https://github.com/spatie/laravel-sluggable
 use Spatie\Sluggable\SlugOptions;
 use App\Traits\HasTags;
 use Spatie\Permission\Traits\HasRoles;
+use Lab404\Impersonate\Models\Impersonate;
 
 //TODO: SOFT DELETE
 
@@ -26,6 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasSlug;
     use HasTags;
     use HasRoles;
+    use Impersonate;
 
     /**
      * The attributes that are mass assignable.
@@ -35,6 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name',
         'email',
+        'slug',
         'password',
     ];
 
@@ -99,7 +102,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function getUrlAttribute() {
-        return route('user-public-profile', ['user' => $this]);
+        return route('users.show', ['user' => $this]);
     }
 
     public function famousPoints()
@@ -207,5 +210,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         /* overriding Laravel default function */
         return asset('img/user.png');
+    }
+
+    public function canImpersonate()
+    {
+        return $this->can('supadupaadminshit');
     }
 }
