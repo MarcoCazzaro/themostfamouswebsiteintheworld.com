@@ -25,7 +25,7 @@ class CustomUpdateTagsForm extends UpdateProfileInformationForm
     public function mount()
     {
         $this->state = Auth::user()->withoutRelations()->toArray();
-        $this->state['tags'] = array_pad(Auth::user()->tags->pluck('slug')->toArray(), 5, null);
+        $this->state['tags'] = array_pad(Auth::user()->tags->pluck('name')->toArray(), 5, null);
     }
 
     /**
