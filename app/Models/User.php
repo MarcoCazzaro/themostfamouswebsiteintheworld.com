@@ -179,7 +179,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getFollowersCountAttribute()
     {
-        $users_count = FamousPoint::selectRaw('count(user_id) as counter')->where('user_id', $this->id)->first();
+        $users_count = FamousPoint::selectRaw('COUNT(DISTINCT(sender_id)) as counter')
+            ->where('user_id', $this->id)
+            ->first();
         return $users_count->counter;
     }
 
@@ -200,7 +202,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getFollowingCountAttribute()
     {
-        $users_count = FamousPoint::selectRaw('count(sender_id) as counter')->where('sender_id', $this->id)->first();
+        $users_count = FamousPoint::selectRaw('COUNT(DISTINCT(user_id)) as counter')
+            ->where('sender_id', $this->id)
+            ->first();
         return $users_count->counter;
     }
 
