@@ -179,8 +179,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getFollowersCountAttribute()
     {
-        $users = FamousPoint::where('user_id', $this->id)->select('sender_id')->groupBy('sender_id')->get();
-        return $users->count();
+        $users_count = FamousPoint::selectRaw('count(user_id) as counter')->where('user_id', $this->id)->first();
+        return $users_count->counter;
     }
 
     public function getBestFollowingAttribute()
@@ -200,10 +200,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getFollowingCountAttribute()
     {
-        $users = FamousPoint::select('sender_id')
-            ->groupBy('sender_id')
-            ->having('sender_id', $this->id);
-        return $users->count();
+        $users_count = FamousPoint::selectRaw('count(sender_id) as counter')->where('sender_id', $this->id)->first();
+        return $users_count->counter;
     }
 
     protected function defaultProfilePhotoUrl()
