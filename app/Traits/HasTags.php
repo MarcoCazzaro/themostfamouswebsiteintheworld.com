@@ -28,7 +28,7 @@ trait HasTags
             switch (true) {
                 case is_array($input_tags):
                     foreach ($input_tags as $key => $input_tag) {
-                        $input_tags[$key] = strtolower(formatTagName($input_tag));
+                        $input_tags[$key] = formatTagName($input_tag);
                     }
                     break;
                 case is_string($input_tags):
@@ -115,7 +115,7 @@ trait HasTags
             $input_tags = explode(' ', $input_tags);
             $input_tags = array_filter($input_tags);
             $results = array_map(function($item){
-                return strtolower(formatTagName($input_tag));
+                return formatTagName($item);
             }, $input_tags);
         } catch (\Exception $e) {
             report($e);
