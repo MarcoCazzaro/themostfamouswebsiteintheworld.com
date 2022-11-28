@@ -33,6 +33,9 @@
                         <x-jet-nav-link href="{{ route('tags.index') }}" :active="request()->routeIs('tags.index')">
                             {{ __('Tags') }}
                         </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ url('log-viewer') }}">
+                            {{ __('Log viewer') }}
+                        </x-jet-nav-link>
                     @endcan
                     @impersonating()
                         <x-jet-nav-link href="{{ route('impersonate.leave') }}">
@@ -170,6 +173,11 @@
             <x-jet-responsive-nav-link href="{{ route('users.most-famous-fans') }}" :active="request()->routeIs('users.most-famous-fans')">
                 {{ __('Most Famous Fans') }}
             </x-jet-responsive-nav-link>
+            @can('supadupaadminshit')
+                <x-jet-responsive-nav-link href="{{ url('log-viewer') }}">
+                {{ __('Log viewer') }}
+            </x-jet-responsive-nav-link>
+            @endcan
             @impersonating()
                 <x-jet-responsive-nav-link href="{{ route('impersonate.leave') }}">
                     <i class="fas fa-mask mr-2"></i> {{ __('Leave') }}
