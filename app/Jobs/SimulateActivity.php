@@ -32,18 +32,26 @@ class SimulateActivity implements ShouldQueue
      */
     public function handle()
     {
-        $users = User::inRandomOrder()->take(31)->get();
-        $senders = User::inRandomOrder()->take(31)->get();
-        foreach ($users as $user) {
-            $brazorf = $user->total_famous_points;
-            for ($i=0; $i < 13; $i++) {
-                $brazorf++;
-                FamousPoint::factory([
-                    'user_id' => $user->id,
-                    'sender_id' => $senders->random()->id,
-                    'brazorf' => $brazorf
-                ])->create();
+        try {
+            \Log::info('Simuuuulationnnnnn!');
+            $users = User::inRandomOrder()->take(31)->get();
+            $senders = User::inRandomOrder()->take(31)->get();
+            $counter = 0;
+            foreach ($users as $user) {
+                $brazorf = $user->total_famous_points;
+                for ($i=0; $i < 13; $i++) {
+                    $brazorf++;
+                    $counter++;
+                    FamousPoint::factory([
+                        'user_id' => $user->id,
+                        'sender_id' => $senders->random()->id,
+                        'brazorf' => $brazorf
+                    ])->create();
+                }
             }
+            \Log::info('Simuuuulationnnnnn over: ' . $counter . ' faked points.');
+        } catch (\Exception $e) {
+            report($e);
         }
     }
 }
