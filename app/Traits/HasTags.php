@@ -41,7 +41,7 @@ trait HasTags
             }
             //preload existing tags (less queries)
             if (is_null($preloaded_tags)) {
-                $preloaded_tags = Tag::whereIn('slug', $input_tags)->get();
+                $preloaded_tags = Tag::withTrashed()->whereIn('slug', $input_tags)->get();
             }
             foreach ($input_tags as $key => $input_tag) {
                 $tag = false;
@@ -49,6 +49,8 @@ trait HasTags
                     $tag = $preloaded_tags->firstWhere('slug', $input_tag);
                     if (! $tag) {
                         $tag = $this->firstOrCreateTag($input_tag);
+                    } else {
+                        $tag->restore(); //Could be soft deleted
                     }
                 } else {
                     if (is_object($input_tag) && get_class($input_tag) === Tag::class) {
@@ -70,12 +72,14 @@ trait HasTags
         $tag = null;
         if (trim($tagText) !== '') {
             $slug = Str::slug($tagText, '-');
-            $tag = Tag::firstOrNew(['slug' => $slug]);
+            $tag = Tag::withTrashed()->firstOrNew(['slug' => $slug]);
             if (is_null($tag->name)) {
                 $tag->name = preg_replace('/-/i', ' ', $tagText);
                 $tag->slug = $slug;
                 $tag->locale = config('app.locale');
                 $tag->save();
+            } else {
+                $tag->restore(); //Could be soft deleted
             }
         }
         return $tag;
@@ -87,11 +91,13 @@ trait HasTags
         $preloaded_tags = null;
         if (isset($request->tags) && strlen($request->tags)) {
             $input_tags = $this->sanitiseTagsFromInputString($request->tags);
-            $preloaded_tags = Tag::whereIn('slug', $input_tags)->get();
+            $preloaded_tags = Tag::withTrashed()->whereIn('slug', $input_tags)->get();
             foreach ($input_tags as $input_tag_slug) {
                 $tag = $preloaded_tags->firstWhere('slug', $input_tag_slug);
                 if (! $tag) {
                     $tag = Tag::firstOrNew(['slug' => $input_tag_slug]);
+                } else {
+                    $tag->restore(); //Could be soft deleted
                 }
                 if (is_null($tag->name)) {
                     $tag->name = preg_replace('/-/i', ' ', $input_tag_slug);
