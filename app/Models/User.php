@@ -14,6 +14,7 @@ use Spatie\Sluggable\SlugOptions;
 use App\Traits\HasTags;
 use Spatie\Permission\Traits\HasRoles;
 use Lab404\Impersonate\Models\Impersonate;
+use App\Enums\UserTypes;
 
 //TODO: SOFT DELETE
 
@@ -39,6 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'slug',
         'password',
+        'type'
     ];
 
     /**
@@ -60,6 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'type' => UserTypes::class,
     ];
 
     /**
