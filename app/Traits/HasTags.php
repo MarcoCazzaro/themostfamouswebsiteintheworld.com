@@ -71,10 +71,10 @@ trait HasTags
     {
         $tag = null;
         if (trim($tagText) !== '') {
-            $slug = Str::slug($tagText, '-');
+            $slug = formatTagName($tagText); // Basically it's exactly equal to name field
             $tag = Tag::withTrashed()->firstOrNew(['slug' => $slug]);
             if (is_null($tag->name)) {
-                $tag->name = preg_replace('/-/i', ' ', $tagText);
+                $tag->name = $slug;
                 $tag->slug = $slug;
                 $tag->locale = config('app.locale');
                 $tag->save();
