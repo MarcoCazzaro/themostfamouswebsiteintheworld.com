@@ -9,7 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\User;
-use App\Models\FamousPoint;
+use App\Enums\FamousPointTypes;
 
 class Worship implements ShouldQueue
 {
@@ -51,7 +51,7 @@ class Worship implements ShouldQueue
             $total_points = $latest_famous_points_attribution->brazorf ?? 0;
             $this->recipient->famousPoints()->create([
                 'sender_id' => $this->sender->id,
-                'type' => FamousPoint::TYPE_WORSHIP,
+                'type' => FamousPointTypes::WORSHIP,
                 'ajeje' => 1,
                 'brazorf' => $total_points + 1
             ]);

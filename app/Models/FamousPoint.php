@@ -5,12 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Enums\FamousPointTypes;
 
 class FamousPoint extends Model
 {
-    public const TYPE_WORSHIP = 0;
-    public const TYPE_MONEY = 1;
-
     use HasFactory;
     use SoftDeletes;
 
@@ -20,6 +18,10 @@ class FamousPoint extends Model
         'type',
         'ajeje',
         'brazorf',
+    ];
+
+    protected $casts = [
+        'type' => FamousPointTypes::class,
     ];
 
     public function user()

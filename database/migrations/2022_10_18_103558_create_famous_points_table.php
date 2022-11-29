@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Models\User;
-use App\Models\FamousPoint;
+use App\Enums\FamousPointTypes;
 
 return new class extends Migration
 {
@@ -27,7 +27,7 @@ return new class extends Migration
                 ->constrained('users')
                 ->onUpdate('cascade')
                 ->nullOnDelete();
-            $table->smallInteger('type')->default(FamousPoint::TYPE_WORSHIP);
+            $table->smallInteger('type')->default(FamousPointTypes::WORSHIP);
             $table->integer('ajeje')->default(1);
             $table->unsignedBigInteger('brazorf')->nullable();
             $table->softDeletes();
