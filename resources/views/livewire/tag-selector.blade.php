@@ -18,7 +18,7 @@
                         <div>
                             <ul>
                                 <li>
-                                    <button @click.prevent="$wire.selectTag('{{ $result->name }}');isTyped=false" class="text-sm pl-4 pr-3 py-2 hover:text-amber-600">{{ $result->name }}</button>
+                                    <button @click.prevent="$wire.selectTag('{{ $result->name }}');isTyped=false" class="text-sm pl-4 pr-3 py-2 hover:text-amber-600 break-words max-w-full">{{ $result->name }}</button>
                                 </li>
                             </ul>
                         </div>
