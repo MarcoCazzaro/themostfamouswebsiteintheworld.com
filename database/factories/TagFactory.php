@@ -36,7 +36,7 @@ class TagFactory extends Factory
                 break;
         }
         $name = formatTagName($name);
-        $slug = Str::slug($name) . Str::random(13);
+        $slug = $name;
         $locale = 'en_US';
         return compact('name', 'slug', 'locale');
     }

@@ -26,10 +26,11 @@ class UserSeeder extends Seeder
         );
         $tags = Tag::take(100)->get();
         for ($i=0; $i < 300; $i++) {
-            $users = User::factory(1)
+            $user_ids = User::select('id')->orderBy('id', 'desc')->take(100)->get();
+            $users = User::factory()
                 ->hasFamousPoints( rand(1,13) ,
                     [
-                        'sender_id' => 1
+                        'sender_id' => $user_ids->random()
                     ]
                 )
                 ->hasAttached($tags->random(5))

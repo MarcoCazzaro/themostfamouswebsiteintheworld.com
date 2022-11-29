@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
+use App\Enums\UserTypes;
 
 class UserFactory extends Factory
 {
@@ -30,6 +31,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => bcrypt(\Str::random(31)),
             'remember_token' => Str::random(10),
+            'type' => UserTypes::DUMMY->value,
         ];
     }
 
