@@ -229,11 +229,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function scopeCelebs($query)
     {
-        $query->where('type', UserTypes::CELEBS->value);
+        $query->where('type', UserTypes::CELEB->value);
     }
 
     public function scopeFakes($query)
     {
-        $query->whereIn('type', [UserTypes::DUMMY->value, UserTypes::CELEBS->value]);
+        $query->whereIn('type', [UserTypes::DUMMY->value, UserTypes::CELEB->value]);
     }
 }
