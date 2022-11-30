@@ -4,6 +4,9 @@
             <h1 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ $title }}
             </h1>
+            <div class="h-100 flex flex-col text-amber-500">
+                <a href="{{ route('search') }}"><i class="fas fa-search"></i> {{ __('Search') }}</a>
+            </div>
         </div>
     </x-slot>
 
