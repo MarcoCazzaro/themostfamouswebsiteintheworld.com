@@ -38,7 +38,7 @@ class SimulateActivity implements ShouldQueue
             $counter = 0;
             foreach ($users as $user) {
                 $brazorf = $user->total_famous_points;
-                for ($i=0; $i < 13; $i++) {
+                for ($i=0; $i < rand(7, 17); $i++) {
                     $brazorf++;
                     $counter++;
                     FamousPoint::factory([
