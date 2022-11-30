@@ -33,7 +33,6 @@ class SimulateActivity implements ShouldQueue
     public function handle()
     {
         try {
-            \Log::info('Simuuuulationnnnnn!');
             $users = User::inRandomOrder()->take(31)->get();
             $senders = User::inRandomOrder()->take(31)->get();
             $counter = 0;
@@ -49,7 +48,6 @@ class SimulateActivity implements ShouldQueue
                     ])->create();
                 }
             }
-            \Log::info('Simuuuulationnnnnn over: ' . $counter . ' faked points.');
         } catch (\Exception $e) {
             report($e);
         }
