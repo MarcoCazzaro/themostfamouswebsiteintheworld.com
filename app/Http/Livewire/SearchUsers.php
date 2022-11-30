@@ -21,11 +21,7 @@ class SearchUsers extends Component
     {
         if ($this->stuff) {
             $found_users = User::where('name', 'like', $this->stuff . '%')
-                ->orderBy('slug', 'asc')
-                ->union(
-                    User::where('name', 'like', '%' . $this->stuff . '%')
-                        ->orderBy('slug', 'asc')
-                )
+                ->orderBy('name', 'asc')
                 ->paginate(50);
         } else {
             $found_users = collect([]);
