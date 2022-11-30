@@ -221,4 +221,19 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->can('supadupaadminshit');
     }
+
+    public function scopeDummies($query)
+    {
+        $query->where('type', UserTypes::DUMMY->value);
+    }
+
+    public function scopeCelebs($query)
+    {
+        $query->where('type', UserTypes::CELEBS->value);
+    }
+
+    public function scopeFakes($query)
+    {
+        $query->whereIn('type', [UserTypes::DUMMY->value, UserTypes::CELEBS->value]);
+    }
 }
