@@ -27,7 +27,7 @@
                 <div class="ssnail-users flex flex-wrap">
                     <table class="table-auto border-separate border-spacing-2 w-full" wire:loading.class="animate-pulse">
                         <tbody>
-                            @foreach($found_users as $user)
+                            @foreach($found_stuff as $user)
                                 <tr
                                     @can('supadupaadminshit')
                                     data-ssnail-id="{{ $user->id }}"
@@ -62,9 +62,6 @@
                         </tbody>
                     </table>
                 </div>
-                @if($found_users->count() > 0)
-                    {{ $found_users->links() }}
-                @endif
             </div>
         </div>
     </x-layout.container>

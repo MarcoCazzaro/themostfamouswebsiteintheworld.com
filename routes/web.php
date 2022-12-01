@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TagController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
-use App\Http\Livewire\SearchUsers;
+use App\Http\Livewire\SearchUsersAndTags;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +36,7 @@ Route::middleware([
     Route::get('/most-famous-fans/{tag}', [UserController::class, 'show_famous_fans_by_tag'])->name('users.most-famous-fans.show');
     Route::resource('users', UserController::class);
     Route::impersonate();
-    Route::get('/search/{stuff?}', SearchUsers::class)->name('search');
+    Route::get('/search/{stuff?}', SearchUsersAndTags::class)->name('search');
 });
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
