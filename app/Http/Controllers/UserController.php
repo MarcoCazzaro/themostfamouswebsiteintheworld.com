@@ -14,6 +14,7 @@ class UserController extends Controller
 {
     public function index()
     {
+        $this->authorize('supadupaadminshit');
         $users = User::orderBy('id', 'desc')->paginate(50);
         return view('users.index', compact('users'));
     }
