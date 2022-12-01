@@ -4,5 +4,5 @@
     {{ method_field('DELETE') }}
 
     {{ $slot }}
-    <button @click.prevent="confirm('Sure?') ? $refs.{{ $form_id }}.submit() : false" class="text-red-500"><i class="fas fa-trash"></i> {{ __('Delete') }}</button>
+    <button @click.prevent="confirm('Sure?') ? $refs.{{ $form_id }}.submit() : false" class="text-red-500"><i class="fas fa-trash"></i> <span class="{{ $attributes->get('label-class') ?? '' }}">{{ __('Delete') }}</span></button>
 </form>

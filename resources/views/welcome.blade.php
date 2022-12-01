@@ -25,10 +25,10 @@
                         <p class="text-center">Find out more:</p>
                         <div class="flex justify-center items-center">
                             <form method="GET" action="{{ route('users.most-famous-people') }}">
-                                <x-jet-button type="submit" class="w-50 m-4">Most famous people</x-jet-button>
+                                <x-jet-button type="submit" class="w-56 m-4">Most famous people</x-jet-button>
                             </form>
                             <form method="GET" action="{{ route('users.most-famous-fans') }}">
-                                <x-jet-button type="submit" class="w-50 m-4">Most famous fans</x-jet-button>
+                                <x-jet-button type="submit" class="w-56 m-4">Most famous fans</x-jet-button>
                             </form>
                         </div>
                     </section>
