@@ -26,7 +26,6 @@ class UserSeeder extends Seeder
         );
         $tags = Tag::take(100)->get();
         for ($i=0; $i < 300; $i++) {
-            $user_ids = User::select('id')->orderBy('id', 'desc')->take(100)->get();
             $users = User::factory()
                 ->hasAttached($tags->random(5))
             ->create();

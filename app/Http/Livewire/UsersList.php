@@ -22,6 +22,7 @@ class UsersList extends Component
                 ->whereHas('tags', function($query){
                     $query->where('tags.id', $this->tag->id);
                 })
+                ->take(999)
                 ->paginate(33);
             return view('livewire.users-list', [
                 'ranked_users' => $ranked_users,
