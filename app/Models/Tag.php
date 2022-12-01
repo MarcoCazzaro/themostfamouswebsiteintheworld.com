@@ -47,6 +47,10 @@ class Tag extends Model
         return 'slug';
     }
 
+    public function getUrlAttribute() {
+        return route('tags.show', ['tag' => $this]);
+    }
+
     /**
      * Get all of the users that are assigned this tag.
      */

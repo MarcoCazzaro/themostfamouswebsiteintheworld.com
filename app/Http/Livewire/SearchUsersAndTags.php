@@ -35,15 +35,15 @@ class SearchUsersAndTags extends Component
                     ->take(20)
                     ->get();
             }
-            /*
             $search_string = ltrim($search_string, '#');
             $found_tags_starts_with = Tag::selectRaw("tags.*, CONCAT('tags.', id) AS ssnailkey")->where('name', 'like', $search_string . '%')
                 ->orderBy('name', 'asc')
-                ->take(20);
-            $found_tags_contains = Tag::selectRaw("users.*, CONCAT('tags.', id) AS ssnailkey")->where('name', 'like', '%' . $search_string . '%')
+                ->take(20)
+                ->get();
+            $found_tags_contains = Tag::selectRaw("tags.*, CONCAT('tags.', id) AS ssnailkey")->where('name', 'like', '%' . $search_string . '%')
                 ->orderByFamousPointsReceived()
-                ->take(20);
-                */
+                ->take(20)
+                ->get();
             if ($found_users_starts_with) {
                 $found_stuff = $found_stuff->merge($found_users_starts_with);
             }
