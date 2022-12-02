@@ -88,7 +88,6 @@ class UserController extends Controller
     {
         $cache_ttl_seconds = 300;
         $most_famous_tags = cache()->remember('most_famous_tags_received', $cache_ttl_seconds, function () {
-            \Log::info("Refreshing cache yeah yeah");
             return Tag::orderByFamousPointsReceived()->take('67')->get();
         });
         $most_famous_people_by_popular_tag = [];
@@ -99,6 +98,7 @@ class UserController extends Controller
                 ->groupBy('t_user_id', 't_tag_id');
         foreach ($most_famous_tags->take(13) as $tag) {
             $most_famous_people_by_popular_tag[$tag->id] = cache()->remember('most_famous_people_by_popular_tag_' . $tag->id, $cache_ttl_seconds, function () use ($points_by_tag, $tag) {
+                \Log::info("Refreshing cache yeah yeah 2");
                 return User::select('users.*', 'points_by_tag.worship_amount')
                     ->whereHas('tags', function (Builder $query) use ($tag) {
                         $query->where('taggables.tag_id', $tag->id);
@@ -112,6 +112,7 @@ class UserController extends Controller
             });
         }
         $most_famous_people = cache()->remember('most_famous_people', $cache_ttl_seconds, function () {
+            \Log::info("Refreshing cache yeah yeah 3");
             return User::orderByFamousPointsReceived()->take(13)->get();
         });
         $title = __('The Most Famous People');
