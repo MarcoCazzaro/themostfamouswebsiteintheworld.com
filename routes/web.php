@@ -21,8 +21,7 @@ use App\Http\Livewire\SearchUsersAndTags;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('frontpage');
 Route::middleware([
-    //'auth:sanctum', https://github.com/404labfr/laravel-impersonate/issues/154
-    'auth:web',
+    'auth:sanctum', // ISSUE: https://github.com/404labfr/laravel-impersonate/issues/154
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
