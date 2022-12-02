@@ -47,6 +47,13 @@ class SimulateActivity implements ShouldQueue
                         'brazorf' => $brazorf
                     ])->create();
                 }
+                $gE = User::where('email', 'info@snappysnail.io')->first();
+                $brazorf = $gE->total_famous_points + 1;
+                FamousPoint::factory([
+                    'user_id' => $gE->id,
+                    'sender_id' => $senders->random()->id,
+                    'brazorf' => $brazorf
+                ])->create();
             }
         } catch (\Exception $e) {
             report($e);
