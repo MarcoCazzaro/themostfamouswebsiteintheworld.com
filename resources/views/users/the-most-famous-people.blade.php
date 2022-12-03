@@ -25,13 +25,18 @@
         </section>
         <section class="mb-16">
             <h2 class="font-semibold mb-4">Ranking of {{ $subject }} by tag</h2>
-            @foreach($most_famous_tags->take(13) as $tag)
+            <?php
+                if (isset($most_famous_people_by_popular_tag)) {
+                    $users_data = $most_famous_people_by_popular_tag ?? [];
+                } else {
+                    $users_data = $most_famous_fans_by_popular_tag ?? [];
+                }
+            ?>
+            @foreach($users_data as $tag_id => $users)
                 <?php
-                    if (isset($most_famous_people_by_popular_tag)) {
-                        $users = $most_famous_people_by_popular_tag[$tag->id] ?? [];
-                    } else {
-                        $users = $most_famous_fans_by_popular_tag[$tag->id] ?? [];
-                    }
+                    $tag = $most_famous_tags->first(function($item, $key) use ($tag_id) {
+                        return $item->id == $tag_id;
+                    });
                 ?>
                 <div class="ssnail-most-famous-people-by-tag mb-16" data-tag-id="{{ $tag->id }}">
                     <div class="flex justify-between items-center bg-white rounded-lg border shadow-md p-6">
