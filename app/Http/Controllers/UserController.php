@@ -90,10 +90,10 @@ class UserController extends Controller
         $ciao = cache()->remember('caching_test_yeah', $cache_ttl_seconds, function () {
             return "CIAOOOOO";
         });
-        dd($ciao);
         $most_famous_tags = cache()->remember('most_famous_tags_received', $cache_ttl_seconds, function () {
             return Tag::orderByFamousPointsReceived()->take('67')->get();
         });
+        dd($most_famous_tags);
         $most_famous_people_by_popular_tag = [];
         /*
         $points_by_tag = FamousPoint::selectRaw('taggables.taggable_id as t_user_id, taggables.tag_id as t_tag_id, sum(ajeje) as worship_amount')
