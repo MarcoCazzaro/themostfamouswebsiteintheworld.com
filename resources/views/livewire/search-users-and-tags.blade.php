@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <h1 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Search users') }}
+                {{ __('Search users and tags') }}
             </h1>
         </div>
     </x-slot>
@@ -19,12 +19,12 @@
                             wire:model.debounce.500ms="stuff"
                             placeholder="..."
                             autocomplete="off"
-                            aria-label="Search users"
+                            aria-label="Search users and tags"
                             autofocus
                             />
                     </div>
                 </div>
-                <div class="ssnail-users flex flex-wrap">
+                <div class="ssnail-users-and-tags flex flex-wrap">
                     <table class="table-auto border-separate border-spacing-2 w-full" wire:loading.class="animate-pulse">
                         <tbody>
                             @foreach($found_stuff as $found_object)

@@ -7,6 +7,7 @@ use App\Http\Controllers\TagController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Livewire\SearchUsersAndTags;
+use App\Http\Livewire\SearchTags;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,7 @@ Route::middleware([
     Route::resource('users', UserController::class);
     Route::impersonate();
     Route::get('/search/{stuff?}', SearchUsersAndTags::class)->name('search');
+    Route::get('/search-tags/{stuff?}', SearchTags::class)->name('tags.search');
 });
 Route::get('/email/verify', function () {
     return view('auth.verify-email');

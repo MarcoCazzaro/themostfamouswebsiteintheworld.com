@@ -7,6 +7,7 @@
             @can('supadupaadminshit')
                 <div class="h-100 items-center">
                     <a href="{{ route('tags.create') }}"><i class="fas fa-plus"></i> {{ __('Add Tag') }}</a>
+                    <a href="{{ route('tags.search') }}" class="ml-4"><i class="fas fa-search"></i> {{ __('Search') }}</a>
                 </div>
             @endcan
         </div>
