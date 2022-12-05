@@ -18,6 +18,8 @@ class Worship implements ShouldQueue
     public $sender;
     public $recipient;
 
+    private const COOLDOW_TIME = 5; //Minimum time in seconds between one point attribution and the previous one. This is used to avoid bot spamming.
+
     /**
      * Create a new job instance.
      *
@@ -41,7 +43,7 @@ class Worship implements ShouldQueue
             ->where('sender_id', $this->sender->id)
             ->orderBy('id', 'desc')
             ->first();
-        if ($latest_famous_points_attribution && $latest_famous_points_attribution->created_at > now()->subSeconds(10)->toDateTimeString()) {
+        if ($latest_famous_points_attribution && $latest_famous_points_attribution->created_at > now()->subSeconds($this::COOLDOW_TIME)->toDateTimeString()) {
             //nope!
         } else {
             $latest_famous_points_attribution = $this->recipient->famousPoints()
@@ -49,6 +51,10 @@ class Worship implements ShouldQueue
                 ->orderBy('id', 'desc')
                 ->first();
             $total_points = $latest_famous_points_attribution->brazorf ?? 0;
+            if ($total_points > 0 && $total_points % 100 === 0) {
+                // Every 100 points given, we check the sum in the database to correct potential erroneous counts
+                $total_points = $this->recipient->famousPoints()->sum('ajeje') ?? 0;
+            }
             $this->recipient->famousPoints()->create([
                 'sender_id' => $this->sender->id,
                 'type' => FamousPointTypes::WORSHIP,
