@@ -95,8 +95,11 @@ class UserController extends Controller
                 ->join('users', 'famous_points.user_id', '=', 'users.id')
                 ->join('taggables', 'users.id', '=', 'taggables.taggable_id')
                 ->where('taggables.taggable_type', User::class)
-                ->groupBy('t_user_id', 't_tag_id');
-        foreach ($most_famous_tags->take(13) as $tag) {
+                ->groupBy('t_user_id', 't_tag_id')
+                ->orderBy("worship_amount", "desc")
+                ->limit(5);
+        $most_famous_13_tags = $most_famous_tags->take(13);
+        foreach ($most_famous_13_tags as $tag) {
             $most_famous_people_by_popular_tag[$tag->id] = cache()->remember('most_famous_people_by_popular_tag_' . $tag->id, $cache_ttl_seconds, function () use ($points_by_tag, $tag) {
                 return User::select('users.*', 'points_by_tag.worship_amount')
                     ->whereHas('tags', function (Builder $query) use ($tag) {
