@@ -15,6 +15,7 @@ use App\Traits\HasTags;
 use Spatie\Permission\Traits\HasRoles;
 use Lab404\Impersonate\Models\Impersonate;
 use App\Enums\UserTypes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 //TODO: SOFT DELETE
 
@@ -106,6 +107,13 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getUrlAttribute() {
         return route('users.show', ['user' => $this]);
+    }
+
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, $attributes) => $value . (((auth()->id() ?? false) === $attributes['id']) ? ' (' . __('You') . ')' : '')
+        );
     }
 
     public function famousPoints()
