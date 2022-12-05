@@ -122,7 +122,7 @@ class UserController extends Controller
     {
         $cache_ttl_seconds = 300;
         $most_famous_tags = cache()->remember('most_famous_tags_given', $cache_ttl_seconds, function () {
-            return Tag::orderByFamousPointsGiven()->take('67')->get();
+            return Tag::orderByFamousPointsGiven()->take(67)->get();
         });
         $most_famous_fans_by_popular_tag = [];
         $points_by_tag = FamousPoint::selectRaw('taggables.taggable_id as t_user_id, taggables.tag_id as t_tag_id, sum(ajeje) as worship_amount')
@@ -130,7 +130,8 @@ class UserController extends Controller
                 ->join('taggables', 'users.id', '=', 'taggables.taggable_id')
                 ->where('taggables.taggable_type', User::class)
                 ->groupBy('t_user_id', 't_tag_id');
-        foreach ($most_famous_tags->take(13) as $tag) {
+        $most_famous_13_tags = $most_famous_tags->take(13);
+        foreach ($most_famous_13_tags as $tag) {
             $most_famous_fans_by_popular_tag[$tag->id] = cache()->remember('most_famous_fans_by_popular_tag_' . $tag->id, $cache_ttl_seconds, function () use ($points_by_tag, $tag) {
                 return User::select('users.*', 'points_by_tag.worship_amount')
                     ->whereHas('tags', function (Builder $query) use ($tag) {
