@@ -86,11 +86,11 @@ class UserController extends Controller
 
     public function most_famous_people()
     {
+        $cache_ttl_seconds = 300;
         $ciao = cache()->remember('caching_test_yeah', $cache_ttl_seconds, function () {
             return "CIAOOOOO";
         });
         dd($ciao);
-        $cache_ttl_seconds = 300;
         $most_famous_tags = cache()->remember('most_famous_tags_received', $cache_ttl_seconds, function () {
             return Tag::orderByFamousPointsReceived()->take('67')->get();
         });
