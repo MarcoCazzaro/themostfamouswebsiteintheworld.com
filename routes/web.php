@@ -33,6 +33,7 @@ Route::middleware([
     Route::get('/most-famous-people/{tag}', [UserController::class, 'show_famous_people_by_tag'])->name('users.most-famous-people.show');
     Route::get('/most-famous-fans', [UserController::class, 'most_famous_fans'])->name('users.most-famous-fans');
     Route::get('/most-famous-fans/{tag}', [UserController::class, 'show_famous_fans_by_tag'])->name('users.most-famous-fans.show');
+    Route::post('/users/{user}/recount', [UserController::class, 'recount_points'])->name('users.user-recount-points');
     Route::resource('users', UserController::class);
     Route::impersonate();
     Route::get('/search/{stuff?}', SearchUsersAndTags::class)->name('search');

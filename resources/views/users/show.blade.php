@@ -26,6 +26,10 @@
                         <a href="{{ route('impersonate', $user->id) }}"><i class="fas fa-mask"></i> Impersonate</a>
                     @endCanImpersonate
                     <a href="{{ route('users.edit', $user) }}"><i class="fas fa-pen-to-square"></i> {{ __('Edit') }}</a>
+                    <form  method="POST" action="{{ route('users.user-recount-points', $user) }}">
+                        @csrf
+                        <button type="submit"><i class="fas fa-calculator"></i> <span class="">{{ __('Recalc') }}</span></button>
+                    </form>
                     <x-delete-model :user="$user"></x-delete-model>
                 </div>
             @endcan

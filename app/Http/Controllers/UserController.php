@@ -9,6 +9,7 @@ use App\Models\FamousPoint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\Rule;
+use App\Jobs\RecountUserPoints;
 
 class UserController extends Controller
 {
@@ -160,5 +161,12 @@ class UserController extends Controller
     public function show_famous_fans_by_tag(Tag $tag)
     {
         return view('tags.show', compact('tag'));
+    }
+
+    public function recount_points(User $user)
+    {
+        $this->authorize('supadupaadminshit');
+        RecountUserPoints::dispatchSync($user);
+        return redirect($user->url);
     }
 }
