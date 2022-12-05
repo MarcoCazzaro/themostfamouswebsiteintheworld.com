@@ -91,6 +91,7 @@ class UserController extends Controller
             return Tag::orderByFamousPointsReceived()->take('67')->get();
         });
         $most_famous_people_by_popular_tag = [];
+        /*
         $points_by_tag = FamousPoint::selectRaw('taggables.taggable_id as t_user_id, taggables.tag_id as t_tag_id, sum(ajeje) as worship_amount')
                 ->join('users', 'famous_points.user_id', '=', 'users.id')
                 ->join('taggables', 'users.id', '=', 'taggables.taggable_id')
@@ -113,6 +114,7 @@ class UserController extends Controller
                     ->limit(5)->get();
             });
         }
+        */
         $most_famous_people = cache()->remember('most_famous_people', $cache_ttl_seconds, function () {
             return User::orderByFamousPointsReceived()->take(13)->get();
         });
