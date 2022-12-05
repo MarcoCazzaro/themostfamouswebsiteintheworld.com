@@ -91,7 +91,7 @@ class UserController extends Controller
             return "CIAOOOOO";
         });
         $most_famous_tags = cache()->remember('most_famous_tags_received', $cache_ttl_seconds, function () {
-            return Tag::orderByFamousPointsReceived()->take('67')->get();
+            return Tag::orderByFamousPointsReceived()->take(67)->get();
         });
         $most_famous_people_by_popular_tag = [];
         /*
