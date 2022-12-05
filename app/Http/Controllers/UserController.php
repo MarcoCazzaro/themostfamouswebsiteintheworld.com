@@ -98,7 +98,7 @@ class UserController extends Controller
                 ->groupBy('t_user_id', 't_tag_id')
                 ->orderBy("worship_amount", "desc")
                 ->limit(5);
-        $most_famous_13_tags = $most_famous_tags->take(13);
+        $most_famous_13_tags = $most_famous_tags->take(1);
         foreach ($most_famous_13_tags as $tag) {
             $most_famous_people_by_popular_tag[$tag->id] = cache()->remember('most_famous_people_by_popular_tag_' . $tag->id, $cache_ttl_seconds, function () use ($points_by_tag, $tag) {
                 return User::select('users.*', 'points_by_tag.worship_amount')
@@ -117,7 +117,6 @@ class UserController extends Controller
             return User::orderByFamousPointsReceived()->take(13)->get();
         });
         $title = __('The Most Famous People');
-        dd("CIAO");
         return view('users.the-most-famous-people', compact('most_famous_tags', 'most_famous_people_by_popular_tag', 'most_famous_people', 'title'));
     }
 
