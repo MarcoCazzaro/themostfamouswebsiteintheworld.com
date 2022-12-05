@@ -117,6 +117,7 @@ class UserController extends Controller
             return User::orderByFamousPointsReceived()->take(13)->get();
         });
         $title = __('The Most Famous People');
+        dd("CIAO");
         return view('users.the-most-famous-people', compact('most_famous_tags', 'most_famous_people_by_popular_tag', 'most_famous_people', 'title'));
     }
 
