@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories;
+namespace App\Repositories; // https://laravel.com/docs/9.x/container#zero-configuration-resolution
 
 use App\Models\Tag;
 use App\Models\FamousPoint;

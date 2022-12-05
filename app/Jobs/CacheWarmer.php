@@ -14,26 +14,14 @@ class CacheWarmer implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $cache;
-
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct(CacheRepository $cache)
-    {
-        $this->cache = $cache;
-    }
-
     /**
      * Execute the job.
      *
      * @return void
      */
-    public function handle()
+    public function handle(CacheRepository $cache)
     {
-        $this->cache->most_famous_people();
-        $this->cache->most_famous_fans();
+        $cache->most_famous_people();
+        $cache->most_famous_fans();
     }
 }
