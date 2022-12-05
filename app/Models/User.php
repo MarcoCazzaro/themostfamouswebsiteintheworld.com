@@ -115,7 +115,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function latestFamousPoints()
     {
-        return $this->famousPoints()->latest('id')->limit(1);
+        return $this->hasOne(FamousPoint::class)->latest('id');
     }
 
     public function getTotalFamousPointsAttribute()
