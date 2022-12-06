@@ -1,7 +1,12 @@
-<div>
-    @php($list_users = $ranked_users ?? $currentUsers ?? false)
+<div wire:init="loadUsers">
+    <div wire:loading>
+        <div class="text-center text-gray-400">
+            <i class="fas fa-rotate animate-spin"></i>
+        </div>
+    </div>
+    @php($list_users = $ranked_users ?? $loaded_users ?? false)
     @if($list_users)
-        <div class="inline-grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-8 justify-center w-full">
+        <div class="inline-grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-8 justify-center w-full transition-all duration-1000" wire:loading.delay.class="max-h-0">
             @foreach($list_users as $key => $current_user)
                 <?php
                     $col_span_class = "";

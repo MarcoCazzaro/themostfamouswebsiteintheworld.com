@@ -19,7 +19,7 @@
             <div class="ssnail-most-famous-{{ $subject }}">
                 <h2 class="font-semibold">Global ranking</h2>
                 @if(!empty($users))
-                    @livewire('users-list', ['currentUsers' => $users, 'highlightFirst' => true, 'showPosition' => true])
+                    @livewire('users-list', ['users' => $users, 'highlightFirst' => true, 'showPosition' => true])
                 @endif
             </div>
         </section>
@@ -44,7 +44,7 @@
                         <a class="float-right text-gray-500" href="{{ route('users.most-famous-' . $subject . '.show', $tag) }}"><span class="hidden md:inline">See full ranking</span> <i class="fas fa-arrow-right"></i></a>
                     </div>
                     @if(!empty($users))
-                        @livewire('users-list', ['currentUsers' => $users, 'highlightFirst' => true, 'showPosition' => true])
+                        @livewire('users-list', ['users' => $users, 'highlightFirst' => true, 'showPosition' => true])
                     @else
                         <p class="py-4">{{ $tag->name }} has no users yet.</p>
                     @endif

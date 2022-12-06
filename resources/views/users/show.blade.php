@@ -43,7 +43,7 @@
         <div class="ssnail-followers best">
             <h2 class="font-semibold">Best followers <span class="ssnail-refresh hidden"><a href="javascript:location.reload()"><i class="fas fa-rotate animate-pulse text-gray-500"></i></a></span></h2>
             @if($followers->count() > 0)
-                @livewire('users-list', ['currentUsers' => $followers])
+                @livewire('users-list', ['users' => $followers])
             @else
                 <p class="py-4">{{ $user->name }} has no followers yet.</p>
             @endif
@@ -57,7 +57,7 @@
         <div class="ssnail-followers latest">
             <h2 class="font-semibold">Latest followers <span class="ssnail-refresh hidden"><a href="javascript:location.reload()"><i class="fas fa-rotate animate-pulse text-gray-500"></i></a></span></h2>
             @if($followers->count() > 0)
-                @livewire('users-list', ['currentUsers' => $followers])
+                @livewire('users-list', ['users' => $followers])
             @else
                 <p class="py-4">{{ $user->name }} has no followers yet.</p>
             @endif
@@ -71,7 +71,7 @@
         <div class="ssnail-following">
             <h2 class="font-semibold">Best following <span class="ssnail-refresh hidden"><a href="javascript:location.reload()"><i class="fas fa-rotate animate-pulse text-gray-500"></i></a></span></h2>
             @if($following->count() > 0)
-                @livewire('users-list', ['currentUsers' => $following])
+                @livewire('users-list', ['users' => $following])
             @else
                 <p class="py-4">{{ $user->name }} is not following anyone yet.</p>
             @endif
