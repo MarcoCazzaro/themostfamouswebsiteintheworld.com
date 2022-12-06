@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->job(new CacheWarmer)->everyFourMinutes();
+        // $schedule->job(new CacheWarmer)->everyFourMinutes(); REMOVED, IT SLOWS DOWN EVERYTHING
         $schedule->job(new SimulateActivity)->everyFiveMinutes();
     }
 
