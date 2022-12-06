@@ -12,42 +12,23 @@
 
     <x-layout.container>
         <section class="mb-16">
-            <?php
-                $subject = isset($most_famous_people) ? 'people' : 'fans';
-                $users = $most_famous_people ?? $most_famous_fans ?? [];
-            ?>
-            <div class="ssnail-most-famous-{{ $subject }}">
+            <div class="ssnail-most-famous-{{ $subjects }}">
                 <h2 class="font-semibold">Global ranking</h2>
-                @if(!empty($users))
-                    @livewire('users-list', ['users' => $users, 'highlightFirst' => true, 'showPosition' => true])
-                @endif
+                @livewire('users-list', ['scope' => 'most_famous_' . $subjects, 'highlightFirst' => true, 'showPosition' => true])
             </div>
         </section>
         <section class="mb-16">
-            <h2 class="font-semibold mb-4">Ranking of {{ $subject }} by tag</h2>
+            <h2 class="font-semibold mb-4">Ranking of {{ $subjects }} by tag</h2>
             <?php
-                if (isset($most_famous_people_by_popular_tag)) {
-                    $users_data = $most_famous_people_by_popular_tag ?? [];
-                } else {
-                    $users_data = $most_famous_fans_by_popular_tag ?? [];
-                }
+            $sections_tags = $most_famous_tags->take(13);
             ?>
-            @foreach($users_data as $tag_id => $users)
-                <?php
-                    $tag = $most_famous_tags->first(function($item, $key) use ($tag_id) {
-                        return $item->id == $tag_id;
-                    });
-                ?>
+            @foreach($sections_tags as $tag)
                 <div class="ssnail-most-famous-people-by-tag mb-16" data-tag-id="{{ $tag->id }}">
                     <div class="flex justify-between items-center bg-white rounded-lg border shadow-md p-6">
-                        <h3 class="font-semibold break-all mr-4">Most famous {{ $subject }} with tag <span class="text-amber-500 block lg:inline">{{ $tag->name }}</span></h3>
-                        <a class="float-right text-gray-500" href="{{ route('users.most-famous-' . $subject . '.show', $tag) }}"><span class="hidden md:inline">See full ranking</span> <i class="fas fa-arrow-right"></i></a>
+                        <h3 class="font-semibold break-all mr-4">Most famous {{ $subjects }} with tag <span class="text-amber-500 block lg:inline">{{ $tag->name }}</span></h3>
+                        <a class="float-right text-gray-500" href="{{ route('users.most-famous-' . $subjects . '.show', $tag) }}"><span class="hidden md:inline">See full ranking</span> <i class="fas fa-arrow-right"></i></a>
                     </div>
-                    @if(!empty($users))
-                        @livewire('users-list', ['users' => $users, 'highlightFirst' => true, 'showPosition' => true])
-                    @else
-                        <p class="py-4">{{ $tag->name }} has no users yet.</p>
-                    @endif
+                    @livewire('users-list', ['scope' => 'most_famous_' . $subjects . '_by_tag', 'tag_id' => $tag->id, 'highlightFirst' => true, 'showPosition' => true])
                 </div>
             @endforeach
         </section>

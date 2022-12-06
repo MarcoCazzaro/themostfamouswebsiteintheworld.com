@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\User;
+use App\Repositories\CacheRepository;
 
 class UsersList extends Component
 {
@@ -14,29 +15,52 @@ class UsersList extends Component
     public $users;
     public $highlightFirst;
     public $showPosition;
-    public $tag;
+    public $tag_id;
+    public $scope;
 
     public function loadUsers()
     {
         $this->readyToLoad = true;
     }
-    public function render()
+    public function render(CacheRepository $cache)
     {
         $data = [];
         if ($this->readyToLoad) {
-            if (isset($this->tag) && $this->tag) {
-                $ranked_users = User::orderByFamousPointsReceived()
-                    ->whereHas('tags', function($query){
-                        $query->where('tags.id', $this->tag->id);
-                    })
-                    ->take(999)
-                    ->paginate(33);
-                $data = [
-                    'ranked_users' => $ranked_users,
-                    'first_element_index' => $ranked_users->firstItem()
-                ];
-            } else {
-                $data['loaded_users'] = $this->users;
+            switch ($this->scope) {
+                case 'most_famous_people' :
+                    $data['loaded_users'] = $cache->most_famous_users('people');
+                    break;
+                case 'most_famous_fans' :
+                    $data['loaded_users'] = $cache->most_famous_users('fans');
+                    break;
+                case 'most_famous_people_by_tag' :
+                    if (isset($this->tag_id) && $this->tag_id) {
+                        $data['loaded_users'] = $cache->most_famous_people_by_tag_id($this->tag_id);
+                    }
+                    break;
+                case 'most_famous_fans_by_tag' :
+                    if (isset($this->tag_id) && $this->tag_id) {
+                        $data['loaded_users'] = $cache->most_famous_fans_by_tag_id($this->tag_id);
+                    }
+                    break;
+                case 'full_ranking_of_people_by_tag':
+                    if (isset($this->tag_id) && $this->tag_id) {
+                        $ranked_users = User::orderByFamousPointsReceived()
+                            ->whereHas('tags', function($query){
+                                $query->where('tags.id', $this->tag_id);
+                            })
+                            ->take(999)
+                            ->paginate(33);
+                        $data = [
+                            'ranked_users' => $ranked_users,
+                            'first_element_index' => $ranked_users->firstItem()
+                        ];
+                    }
+                    break;
+
+                default:
+                    $data['loaded_users'] = $this->users;
+                    break;
             }
         }
         return view('livewire.users-list', $data);

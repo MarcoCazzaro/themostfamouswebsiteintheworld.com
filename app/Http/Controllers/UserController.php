@@ -86,18 +86,18 @@ class UserController extends Controller
 
     public function most_famous_people(CacheRepository $cache)
     {
-        $data = $cache->most_famous_people();
-        extract($data);
+        $most_famous_tags = $cache->most_famous_tags('received');
         $title = __('The Most Famous People');
-        return view('users.the-most-famous-people', compact('most_famous_tags', 'most_famous_people_by_popular_tag', 'most_famous_people', 'title'));
+        $subjects = 'people';
+        return view('users.the-most-famous-people', compact('most_famous_tags', 'title', 'subjects'));
     }
 
     public function most_famous_fans(CacheRepository $cache)
     {
-        $data = $cache->most_famous_fans();
-        extract($data);
+        $most_famous_tags = $cache->most_famous_tags('given');
         $title = __('The Most Famous fans');
-        return view('users.the-most-famous-people', compact('most_famous_tags', 'most_famous_fans_by_popular_tag', 'most_famous_fans', 'title'));
+        $subjects = 'fans';
+        return view('users.the-most-famous-people', compact('most_famous_tags', 'title', 'subjects'));
     }
 
     public function show_famous_people_by_tag(Tag $tag)
