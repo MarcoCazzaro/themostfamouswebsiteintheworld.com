@@ -46,8 +46,9 @@ class UserController extends Controller
         return redirect('/users/' . $user->slug);
     }
 
-    public function show(User $user) {
-        return view('users.show', compact('user'));
+    public function show(User $user, CacheRepository $cache) {
+        $user_ranking_position = $user->getGlobalRankingPosition($cache);
+        return view('users.show', compact('user', 'user_ranking_position'));
     }
 
     public function edit(user $user)

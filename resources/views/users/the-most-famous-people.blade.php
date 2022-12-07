@@ -24,7 +24,7 @@
             ?>
             @foreach($sections_tags as $tag)
                 <div class="ssnail-most-famous-people-by-tag mb-16" data-tag-id="{{ $tag->id }}">
-                    <div class="flex justify-between items-center bg-white rounded-lg border shadow-md p-6">
+                    <div class="flex justify-between items-center bg-amber-100 rounded-lg border border-amber-300 p-6">
                         <h3 class="font-semibold break-all mr-4">Most famous {{ $subjects }} with tag <span class="text-amber-500 block lg:inline">{{ $tag->name }}</span></h3>
                         <a class="float-right text-gray-500" href="{{ route('users.most-famous-' . $subjects . '.show', $tag) }}"><span class="hidden md:inline">See full ranking</span> <i class="fas fa-arrow-right"></i></a>
                     </div>

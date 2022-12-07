@@ -17,6 +17,7 @@
                         </div>
                     </div>
                 </div>
+
                 <span class="mr-8 mt-4 sm:mt-0">{{ $user->followers_count }} followers</span>
                 <span class="mr-8 mt-4 sm:mt-0">{{ $user->following_count }} following</span>
             </div>
@@ -37,11 +38,23 @@
     </x-slot>
 
     <x-layout.container>
+        <div class="ssnail-global-ranking-position bg-amber-100 rounded-lg border border-amber-300 p-6 flex flex-wrap items-center justify-between">
+            <div class="flex items-center">
+                <h2 class="font-semibold mr-4">Global ranking position</h2>
+                <div class="ssnail-grp rounded-full text-white bg-amber-500 text-2xl flex justify-center items-center font-bold w-14 h-14">
+                    {{ $user_ranking_position }}
+                </div>
+            </div>
+            <a class="float-right text-gray-500" href="{{ route('users.most-famous-people') }}"><span class="hidden md:inline">See full ranking</span> <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </x-layout.container>
+
+    <x-layout.container>
         <?php
             $followers = $user->best_followers;
         ?>
         <div class="ssnail-followers best">
-            <h2 class="font-semibold">Best followers <span class="ssnail-refresh hidden"><a href="javascript:location.reload()"><i class="fas fa-rotate animate-pulse text-gray-500"></i></a></span></h2>
+            <h2 class="font-semibold">Best followers <span class="ssnail-refresh hidden"><x-refresh-button /></span></h2>
             @if($followers->count() > 0)
                 @livewire('users-list', ['users' => $followers])
             @else
@@ -55,7 +68,7 @@
             $followers = $user->latest_followers;
         ?>
         <div class="ssnail-followers latest">
-            <h2 class="font-semibold">Latest followers <span class="ssnail-refresh hidden"><a href="javascript:location.reload()"><i class="fas fa-rotate animate-pulse text-gray-500"></i></a></span></h2>
+            <h2 class="font-semibold">Latest followers <span class="ssnail-refresh hidden"><x-refresh-button /></span></h2>
             @if($followers->count() > 0)
                 @livewire('users-list', ['users' => $followers])
             @else
@@ -69,7 +82,7 @@
             $following = $user->best_following;
         ?>
         <div class="ssnail-following">
-            <h2 class="font-semibold">Best following <span class="ssnail-refresh hidden"><a href="javascript:location.reload()"><i class="fas fa-rotate animate-pulse text-gray-500"></i></a></span></h2>
+            <h2 class="font-semibold">Best following <span class="ssnail-refresh hidden"><x-refresh-button /></span></h2>
             @if($following->count() > 0)
                 @livewire('users-list', ['users' => $following])
             @else
