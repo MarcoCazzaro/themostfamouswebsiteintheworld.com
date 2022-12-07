@@ -247,10 +247,14 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getGlobalRankingPosition($cache)
     {
-        $users_ids = $cache->most_famous_users_ids('people', 10000);
+        $users_ids = $cache->most_famous_users_ids('people', 1000);
         $position = $users_ids->search(function ($user, $key) {
             return $user->id === $this->id;
         });
-        return $position + 1;
+        if (is_numeric($position)) {
+            return humanNumber($position + 1);
+        } else {
+            return false;
+        }
     }
 }
