@@ -64,13 +64,16 @@ class CacheRepository {
 
     public function most_famous_users_ids($subjects, $take)
     {
-        return cache()->remember('most_famous_' . $take . '_' . $subjects . '_ids', self::CACHE_TTL_SECONDS, function () use ($subjects, $take) {
+        return [];
+
+        // SOMETHING WRONG HERE, MAYBE I CAN JUST USE DB
+        /*cache()->remember('most_famous_' . $take . '_' . $subjects . '_ids', self::CACHE_TTL_SECONDS, function () use ($subjects, $take) {
             if ($subjects === 'people') {
                 return User::select('id')->orderByFamousPointsReceived()->take($take)->get();
             } else {
                 return User::select('id')->orderByFamousPointsGiven()->take($take)->get();
             }
-        });
+        }); */
     }
 
     public function latest_users() {
