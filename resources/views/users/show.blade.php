@@ -42,7 +42,7 @@
             <div class="flex items-center">
                 <h2 class="font-semibold mr-4">Global ranking position</h2>
                 <div class="ssnail-grp rounded-full text-white bg-amber-500 text-2xl flex justify-center items-center font-bold w-14 h-14">
-                    {{ $user_ranking_position ?? 'n.a.' }}
+                    {{ $user_ranking_position ?? '' }}
                 </div>
             </div>
             <a class="float-right text-gray-500" href="{{ route('users.most-famous-people') }}"><span class="hidden md:inline">See full ranking</span> <i class="fas fa-arrow-right"></i></a>

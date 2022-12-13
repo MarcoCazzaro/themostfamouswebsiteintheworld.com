@@ -245,16 +245,16 @@ class User extends Authenticatable implements MustVerifyEmail
         $query->whereIn('type', [UserTypes::DUMMY->value, UserTypes::CELEB->value]);
     }
 
-    public function getGlobalRankingPosition($cache)
+    public function getGlobalRankingPosition($cache): string
     {
-        $users_ids = $cache->most_famous_users_ids('people', 1000);
+        $users_ids = $cache->most_famous_users_ids('people', 999);
         $position = $users_ids->search(function ($user, $key) {
             return $user->id === $this->id;
         });
         if (is_numeric($position)) {
             return humanNumber($position + 1);
         } else {
-            return false;
+            return "1k+";
         }
     }
 }
