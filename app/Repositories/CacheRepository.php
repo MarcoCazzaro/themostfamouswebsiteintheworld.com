@@ -30,7 +30,7 @@ class CacheRepository {
 
     private function most_famous_users_by_tag_id($tag_id, $type) {
         $join_sub_function = ($type == 'people') ? self::points_by_tag('user') : self::points_by_tag('sender');
-        return cache()->remember('most_famous_' . $type . '_by_tag_id' . $tag_id, self::CACHE_TTL_SECONDS, function () use ($tag_id, $join_sub_function) {
+        return cache()->remember('most_famous_' . $type . '_by_tag_id_' . $tag_id, self::CACHE_TTL_SECONDS, function () use ($tag_id, $join_sub_function) {
                 return User::select('users.*', 'points_by_tag.worship_amount')
                     ->whereHas('tags', function (Builder $query) use ($tag_id) {
                         $query->where('taggables.tag_id', $tag_id);
@@ -40,6 +40,7 @@ class CacheRepository {
                     })
                     ->where('points_by_tag.t_tag_id', $tag_id)
                     ->orderBy("points_by_tag.worship_amount", "desc")
+                    ->with('latestFamousPoints')
                     ->limit(5)->get();
             });
     }
@@ -56,9 +57,11 @@ class CacheRepository {
     {
         return cache()->remember('most_famous_' . $subjects, self::CACHE_TTL_SECONDS, function () use ($subjects) {
             if ($subjects === 'people') {
-                return User::orderByFamousPointsReceived()->take(13)->get();
+                return User::orderByFamousPointsReceived()->take(13)
+                    ->with('latestFamousPoints')->get();
             } else {
-                return User::orderByFamousPointsGiven()->take(13)->get();
+                return User::orderByFamousPointsGiven()->take(13)
+                    ->with('latestFamousPoints')->get();
             }
         });
     }
@@ -79,7 +82,8 @@ class CacheRepository {
 
     public function latest_users() {
         return cache()->remember('latest_users', self::CACHE_TTL_SECONDS, function () {
-            return User::orderBy('id', 'desc')->limit(12)->get();
+            return User::orderBy('id', 'desc')->limit(12)
+                    ->with('latestFamousPoints')->get();
         });
     }
 }

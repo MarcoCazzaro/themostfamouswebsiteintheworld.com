@@ -128,7 +128,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getTotalFamousPointsAttribute()
     {
-        $two_points_in_da_biski = $this->latestFamousPoints()->first();
+        $two_points_in_da_biski = $this->latestFamousPoints;
         if ($two_points_in_da_biski) {
             return $two_points_in_da_biski->brazorf;
         } else {
