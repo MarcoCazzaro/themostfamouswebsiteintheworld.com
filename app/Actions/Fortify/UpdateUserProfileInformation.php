@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 use App\Enums\UserInfoTypes;
+use Spatie\ResponseCache\Facades\ResponseCache;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
@@ -76,6 +77,8 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 ])->save();
             }
         }
+        ResponseCache::forget('/user/profile');
+        ResponseCache::forget('/users/' . $user->slug);
     }
 
     /**
