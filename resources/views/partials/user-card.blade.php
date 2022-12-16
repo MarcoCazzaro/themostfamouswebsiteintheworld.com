@@ -20,9 +20,9 @@
                 </header>
             @endif
             <div class="flex flex-row md:flex-col items-center w-full">
-                <img class="grow-0 shrink-0 mb-3 w-16 h-16 md:w-24 md:h-24 object-cover rounded-full border border-amber-300" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}">
+                <img class="grow-0 shrink-0 mb-3 w-16 h-16 md:w-24 md:h-24 object-cover rounded-full border border-amber-300" src="{{ $user->profile_photo_url }}" alt="{{ $user->nameWithYou }}">
                 <div class="ml-4 md:ml-0 text-left md:text-center grow">
-                    <h5 class="mb-1 text-lg font-medium text-gray-900 md:truncate w-auto md:w-40">{{ $user->name }}</h5>
+                    <h5 class="mb-1 text-lg font-medium text-gray-900 md:truncate w-auto md:w-40">{{ $user->nameWithYou }}</h5>
                     <div class="ssnail-points text-xs inline-flex items-center">
                         <span>{{ $user->total_famous_points }}</span>
                         <x-jet-application-logo class="inline h-3 w-auto ml-1" />

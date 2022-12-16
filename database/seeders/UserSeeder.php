@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use \App\Models\User;
+use \App\Models\UserInfo;
 use \App\Models\Tag;
 
 class UserSeeder extends Seeder
@@ -28,7 +29,8 @@ class UserSeeder extends Seeder
         for ($i=0; $i < 300; $i++) {
             $users = User::factory()
                 ->hasAttached($tags->random(5))
-            ->create();
+                ->has(UserInfo::factory()->count(3))
+                ->create();
         }
     }
 }

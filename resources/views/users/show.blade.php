@@ -8,7 +8,7 @@
                     </div>
                     <div>
                         <h1 class="font-semibold text-xl text-gray-800 leading-tight">
-                            {{ $user->name }}
+                            {{ $user->nameWithYou }}
                         </h1>
                         <x-tags-list :tags="$user->tags"></x-tags-list>
                         <div class="ssnail-points text-xs inline-flex items-center">
@@ -38,16 +38,28 @@
     </x-slot>
 
     <x-layout.container>
-        <div class="ssnail-global-ranking-position bg-amber-100 rounded-lg border border-amber-300 p-6 flex flex-wrap items-center justify-between">
-            <div class="flex items-center">
-                <h2 class="font-semibold mr-4">Global ranking position</h2>
-                <a href="{{ route('users.most-famous-people') }}">
-                    <div class="ssnail-grp rounded-full text-white bg-amber-500 text-2xl flex justify-center items-center font-bold w-14 h-14">
-                        {{ $user_ranking_position ?? '' }}
-                    </div>
-                </a>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="ssnail-global-ranking-position bg-amber-100 rounded-lg border border-amber-300 p-6 flex flex-wrap items-center justify-between">
+                <div class="flex items-center">
+                    <h2 class="font-semibold mr-4">Global ranking position</h2>
+                    <a href="{{ route('users.most-famous-people') }}">
+                        <div class="ssnail-grp rounded-full text-white bg-amber-500 text-2xl flex justify-center items-center font-bold w-14 h-14">
+                            {{ $user_ranking_position ?? '' }}
+                        </div>
+                    </a>
+                </div>
+                <a class="float-right text-gray-500" href="{{ route('users.most-famous-people') }}"><span class="hidden md:inline">See full ranking</span> <i class="fas fa-arrow-right"></i></a>
             </div>
-            <a class="float-right text-gray-500" href="{{ route('users.most-famous-people') }}"><span class="hidden md:inline">See full ranking</span> <i class="fas fa-arrow-right"></i></a>
+            <div class="bg-amber-100 rounded-lg border border-amber-300 p-6 flex flex-wrap items-center justify-start">
+                <h2 class="font-semibold mr-4">Social links</h2>
+                <div class="ssnail-social-links flex flex-wrap justify-center items-center">
+                    @foreach($user->socialLinks as $social)
+                        <a href="{{ $social->value }}" rel="noopener nofollow" target="_blank" class="text-amber-500 mr-4">
+                            <i class="fab fa-{{ $social->name }} fa-2x"></i>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </x-layout.container>
 
@@ -60,7 +72,7 @@
             @if($followers->count() > 0)
                 @livewire('users-list', ['users' => $followers])
             @else
-                <p class="py-4">{{ $user->name }} has no followers yet.</p>
+                <p class="py-4">{{ $user->nameWithYou }} has no followers yet.</p>
             @endif
         </div>
     </x-layout.container>
@@ -74,7 +86,7 @@
             @if($followers->count() > 0)
                 @livewire('users-list', ['users' => $followers])
             @else
-                <p class="py-4">{{ $user->name }} has no followers yet.</p>
+                <p class="py-4">{{ $user->nameWithYou }} has no followers yet.</p>
             @endif
         </div>
     </x-layout.container>
@@ -88,7 +100,7 @@
             @if($following->count() > 0)
                 @livewire('users-list', ['users' => $following])
             @else
-                <p class="py-4">{{ $user->name }} is not following anyone yet.</p>
+                <p class="py-4">{{ $user->nameWithYou }} is not following anyone yet.</p>
             @endif
         </div>
     </x-layout.container>

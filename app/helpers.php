@@ -13,3 +13,17 @@ if (!function_exists('humanNumber')) {
         return $human_readable->format($number);
     }
 }
+if (!function_exists('supportedSocialPlatforms')) {
+    function supportedSocialPlatforms() {
+        return ['youtube', 'twitter', 'facebook', 'instagram', 'tiktok', 'twitch', 'discord', 'pinterest', 'linkedin', 'reddit', 'stack-exchange'];
+    }
+}
+if (!function_exists('getSocialNameFromLink')) {
+    function getSocialNameFromLink($link) {
+        $filtered = array_filter(supportedSocialPlatforms(), function($item) use ($link) {
+            return (stripos($link, $item) !== false);
+        });
+        return array_pop($filtered);
+    }
+}
+

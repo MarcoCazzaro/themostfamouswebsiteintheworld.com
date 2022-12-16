@@ -6,8 +6,8 @@ use App\Actions\Jetstream\DeleteUser;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
 use Livewire;
-use App\Http\Livewire\CustomUpdateProfileInformationForm;
-use App\Http\Livewire\CustomUpdateTagsForm;
+use App\Http\Livewire\ProfileUpdateTagsForm;
+use App\Http\Livewire\ProfileUpdateSocialLinksForm;
 
 class JetstreamServiceProvider extends ServiceProvider
 {
@@ -32,7 +32,8 @@ class JetstreamServiceProvider extends ServiceProvider
 
         Jetstream::deleteUsersUsing(DeleteUser::class);
 
-        Livewire::component('profile.update-tags-form', CustomUpdateTagsForm::class);
+        Livewire::component('profile.update-tags-form', ProfileUpdateTagsForm::class);
+        Livewire::component('profile.update-social-links-form', ProfileUpdateSocialLinksForm::class);
 
     }
 

@@ -15,6 +15,7 @@ use App\Traits\HasTags;
 use Spatie\Permission\Traits\HasRoles;
 use Lab404\Impersonate\Models\Impersonate;
 use App\Enums\UserTypes;
+use App\Enums\UserInfoTypes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 //TODO: SOFT DELETE
@@ -109,10 +110,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return route('users.show', ['user' => $this]);
     }
 
-    protected function name(): Attribute
+    protected function nameWithYou(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => $value . (((auth()->id() ?? false) === $attributes['id']) ? ' (' . __('You') . ')' : '')
+            get: fn ($value, $attributes) => $this->name . (((auth()->id() ?? false) === $attributes['id']) ? ' (' . __('You') . ')' : '')
         );
     }
 
@@ -256,5 +257,15 @@ class User extends Authenticatable implements MustVerifyEmail
         } else {
             return "1k+";
         }
+    }
+
+    public function infos()
+    {
+        return $this->hasMany(UserInfo::class);
+    }
+
+    public function socialLinks()
+    {
+        return $this->infos()->where('type', UserInfoTypes::SOCIAL);
     }
 }
