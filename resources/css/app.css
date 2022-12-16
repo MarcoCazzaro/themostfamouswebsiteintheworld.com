@@ -20,6 +20,5 @@
   }
   h6 {
     @apply text-xs;
-    color: #fff;
   }
 }
