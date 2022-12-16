@@ -13,7 +13,17 @@
     />
 </noscript>
 <?php
-	$prefetch_urls = ['users.most-famous-people', 'users.most-famous-fans', 'dashboard', 'profile.show'];
+    $prefetch_urls = ['users.most-famous-people', 'users.most-famous-fans', 'dashboard', 'profile.show'];
     $url_type = 'route';
 ?>
 @include('partials.prefetch-urls', compact('prefetch_urls', 'url_type'))
+<?php
+    $prefetch_urls = [
+        route('users.show', ['user' => auth()->user() ]),
+    ];
+    $url_type = 'url';
+?>
+@include('partials.prefetch-urls', compact('prefetch_urls', 'url_type'))
+
+
+
