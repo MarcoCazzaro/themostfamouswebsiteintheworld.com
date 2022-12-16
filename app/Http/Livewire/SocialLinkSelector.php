@@ -33,6 +33,6 @@ class SocialLinkSelector extends Component
     }
 
     public function refreshLink($socialLinks) {
-        $this->socialLink = $socialLinks[$this->linkIndex];
+        $this->socialLink = $socialLinks[$this->linkIndex] ?? null;
     }
 }
