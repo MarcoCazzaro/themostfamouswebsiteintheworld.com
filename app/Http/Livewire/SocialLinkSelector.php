@@ -32,7 +32,11 @@ class SocialLinkSelector extends Component
         return view('livewire.social-link-selector');
     }
 
-    public function refreshLink($socialLinks) {
-        $this->socialLink = $socialLinks[$this->linkIndex] ?? null;
+    public function refreshLink($socialLinks = null) {
+        if ($socialLinks && isset($socialLinks[$this->linkIndex ?? -1])) {
+            $this->socialLink = $socialLinks[$this->linkIndex];
+        } else {
+            $this->socialLink = null;
+        }
     }
 }
