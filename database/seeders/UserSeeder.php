@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
         for ($i=0; $i < 300; $i++) {
             $users = User::factory()
                 ->hasAttached($tags->random(5))
-                ->has(UserInfo::factory()->count(3))
+                ->has(UserInfo::factory()->count(3), 'socialLinks')
                 ->create();
         }
     }

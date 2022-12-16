@@ -21,7 +21,7 @@ class UserInfoFactory extends Factory
         return [
             'user_id' => User::factory(),
             'type' => UserInfoTypes::SOCIAL,
-            'name' => $faker->randomElement(supportedSocialPlatforms()),
+            'name' => $this->faker->randomElement(supportedSocialPlatforms()),
             'value' => url(\Str::random(31)),
         ];
     }
