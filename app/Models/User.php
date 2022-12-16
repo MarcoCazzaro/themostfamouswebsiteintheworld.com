@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Sluggable\HasSlug; //https://github.com/spatie/laravel-sluggable
 use Spatie\Sluggable\SlugOptions;
 use App\Traits\HasTags;
+use App\Traits\ClearsResponseCache; //https://github.com/spatie/laravel-responsecache
 use Spatie\Permission\Traits\HasRoles;
 use Lab404\Impersonate\Models\Impersonate;
 use App\Enums\UserTypes;
