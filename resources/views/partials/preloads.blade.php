@@ -17,13 +17,14 @@
     $url_type = 'route';
 ?>
 @include('partials.prefetch-urls', compact('prefetch_urls', 'url_type'))
-<?php
-    $prefetch_urls = [
-        route('users.show', ['user' => auth()->user() ]),
-    ];
-    $url_type = 'url';
-?>
-@include('partials.prefetch-urls', compact('prefetch_urls', 'url_type'))
-
+@auth()
+    <?php
+        $prefetch_urls = [
+            route('users.show', ['user' => auth()->user() ]),
+        ];
+        $url_type = 'url';
+    ?>
+    @include('partials.prefetch-urls', compact('prefetch_urls', 'url_type'))
+@endauth
 
 
