@@ -7,7 +7,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Spatie\ResponseCache\Facades\ResponseCache;
 use Illuminate\Support\Facades\Auth;
 
-class ClearUserResponseCache implements ShouldQueue
+class ClearUserResponseCache
 {
     /**
      * Create the event listener.
