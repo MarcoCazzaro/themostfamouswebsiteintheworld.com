@@ -50,7 +50,7 @@
                 </div>
                 <a class="float-right text-gray-500" href="{{ route('users.most-famous-people') }}"><span class="hidden md:inline">See full ranking</span> <i class="fas fa-arrow-right"></i></a>
             </div>
-            <div class="bg-amber-100 rounded-lg border border-amber-300 p-6 flex flex-wrap items-center justify-start">
+            <div class="bg-amber-100 rounded-lg border border-amber-300 p-6 flex flex-wrap items-center justify-between">
                 <h2 class="font-semibold mr-4">Social links</h2>
                 <div class="ssnail-social-links flex flex-wrap justify-center items-center">
                     @foreach($user->socialLinks as $social)

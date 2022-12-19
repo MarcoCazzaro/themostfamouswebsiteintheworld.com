@@ -1,8 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <h1 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h1>
+        <div class="flex justify-between">
+            <h1 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Profile') }}
+            </h1>
+            <div class="h-100 flex flex-col text-amber-500">
+                <a href="{{ route('users.show', ['user' => auth()->user() ]) }}">{{ __('View your profile') }} <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
     </x-slot>
 
     <div>

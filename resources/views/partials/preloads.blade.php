@@ -13,7 +13,7 @@
     />
 </noscript>
 <?php
-    $prefetch_urls = ['users.most-famous-people', 'users.most-famous-fans', 'dashboard', 'profile.show'];
+    $prefetch_urls = ['users.most-famous-people', 'users.most-famous-fans', 'dashboard', 'profile.show', 'search'];
     $url_type = 'route';
 ?>
 @include('partials.prefetch-urls', compact('prefetch_urls', 'url_type'))
