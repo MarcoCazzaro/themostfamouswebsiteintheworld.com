@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Events\StatusNew;
+use App\Events\StatusEdit;
+use App\Events\StatusDelete;
 
 class Status extends Model
 {
@@ -16,6 +19,12 @@ class Status extends Model
     ];
 
     protected $touches = ['user'];
+
+    protected $dispatchesEvents = [
+        'created' => StatusNew::class,
+        'updated' => StatusEdit::class,
+        'deleting' => StatusDelete::class,
+    ];
 
     public function user()
     {

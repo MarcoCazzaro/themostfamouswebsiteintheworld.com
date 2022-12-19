@@ -98,7 +98,8 @@ class StatusController extends Controller
     public function destroy(Status $status)
     {
         $this->authorize('delete', $status);
+        $user = $status->user;
         $status->delete();
-        return redirect(route('users.show', auth()->user()));
+        return redirect(route('users.show', $user));
     }
 }
