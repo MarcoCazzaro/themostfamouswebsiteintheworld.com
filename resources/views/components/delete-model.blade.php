@@ -1,5 +1,5 @@
 @php($form_id = uniqid('ssnailDeleteForm'))
-<form x-data="" id="{{ $form_id }}" x-ref="{{ $form_id }}" method="POST" action="{{ route(array_key_first($attributes->getAttributes()) . 's.destroy', $attributes->first()) }}" enctype="multipart/form-data">
+<form x-data="" id="{{ $form_id }}" x-ref="{{ $form_id }}" method="POST" action="{{ route(\Str::plural(array_key_first($attributes->getAttributes())) . '.destroy', $attributes->first()) }}" enctype="multipart/form-data">
     @csrf
     {{ method_field('DELETE') }}
 

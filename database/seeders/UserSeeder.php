@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use \App\Models\User;
 use \App\Models\UserInfo;
 use \App\Models\Tag;
+use \App\Models\Status;
 
 class UserSeeder extends Seeder
 {
@@ -30,6 +31,7 @@ class UserSeeder extends Seeder
             $users = User::factory()
                 ->hasAttached($tags->random(5))
                 ->has(UserInfo::factory()->count(3), 'socialLinks')
+                ->has(Status::factory()->count(1))
                 ->create();
         }
     }

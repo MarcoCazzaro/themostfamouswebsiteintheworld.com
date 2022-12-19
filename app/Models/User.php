@@ -269,4 +269,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->infos()->where('type', UserInfoTypes::SOCIAL);
     }
+
+    public function statuses()
+    {
+        return $this->hasMany(Status::class);
+    }
+
+    public function lastStatus()
+    {
+        return $this->hasOne(Status::class)->latest('updated_at');
+    }
 }

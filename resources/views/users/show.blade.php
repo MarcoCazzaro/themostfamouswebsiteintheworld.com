@@ -38,8 +38,8 @@
     </x-slot>
 
     <x-layout.container>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="ssnail-global-ranking-position bg-amber-100 rounded-lg border border-amber-300 p-6 flex flex-wrap items-center justify-between">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="ssnail-global-ranking-position bg-white rounded-lg border p-6 flex flex-wrap items-center justify-between">
                 <div class="flex items-center">
                     <h2 class="font-semibold mr-4">Global ranking position</h2>
                     <a href="{{ route('users.most-famous-people') }}">
@@ -50,7 +50,7 @@
                 </div>
                 <a class="float-right text-gray-500" href="{{ route('users.most-famous-people') }}"><span class="hidden md:inline">See full ranking</span> <i class="fas fa-arrow-right"></i></a>
             </div>
-            <div class="bg-amber-100 rounded-lg border border-amber-300 p-6 flex flex-wrap items-center justify-between">
+            <div class="bg-white rounded-lg border p-6 flex flex-wrap items-center justify-between">
                 <h2 class="font-semibold mr-4">Social links</h2>
                 <div class="ssnail-social-links flex flex-wrap justify-center items-center">
                     @foreach($user->socialLinks as $social)
@@ -58,6 +58,21 @@
                             <i class="fab fa-{{ $social->name }} fa-2x"></i>
                         </a>
                     @endforeach
+                </div>
+            </div>
+            <div class="bg-white rounded-lg border p-6 col-span-1 md:col-span-2">
+                <h2 class="font-semibold mr-4">Status</h2>
+                <div class="ssnail-user-status">
+                    @if($user->has('lastStatus') && !is_null($user->lastStatus))
+                        {{ $user->lastStatus->body }}
+                        @if($user->id === auth()->user()->id)
+                            <p class="text-right"><a href="{{ route('statuses.create') }}" class="text-amber-500"><i class="fas fa-pen-to-square"></i> {{ __('Edit Status') }}</a><p>
+                        @endcan
+                    @else
+                        @if($user->id === auth()->user()->id)
+                            <p>{{ __('Click here to add a status:') }} <a href="{{ route('statuses.create') }}" class="text-amber-500"><i class="fas fa-plus"></i> {{ __('Add Status') }}</a></p>
+                        @endcan
+                    @endif
                 </div>
             </div>
         </div>
