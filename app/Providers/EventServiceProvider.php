@@ -6,10 +6,13 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use App\Listeners\ClearUserResponseCache;
 use App\Events\StatusNew;
 use App\Events\StatusEdit;
 use App\Events\StatusDelete;
-use App\Listeners\ClearUserResponseCache;
+use App\Events\UserInfoNew;
+use App\Events\UserInfoEdit;
+use App\Events\UserInfoDelete;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -30,7 +33,16 @@ class EventServiceProvider extends ServiceProvider
         ],
         StatusDelete::class => [
             ClearUserResponseCache::class
-        ]
+        ],
+        UserInfoNew::class => [
+            ClearUserResponseCache::class
+        ],
+        UserInfoEdit::class => [
+            ClearUserResponseCache::class
+        ],
+        UserInfoDelete::class => [
+            ClearUserResponseCache::class
+        ],
     ];
 
     /**

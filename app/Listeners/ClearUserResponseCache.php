@@ -27,8 +27,11 @@ class ClearUserResponseCache
      */
     public function handle($event)
     {
-        Auth::setUser($event->status->user);
-        ResponseCache::forget('/user/profile');
-        ResponseCache::forget('/users/' . $event->status->user->slug);
+        $user = $event->status->user ?? $event->user_info->user ?? false;
+        if ($user) {
+            Auth::setUser($user);
+            ResponseCache::forget('/user/profile');
+            ResponseCache::forget('/users/' . $user->slug);
+        }
     }
 }

@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\UserInfoTypes;
+use App\Events\UserInfoNew;
+use App\Events\UserInfoEdit;
+use App\Events\UserInfoDelete;
 
 class UserInfo extends Model
 {
@@ -20,6 +23,12 @@ class UserInfo extends Model
 
     protected $casts = [
         'type' => UserInfoTypes::class,
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => UserInfoNew::class,
+        'updated' => UserInfoEdit::class,
+        'deleting' => UserInfoDelete::class,
     ];
 
     public function user()
