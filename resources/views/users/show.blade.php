@@ -66,7 +66,7 @@
                     @if($user->has('lastStatus') && !is_null($user->lastStatus))
                         {{ $user->lastStatus->body }}
                         @if($user->id === auth()->user()->id)
-                            <p class="text-right"><a href="{{ route('statuses.create') }}" class="text-amber-500"><i class="fas fa-pen-to-square"></i> {{ __('Edit Status') }}</a><p>
+                            <p class="text-right"><a href="{{ route('statuses.edit', $status) }}" class="text-amber-500"><i class="fas fa-pen-to-square"></i> {{ __('Edit Status') }}</a><p>
                         @endcan
                     @else
                         @if($user->id === auth()->user()->id)
