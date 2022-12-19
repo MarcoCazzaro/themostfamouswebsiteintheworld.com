@@ -16,6 +16,8 @@ class UserInfo extends Model
         'value',
     ];
 
+    protected $touches = ['user'];
+
     protected $casts = [
         'type' => UserInfoTypes::class,
     ];

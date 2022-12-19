@@ -15,6 +15,8 @@ class Status extends Model
         'body',
     ];
 
+    protected $touches = ['user'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
