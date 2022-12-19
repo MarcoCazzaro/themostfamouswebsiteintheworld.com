@@ -46,7 +46,7 @@ class StatusController extends Controller
         $status = auth()->user()->statuses()->create([
             'body' => $validated['body'],
         ]);
-        return redirect(route('users.show', auth()->user()));
+        return redirect(route('users.show', auth()->user()) . '?refresh=' . now()->timestamp);
     }
 
     /**
@@ -86,7 +86,7 @@ class StatusController extends Controller
         $status->update([
             'body' => $validated['body'],
         ]);
-        return redirect(route('users.show', auth()->user()));
+        return redirect(route('users.show', auth()->user()) . '?refresh=' . now()->timestamp);
     }
 
     /**
@@ -100,6 +100,6 @@ class StatusController extends Controller
         $this->authorize('delete', $status);
         $user = $status->user;
         $status->delete();
-        return redirect(route('users.show', $user));
+        return redirect(route('users.show', $user) . '?refresh=' . now()->timestamp);
     }
 }
