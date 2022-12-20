@@ -211,7 +211,7 @@
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
 
-                <x-jet-responsive-nav-link href="{{ route('users.show', auth()->user()) }}" :active="request()->routeIs('users.show', auth()->user())">
+                <x-jet-responsive-nav-link href="{{ route('users.show', auth()->user()) }}" :active="request()->fullUrlIs(route('users.show', auth()->user()))">
                     {{ __('View your profile') }}
                 </x-jet-responsive-nav-link>
 
