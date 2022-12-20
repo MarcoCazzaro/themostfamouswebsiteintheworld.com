@@ -199,7 +199,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $users_count = FamousPoint::selectRaw('COUNT(DISTINCT(sender_id)) as counter')
             ->where('user_id', $this->id)
             ->first();
-        return $users_count->counter;
+        return humanNumber($users_count->counter);
     }
 
     public function getBestFollowingAttribute()
@@ -222,7 +222,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $users_count = FamousPoint::selectRaw('COUNT(DISTINCT(user_id)) as counter')
             ->where('sender_id', $this->id)
             ->first();
-        return $users_count->counter;
+        return humanNumber($users_count->counter);
     }
 
     protected function defaultProfilePhotoUrl()
