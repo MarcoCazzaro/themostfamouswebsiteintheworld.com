@@ -12,7 +12,7 @@
                         </h1>
                         <x-tags-list :tags="$user->tags"></x-tags-list>
                         <div class="ssnail-points text-xs inline-flex items-center">
-                            <span>{{ $user->total_famous_points }}</span>
+                            <span>{{ $user->total_famous_points_human }}</span>
                             <x-jet-application-logo class="inline h-3 w-auto ml-1" />
                         </div>
                     </div>

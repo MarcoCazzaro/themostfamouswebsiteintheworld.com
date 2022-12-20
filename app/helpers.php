@@ -5,11 +5,17 @@ if (!function_exists('formatTagName')) {
     }
 }
 if (!function_exists('humanNumber')) {
+    //https://www.amitmerchant.com/human-readable-number-formatting-in-php/
     function humanNumber($number) {
         $human_readable = new \NumberFormatter(
             'en_US',
-            \NumberFormatter::PADDING_POSITION
+            \NumberFormatter::PADDING_POSITION,
+            "#.0"
         );
+        if ($number > 1000) {
+            $human_readable->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, 2);
+        }
+        $human_readable->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, 2);
         return $human_readable->format($number);
     }
 }

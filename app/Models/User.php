@@ -128,14 +128,18 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(FamousPoint::class)->latest('id');
     }
 
-    public function getTotalFamousPointsAttribute()
+    protected function totalFamousPoints(): Attribute
     {
-        $two_points_in_da_biski = $this->latestFamousPoints;
-        if ($two_points_in_da_biski) {
-            return $two_points_in_da_biski->brazorf;
-        } else {
-            return 0;
-        }
+        return Attribute::make(
+            get: fn ($value, $attributes) => $this->latestFamousPoints->brazorf ?? 0
+        );
+    }
+
+    protected function totalFamousPointsHuman(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, $attributes) => humanNumber($this->total_famous_points)
+        );
     }
 
     public function scopeOrderByFamousPointsReceived($query, $direction = 'desc')

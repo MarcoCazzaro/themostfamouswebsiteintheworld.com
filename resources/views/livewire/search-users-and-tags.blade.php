@@ -45,7 +45,7 @@
                                     <td>
                                         @if($is_user)
                                             <div class="ssnail-points text-xs inline-flex items-center justify-end w-full">
-                                                <span>{{ $found_object->total_famous_points }}</span>
+                                                <span>{{ $found_object->total_famous_points_human }}</span>
                                                 <x-jet-application-logo class="inline h-3 w-auto ml-1" />
                                             </div>
                                         @endif
