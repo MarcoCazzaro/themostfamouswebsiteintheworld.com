@@ -22,3 +22,19 @@
     @apply text-xs;
   }
 }
+
+.ssnail-user-status ul,
+.ssnail-wysiwyg-editor ul {
+    padding-left: 1.3rem;
+}
+.ssnail-user-status ul li,
+.ssnail-wysiwyg-editor ul li {
+    list-style-type: circle
+}
+.ssnail-wysiwyg-editor .trix-button-row .trix-button-group--file-tools {
+    display: none;
+}
+.ssnail-user-status a,
+.ssnail-wysiwyg-editor a {
+    text-decoration: underline;
+}

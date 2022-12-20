@@ -24,7 +24,7 @@
                                         @endif
                                         {{ $status->updated_at->toDateTimeString() }}
                                     </div>
-                                    {{ $status->body }}
+                                    {{ $status->excerpt }}
                                 </div>
                                 <div class="ssnail-actions ml-4 w-18">
                                     <a href="{{ route('statuses.edit', $status ?? null) }}" class="mr-3 text-amber-500"><i class="fas fa-pen-to-square"></i> {{ __('Edit') }}</a>

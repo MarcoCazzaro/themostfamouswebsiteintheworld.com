@@ -64,7 +64,7 @@
                 <h2 class="font-semibold mr-4">Status</h2>
                 <div class="ssnail-user-status">
                     @if($user->has('lastStatus') && !is_null($user->lastStatus))
-                        {{ $user->lastStatus->body }}
+                        {!! $user->lastStatus->body !!}
                         @if($user->id === auth()->user()->id)
                             <p class="text-right"><a href="{{ route('statuses.index') }}" class="text-amber-500"><i class="fas fa-pen-to-square"></i> {{ __('Edit Status') }}</a><p>
                         @endcan

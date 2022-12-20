@@ -37,4 +37,11 @@ class Status extends Model
             get: fn ($value, $attributes) => $this->id === $this->user->lastStatus->id
         );
     }
+
+    protected function excerpt(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, $attributes) => \Str::limit(strip_tags($this->body), 50)
+        );
+    }
 }
