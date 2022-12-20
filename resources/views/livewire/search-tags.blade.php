@@ -24,6 +24,11 @@
                             />
                     </div>
                 </div>
+                <div wire:loading.delay>
+                    <div class="text-center text-gray-400">
+                        <i class="fas fa-rotate animate-spin"></i>
+                    </div>
+                </div>
                 <div class="ssnail-tags flex flex-wrap">
                     <table class="table-auto border-separate border-spacing-2 w-full" wire:loading.class="animate-pulse">
                         <tbody>

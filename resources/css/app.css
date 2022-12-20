@@ -31,10 +31,16 @@
 .ssnail-wysiwyg-editor ul li {
     list-style-type: circle
 }
-.ssnail-wysiwyg-editor .trix-button-row .trix-button-group--file-tools {
+.ssnail-wysiwyg-editor .trix-button-row .trix-button-group--file-tools,
+.ssnail-wysiwyg-editor .trix-button-row .trix-button--icon-code {
     display: none;
 }
 .ssnail-user-status a,
 .ssnail-wysiwyg-editor a {
     text-decoration: underline;
+}
+.ssnail-user-status blockquote,
+.ssnail-wysiwyg-editor blockquote {
+    border-left: 3px solid #ccc;
+    padding-left: 0.5rem;
 }

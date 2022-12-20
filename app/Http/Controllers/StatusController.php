@@ -9,6 +9,8 @@ use App\Models\User;
 
 class StatusController extends Controller
 {
+    // BODY PURIFIER: https://github.com/mewebstudio/Purifier
+
     /**
      * Display a listing of the resource.
      *
@@ -44,7 +46,7 @@ class StatusController extends Controller
     {
         $validated = $request->validated();
         $status = auth()->user()->statuses()->create([
-            'body' => $validated['body'],
+            'body' => clean($validated['body']),
         ]);
         return redirect(route('users.show', auth()->user()) . '?refresh=' . now()->timestamp);
     }
@@ -84,7 +86,7 @@ class StatusController extends Controller
     {
         $validated = $request->validated();
         $status->update([
-            'body' => $validated['body'],
+            'body' => clean($validated['body']),
         ]);
         return redirect(route('users.show', auth()->user()) . '?refresh=' . now()->timestamp);
     }
