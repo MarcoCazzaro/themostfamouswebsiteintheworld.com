@@ -117,4 +117,13 @@ class UserController extends Controller
         RecountUserPoints::dispatchSync($user);
         return redirect($user->url);
     }
+
+    public function suggest(User $user)
+    {
+        if (auth()->check()) {
+            return redirect(route('users.show', $user));
+        } else {
+            return view('users.suggest', compact('user'));
+        }
+    }
 }

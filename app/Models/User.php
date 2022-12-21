@@ -283,4 +283,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Status::class)->latest('updated_at');
     }
+
+    public function options()
+    {
+        return $this->hasMany(UserOption::class);
+    }
 }

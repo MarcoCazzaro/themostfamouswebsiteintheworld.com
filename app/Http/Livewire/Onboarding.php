@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Http\Livewire;
+
+use Livewire\Component;
+
+class Onboarding extends Component
+{
+    public $shown;
+
+    public function mount()
+    {
+        $this->shown = filter_var(getUserOption('onboarding.shown'), FILTER_VALIDATE_BOOLEAN);
+    }
+
+    public function render()
+    {
+        return view('livewire.onboarding');
+    }
+
+    public function okGotIt()
+    {
+        setUserOption('onboarding.shown', 1);
+    }
+}

@@ -23,6 +23,8 @@
   }
 }
 
+[x-cloak] { display: none !important; }
+
 .ssnail-user-status ul,
 .ssnail-wysiwyg-editor ul {
     padding-left: 1.3rem;

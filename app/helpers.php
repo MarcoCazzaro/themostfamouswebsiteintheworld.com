@@ -32,4 +32,22 @@ if (!function_exists('getSocialNameFromLink')) {
         return array_pop($filtered);
     }
 }
-
+if (!function_exists('getUserOption')) {
+    function getUserOption($name) {
+        $result = null;
+        $option = auth()->user()->options()->where('name', $name)->first();
+        if ($option) {
+            $result = $option->value;
+        }
+        return $result;
+    }
+}
+if (!function_exists('setUserOption')) {
+    function setUserOption($name, $value) {
+        auth()->user()->options()->updateOrCreate(
+            ['name' => $name],
+            ['value' => $value]
+        );
+        return true;
+    }
+}
