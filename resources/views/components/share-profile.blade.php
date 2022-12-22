@@ -3,7 +3,7 @@
         <?php
             $url = route('suggest', auth()->user());
             $title = sprintf(__("Check out %s's page on The Most Famous Website In The World "), auth()->user()->name);
-            $via = "The Most Famous Website In The World";
+            $via = "TheMostFamousWebsiteInTheWorld";
         ?>
         <div class="ssnail-share-buttons flex py-3 justify-center text-amber-500">
             <div class="mx-3">
