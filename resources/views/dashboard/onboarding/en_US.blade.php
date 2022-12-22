@@ -21,8 +21,3 @@
     <h3 class="font-semibold">The Most Famous Fans</h3>
     <p>The same rules apply to fans as well: when you give famous points to a person, you also appear on their followers section, and you are listed in the <a href="{{ route('users.most-famous-fans') }}" target="_blank" class="text-amber-500 font-bold">Most Famous Fans</a> page and in each tags' ranking section.</p>
 </section>
-<section class="mt-8">
-    <h3 class="font-semibold">Share the ❤️</h3>
-    <p>To increase your famous points, you can drive traffic from your social media platforms by sharing your profile page:</p>
-    <x-share-profile />
-</section>
