@@ -253,14 +253,29 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getGlobalRankingPosition($cache): string
     {
-        $users_ids = $cache->most_famous_users_ids('people', 999);
-        $position = $users_ids->search(function ($user, $key) {
+        $users = $cache->most_famous_users('people', 999);
+        $position = $users->search(function ($user, $key) {
             return $user->id === $this->id;
         });
         if (is_numeric($position)) {
             return humanNumber($position + 1);
         } else {
             return "1k+";
+        }
+    }
+
+    public function getTagRankingPosition($tag_id, $cache): string
+    {
+        $users = $cache->most_famous_people_by_tag_id($tag_id, 100);
+        $ajeje = $users->pluck('slug');
+        // \Log::info("Tag [" . $tag_id . "] ranking:", compact('ajeje'));
+        $position = $users->search(function ($user, $key) {
+            return $user->id === $this->id;
+        });
+        if (is_numeric($position)) {
+            return humanNumber($position + 1);
+        } else {
+            return "100+";
         }
     }
 

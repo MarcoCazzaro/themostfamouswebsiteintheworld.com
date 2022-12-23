@@ -1,4 +1,4 @@
-<div class="ssnail-share-profile my-4">
+<div class="ssnail-share-profile">
     @auth()
         <?php
             $url = route('suggest', auth()->user());
@@ -7,16 +7,16 @@
         ?>
         <div class="ssnail-share-buttons flex py-3 justify-center text-amber-500">
             <div class="mx-3">
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}" target="_blank"><i class="fab fa-facebook-f fa-lg"></i></a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}" target="_blank"><i class="fab fa-facebook-f fa-xl"></i></a>
             </div>
             <div class="mx-3">
-                <a target="_blank" href="https://twitter.com/intent/tweet?text=<?= $title ?>&url={{ $url }}&via=<?= $via ?>"><i class="fab fa-twitter fa-lg"></i></a>
+                <a target="_blank" href="https://twitter.com/intent/tweet?text=<?= $title ?>&url={{ $url }}&via=<?= $via ?>"><i class="fab fa-twitter fa-xl"></i></a>
             </div>
             <div class="mx-3">
-                <a target="_blank" href="http://www.reddit.com/submit?url={{ $url }}"><i class="fab fa-reddit fa-lg"></i></a>
+                <a target="_blank" href="http://www.reddit.com/submit?url={{ $url }}"><i class="fab fa-reddit fa-xl"></i></a>
             </div>
             <div class="mx-3">
-                <a target="_blank" href="https://api.whatsapp.com/send?&text={{ $url }}"><i class="fab fa-whatsapp fa-lg"></i></a>
+                <a target="_blank" href="https://api.whatsapp.com/send?&text={{ $url }}"><i class="fab fa-whatsapp fa-xl"></i></a>
             </div>
         </div>
     @endauth

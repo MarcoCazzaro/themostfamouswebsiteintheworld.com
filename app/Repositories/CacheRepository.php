@@ -28,10 +28,10 @@ class CacheRepository {
                 ->groupBy('t_user_id', 't_tag_id');
     }
 
-    private function most_famous_users_by_tag_id($tag_id, $type) {
+    private function most_famous_users_by_tag_id($tag_id, $type, $limit = 5) {
         $join_sub_function = ($type == 'people') ? self::points_by_tag('user') : self::points_by_tag('sender');
-        return cache()->remember('most_famous_' . $type . '_by_tag_id_' . $tag_id, self::CACHE_TTL_SECONDS, function () use ($tag_id, $join_sub_function) {
-                return User::select('users.*', 'points_by_tag.worship_amount')
+        return cache()->remember('most_famous_' . $type . '_by_tag_id_' . $tag_id . '_limit_' . $limit, self::CACHE_TTL_SECONDS, function () use ($tag_id, $join_sub_function, $limit) {
+                return User::select('users.id', 'users.name', 'users.profile_photo_path', 'users.slug', 'users.type', 'points_by_tag.worship_amount')
                     ->whereHas('tags', function (Builder $query) use ($tag_id) {
                         $query->where('taggables.tag_id', $tag_id);
                     })
@@ -41,12 +41,12 @@ class CacheRepository {
                     ->where('points_by_tag.t_tag_id', $tag_id)
                     ->orderBy("points_by_tag.worship_amount", "desc")
                     ->with('latestFamousPoints')
-                    ->limit(5)->get();
+                    ->limit($limit)->get();
             });
     }
 
-    public function most_famous_people_by_tag_id($tag_id) {
-        return self::most_famous_users_by_tag_id($tag_id, 'people');
+    public function most_famous_people_by_tag_id($tag_id, $limit = 5) {
+        return self::most_famous_users_by_tag_id($tag_id, 'people', $limit);
     }
 
     public function most_famous_fans_by_tag_id($tag_id) {

@@ -3,6 +3,7 @@
     <h2 class="font-semibold mb-4">What is The Most Famous Website In The World?</h2>
     <p>It's a website where users are ranked by their popularity.</p>
     <p>Every time you visit a user's profile page, let's say <a href="{{ $gE->url ?? '' }}" target="_blank" class="text-amber-500 font-bold">mine</a>, you can see a progress bar on the bottom of the page. Once the progress is 100%, a famous point <x-jet-application-logo class="inline h-3 w-auto" /> is given to this person.</p>
+    <p class="font-semibold">The more points you have, the more famous you are.</p>
     <div class="my-8">
         <div class="bg-white shadow w-full h-64 sm:h-48">
             <div class="max-w-7xl mx-auto py-3 px-6 lg:px-8">
@@ -10,7 +11,6 @@
             </div>
         </div>
     </div>
-    <p class="font-semibold">The more points you have, the more famous you are.</p>
 </section>
 <section class="mt-8">
     <h3 class="font-semibold">The Most Famous People</h3>

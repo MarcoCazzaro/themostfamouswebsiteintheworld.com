@@ -8,7 +8,7 @@
         <br>
         {{ __("Lists can be anything you want to be recognised for: countries, sports, themes, interests, etc.") }}
         <br>
-        {{ __("E.g. if you are Elon Musk, you could add \"billionare\" tag.") }}
+        {{ __("E.g. if you are Elon Musk, you could add \"billionaire\" tag.") }}
     </x-slot>
 
     <x-slot name="form">
