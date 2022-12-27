@@ -77,6 +77,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 ])->save();
             }
         }
+        ResponseCache::forget('/dashboard');
         ResponseCache::forget('/user/profile');
         ResponseCache::forget('/users/' . $user->slug);
     }

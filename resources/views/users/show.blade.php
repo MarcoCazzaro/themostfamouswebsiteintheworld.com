@@ -83,7 +83,7 @@
             $followers = $user->best_followers;
         ?>
         <div class="ssnail-followers best">
-            <h2 class="font-semibold">Best followers <span class="ssnail-refresh hidden"><x-refresh-button /></span></h2>
+            <h2 class="font-semibold">Best fans <span class="ssnail-refresh hidden"><x-refresh-button /></span></h2>
             @if($followers->count() > 0)
                 @livewire('users-list', ['users' => $followers])
             @else
@@ -97,7 +97,7 @@
             $followers = $user->latest_followers;
         ?>
         <div class="ssnail-followers latest">
-            <h2 class="font-semibold">Latest followers <span class="ssnail-refresh hidden"><x-refresh-button /></span></h2>
+            <h2 class="font-semibold">Latest fans <span class="ssnail-refresh hidden"><x-refresh-button /></span></h2>
             @if($followers->count() > 0)
                 @livewire('users-list', ['users' => $followers])
             @else

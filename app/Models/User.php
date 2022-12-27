@@ -268,7 +268,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $users = $cache->most_famous_people_by_tag_id($tag_id, 100);
         $ajeje = $users->pluck('slug');
-        // \Log::info("Tag [" . $tag_id . "] ranking:", compact('ajeje'));
         $position = $users->search(function ($user, $key) {
             return $user->id === $this->id;
         });

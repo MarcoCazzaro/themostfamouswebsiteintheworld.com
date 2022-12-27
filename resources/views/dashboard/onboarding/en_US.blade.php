@@ -19,5 +19,5 @@
 </section>
 <section class="mt-8">
     <h3 class="font-semibold">The Most Famous Fans</h3>
-    <p>The same rules apply to fans as well: when you give famous points to a person, you also appear on their followers section, and you are listed in the <a href="{{ route('users.most-famous-fans') }}" target="_blank" class="text-amber-500 font-bold">Most Famous Fans</a> page and in each tags' ranking section.</p>
+    <p>The same rules apply to fans as well: when you give famous points to a person, you also appear on their fans section, and you are listed in the <a href="{{ route('users.most-famous-fans') }}" target="_blank" class="text-amber-500 font-bold">Most Famous Fans</a> page and in each tags' ranking section.</p>
 </section>
