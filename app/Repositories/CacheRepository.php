@@ -65,10 +65,10 @@ class CacheRepository
     {
         return cache()->remember('most_famous_'.$subjects, self::CACHE_TTL_SECONDS, function () use ($subjects) {
             if ($subjects === 'people') {
-                return User::orderByFamousPointsReceived()->take(113)
+                return User::orderByFamousPointsReceived()->take(13)
                     ->with('latestFamousPoints')->get();
             } else {
-                return User::orderByFamousPointsGiven()->take(113)
+                return User::orderByFamousPointsGiven()->take(13)
                     ->with('latestFamousPoints')->get();
             }
         });
