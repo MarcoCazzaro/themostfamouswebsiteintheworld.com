@@ -148,7 +148,7 @@ class User extends Authenticatable implements MustVerifyEmail
         // https://reinink.ca/articles/ordering-database-queries-by-relationship-columns-in-laravel#ordering-by-has-many-relationships
         $query->orderBy(FamousPoint::select('brazorf')
             ->whereColumn('famous_points.user_id', 'users.id')
-            ->latest()
+            ->latest('id')
             ->take(1),
             $direction
         );
@@ -159,7 +159,7 @@ class User extends Authenticatable implements MustVerifyEmail
         // https://reinink.ca/articles/ordering-database-queries-by-relationship-columns-in-laravel#ordering-by-has-many-relationships
         $query->orderBy(FamousPoint::selectRaw('sum(ajeje) as ajeje_sum')
             ->whereColumn('famous_points.sender_id', 'users.id')
-            ->latest()
+            ->latest('id')
             ->take(1),
             $direction
         );
