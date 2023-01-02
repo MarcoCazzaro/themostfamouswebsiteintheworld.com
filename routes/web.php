@@ -1,14 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WelcomeController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Livewire\SearchTags;
+use App\Http\Livewire\SearchUsersAndTags;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
-use App\Http\Livewire\SearchUsersAndTags;
-use App\Http\Livewire\SearchTags;
-use App\Http\Controllers\StatusController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,18 +25,19 @@ Route::get('/', [WelcomeController::class, 'index'])->name('frontpage');
 Route::middleware([
     'auth:sanctum', // ISSUE: https://github.com/404labfr/laravel-impersonate/issues/154
     config('jetstream.auth_session'),
-    'verified'
+    'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
-    })->name('dashboard');
-    Route::resource('tags', TagController::class);
+    })->name('dashboard')->middleware('doNotCacheResponse');
+    Route::resource('tags', TagController::class)->middleware(['can:supadupaadminshit', 'doNotCacheResponse']);
     Route::get('/most-famous-people', [UserController::class, 'most_famous_people'])->name('users.most-famous-people');
     Route::get('/most-famous-people/{tag}', [UserController::class, 'show_famous_people_by_tag'])->name('users.most-famous-people.show');
     Route::get('/most-famous-fans', [UserController::class, 'most_famous_fans'])->name('users.most-famous-fans');
     Route::get('/most-famous-fans/{tag}', [UserController::class, 'show_famous_fans_by_tag'])->name('users.most-famous-fans.show');
+    Route::get('/most-famous-tags', [TagController::class, 'most_famous_tags'])->name('tags.most-famous-tags');
     Route::post('/users/{user}/recount', [UserController::class, 'recount_points'])->name('users.user-recount-points');
-    Route::resource('user/statuses', StatusController::class);
+    Route::resource('user/statuses', StatusController::class)->middleware('doNotCacheResponse');
     Route::resource('users', UserController::class);
     Route::impersonate();
     Route::get('/search/{stuff?}', SearchUsersAndTags::class)->name('search');
@@ -44,11 +45,11 @@ Route::middleware([
 });
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
+})->middleware(['auth', 'doNotCacheResponse'])->name('verification.notice');
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
     return redirect('/dashboard');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+})->middleware(['auth', 'signed', 'doNotCacheResponse'])->name('verification.verify');
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification link sent!');

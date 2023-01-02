@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Tag;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
 use App\Jobs\RecountUserPoints;
+use App\Models\Tag;
+use App\Models\User;
 use App\Repositories\CacheRepository;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -16,12 +15,14 @@ class UserController extends Controller
     {
         $this->authorize('supadupaadminshit');
         $users = User::orderBy('id', 'desc')->paginate(50);
+
         return view('users.index', compact('users'));
     }
 
     public function create()
     {
         $this->authorize('supadupaadminshit');
+
         return view('users.edit');
     }
 
@@ -43,17 +44,21 @@ class UserController extends Controller
             $data['password'] = bcrypt($request->password);
         }
         $user = User::create($data);
-        return redirect('/users/' . $user->slug);
+
+        return redirect('/users/'.$user->slug);
     }
 
-    public function show(User $user, CacheRepository $cache) {
+    public function show(User $user, CacheRepository $cache)
+    {
         $user_ranking_position = $user->getGlobalRankingPosition($cache);
+
         return view('users.show', compact('user', 'user_ranking_position'));
     }
 
     public function edit(user $user)
     {
         $this->authorize('supadupaadminshit');
+
         return view('users.edit', compact('user'));
     }
 
@@ -75,30 +80,30 @@ class UserController extends Controller
             $data['password'] = bcrypt($request->password);
         }
         $user->update($data);
-        return redirect('/users/' . $user->slug);
+
+        return redirect('/users/'.$user->slug);
     }
 
     public function destroy(User $user)
     {
         $this->authorize('supadupaadminshit');
         $user->delete();
+
         return redirect('/users');
     }
 
     public function most_famous_people(CacheRepository $cache)
     {
-        $most_famous_tags = $cache->most_famous_tags('received');
         $title = __('The Most Famous People');
         $subjects = 'people';
-        return view('users.the-most-famous-people', compact('most_famous_tags', 'title', 'subjects'));
+        return view('users.the-most-famous-people', compact('title', 'subjects'));
     }
 
     public function most_famous_fans(CacheRepository $cache)
     {
-        $most_famous_tags = $cache->most_famous_tags('given');
-        $title = __('The Most Famous fans');
+        $title = __('The Most Famous Fans');
         $subjects = 'fans';
-        return view('users.the-most-famous-people', compact('most_famous_tags', 'title', 'subjects'));
+        return view('users.the-most-famous-people', compact('title', 'subjects'));
     }
 
     public function show_famous_people_by_tag(Tag $tag)
@@ -115,6 +120,7 @@ class UserController extends Controller
     {
         $this->authorize('supadupaadminshit');
         RecountUserPoints::dispatchSync($user);
+
         return redirect($user->url);
     }
 

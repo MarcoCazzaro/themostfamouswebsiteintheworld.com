@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Sluggable\HasSlug; //https://github.com/spatie/laravel-sluggable
 use Spatie\Sluggable\SlugOptions;
 
@@ -28,7 +28,7 @@ class Tag extends Model
     /**
      * Get the options for generating the slug.
      */
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
@@ -47,7 +47,8 @@ class Tag extends Model
         return 'slug';
     }
 
-    public function getUrlAttribute() {
+    public function getUrlAttribute()
+    {
         return route('tags.show', ['tag' => $this]);
     }
 
@@ -67,11 +68,11 @@ class Tag extends Model
                 ->where('taggables.taggable_type', User::class)
                 ->groupBy('ref_id');
         $query
-            ->selectRaw("tags.*, points_by_tag.worship_amount")
+            ->selectRaw('tags.*, points_by_tag.worship_amount')
             ->joinSub($points_by_tag, 'points_by_tag', function ($join) {
                 $join->on('tags.id', '=', 'points_by_tag.ref_id');
             })
-            ->orderBy("points_by_tag.worship_amount", $direction)
+            ->orderBy('points_by_tag.worship_amount', $direction)
             ->distinct();
     }
 
@@ -83,11 +84,11 @@ class Tag extends Model
                 ->where('taggables.taggable_type', User::class)
                 ->groupBy('ref_id');
         $query
-            ->selectRaw("tags.*, points_by_tag.worship_amount")
+            ->selectRaw('tags.*, points_by_tag.worship_amount')
             ->joinSub($points_by_tag, 'points_by_tag', function ($join) {
                 $join->on('tags.id', '=', 'points_by_tag.ref_id');
             })
-            ->orderBy("points_by_tag.worship_amount", $direction)
+            ->orderBy('points_by_tag.worship_amount', $direction)
             ->distinct();
     }
 }

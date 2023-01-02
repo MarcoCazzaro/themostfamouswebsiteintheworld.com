@@ -2,14 +2,16 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
-use App\Models\User;
 use App\Jobs\Worship;
+use App\Models\User;
+use Livewire\Component;
 
 class IncrementFamousness extends Component
 {
     public User $user;
+
     public $famous_points = 1;
+
     public $blinker_id = 'nada';
 
     public function mount()
@@ -23,7 +25,8 @@ class IncrementFamousness extends Component
         return view('livewire.increment-famousness');
     }
 
-    public function hydrate() {
+    public function hydrate()
+    {
         $this->famous_points = $this->user->total_famous_points;
         $this->famous_points++;
         if (app()->environment() === 'local') {

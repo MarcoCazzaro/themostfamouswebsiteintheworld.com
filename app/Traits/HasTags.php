@@ -5,7 +5,6 @@ namespace App\Traits;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 trait HasTags
 {
@@ -18,6 +17,7 @@ trait HasTags
         if (__CLASS__ === User::class) {
             $relationship->take(5);
         }
+
         return $relationship;
     }
 
@@ -67,7 +67,7 @@ trait HasTags
         }
     }
 
-    private function firstOrCreateTag(String $tagText = '')
+    private function firstOrCreateTag(string $tagText = '')
     {
         $tag = null;
         if (trim($tagText) !== '') {
@@ -82,6 +82,7 @@ trait HasTags
                 $tag->restore(); //Could be soft deleted
             }
         }
+
         return $tag;
     }
 
@@ -114,19 +115,21 @@ trait HasTags
         }
     }
 
-    private function sanitiseTagsFromInputString($input_string) {
+    private function sanitiseTagsFromInputString($input_string)
+    {
         try {
             $results = null;
-            $input_tags = str_ireplace(",", " ", $input_string);
+            $input_tags = str_ireplace(',', ' ', $input_string);
             $input_tags = explode(' ', $input_tags);
             $input_tags = array_filter($input_tags);
-            $results = array_map(function($item){
+            $results = array_map(function ($item) {
                 return formatTagName($item);
             }, $input_tags);
         } catch (\Exception $e) {
             report($e);
             $results = null;
         }
+
         return $results;
     }
 }

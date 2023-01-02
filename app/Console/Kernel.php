@@ -2,10 +2,10 @@
 
 namespace App\Console;
 
+use App\Jobs\CacheWarmer;
+use App\Jobs\SimulateActivity;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Jobs\SimulateActivity;
-use App\Jobs\CacheWarmer;
 
 class Kernel extends ConsoleKernel
 {

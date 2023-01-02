@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->index();
             $table->string('slug')->unique();
-            $table->string('locale', 5)->index()->default("en_US");
+            $table->string('locale', 5)->index()->default('en_US');
             $table->timestamps();
             $table->softDeletes();
         });

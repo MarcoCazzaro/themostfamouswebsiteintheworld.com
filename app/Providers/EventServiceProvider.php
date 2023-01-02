@@ -2,17 +2,17 @@
 
 namespace App\Providers;
 
+use App\Events\StatusDelete;
+use App\Events\StatusEdit;
+use App\Events\StatusNew;
+use App\Events\UserInfoDelete;
+use App\Events\UserInfoEdit;
+use App\Events\UserInfoNew;
+use App\Listeners\ClearUserResponseCache;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
-use App\Listeners\ClearUserResponseCache;
-use App\Events\StatusNew;
-use App\Events\StatusEdit;
-use App\Events\StatusDelete;
-use App\Events\UserInfoNew;
-use App\Events\UserInfoEdit;
-use App\Events\UserInfoDelete;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -26,22 +26,22 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         StatusNew::class => [
-            ClearUserResponseCache::class
+            ClearUserResponseCache::class,
         ],
         StatusEdit::class => [
-            ClearUserResponseCache::class
+            ClearUserResponseCache::class,
         ],
         StatusDelete::class => [
-            ClearUserResponseCache::class
+            ClearUserResponseCache::class,
         ],
         UserInfoNew::class => [
-            ClearUserResponseCache::class
+            ClearUserResponseCache::class,
         ],
         UserInfoEdit::class => [
-            ClearUserResponseCache::class
+            ClearUserResponseCache::class,
         ],
         UserInfoDelete::class => [
-            ClearUserResponseCache::class
+            ClearUserResponseCache::class,
         ],
     ];
 

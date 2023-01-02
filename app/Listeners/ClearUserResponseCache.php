@@ -2,10 +2,8 @@
 
 namespace App\Listeners;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use Spatie\ResponseCache\Facades\ResponseCache;
 use Illuminate\Support\Facades\Auth;
+use Spatie\ResponseCache\Facades\ResponseCache;
 
 class ClearUserResponseCache
 {
@@ -22,7 +20,7 @@ class ClearUserResponseCache
     /**
      * Handle the event.
      *
-     * @param  $event
+     * @param    $event
      * @return void
      */
     public function handle($event)
@@ -31,7 +29,7 @@ class ClearUserResponseCache
         if ($user) {
             Auth::setUser($user);
             ResponseCache::forget('/user/profile');
-            ResponseCache::forget('/users/' . $user->slug);
+            ResponseCache::forget('/users/'.$user->slug);
         }
     }
 }

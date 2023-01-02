@@ -2,12 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Status;
+use App\Models\Tag;
+use App\Models\User;
+use App\Models\UserInfo;
 use Illuminate\Database\Seeder;
-use \App\Models\User;
-use \App\Models\UserInfo;
-use \App\Models\Tag;
-use \App\Models\Status;
 
 class UserSeeder extends Seeder
 {
@@ -19,15 +18,15 @@ class UserSeeder extends Seeder
     public function run()
     {
         $user = User::firstOrCreate(
-            ["email" => "info@snappysnail.io"],
+            ['email' => 'info@snappysnail.io'],
             [
                 'name' => 'gE',
                 'password' => bcrypt(env('USERS_GE_PWD', \Str::random(23))),
-                'email_verified_at' => now()
+                'email_verified_at' => now(),
             ]
         );
         $tags = Tag::take(100)->get();
-        for ($i=0; $i < 300; $i++) {
+        for ($i = 0; $i < 300; $i++) {
             $users = User::factory()
                 ->hasAttached($tags->random(5))
                 ->has(UserInfo::factory()->count(3), 'socialLinks')

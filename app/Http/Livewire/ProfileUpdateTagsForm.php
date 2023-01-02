@@ -3,17 +3,18 @@
 namespace App\Http\Livewire;
 
 use Illuminate\Support\Facades\Auth;
-use Laravel\Jetstream\Http\Livewire\UpdateProfileInformationForm;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
+use Laravel\Jetstream\Http\Livewire\UpdateProfileInformationForm;
 
 class ProfileUpdateTagsForm extends UpdateProfileInformationForm
 {
     protected function getListeners()
     {
         $listeners = [];
-        for ($i=0; $i < 5; $i++) {
-            $listeners['tagSelected:' . $i] = 'tagSelected';
+        for ($i = 0; $i < 5; $i++) {
+            $listeners['tagSelected:'.$i] = 'tagSelected';
         }
+
         return $listeners;
     }
 

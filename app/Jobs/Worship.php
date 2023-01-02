@@ -2,20 +2,20 @@
 
 namespace App\Jobs;
 
+use App\Enums\FamousPointTypes;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\User;
-use App\Enums\FamousPointTypes;
 
 class Worship implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $sender;
+
     public $recipient;
 
     private const COOLDOW_TIME = 5; //Minimum time in seconds between one point attribution and the previous one. This is used to avoid bot spamming.
@@ -59,7 +59,7 @@ class Worship implements ShouldQueue
                 'sender_id' => $this->sender->id,
                 'type' => FamousPointTypes::WORSHIP,
                 'ajeje' => 1,
-                'brazorf' => $total_points + 1
+                'brazorf' => $total_points + 1,
             ]);
         }
     }

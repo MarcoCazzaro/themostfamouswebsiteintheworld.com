@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreStatusRequest;
 use App\Http\Requests\UpdateStatusRequest;
 use App\Models\Status;
-use App\Models\User;
 
 class StatusController extends Controller
 {
@@ -22,6 +21,7 @@ class StatusController extends Controller
             ->with('user', 'user.lastStatus')
             ->orderBy('updated_at', 'desc')
             ->paginate(10);
+
         return view('users.statuses.index', compact('statuses'));
     }
 
@@ -33,6 +33,7 @@ class StatusController extends Controller
     public function create()
     {
         $this->authorize('create', Status::class);
+
         return view('users.statuses.edit');
     }
 
@@ -48,7 +49,8 @@ class StatusController extends Controller
         $status = auth()->user()->statuses()->create([
             'body' => clean($validated['body']),
         ]);
-        return redirect(route('users.show', auth()->user()) . '?refresh=' . now()->timestamp);
+
+        return redirect(route('users.show', auth()->user()).'?refresh='.now()->timestamp);
     }
 
     /**
@@ -60,6 +62,7 @@ class StatusController extends Controller
     public function show(Status $status)
     {
         $this->authorize('view', $status);
+
         return view('users.statuses.show', compact('status'));
     }
 
@@ -72,6 +75,7 @@ class StatusController extends Controller
     public function edit(Status $status)
     {
         $this->authorize('update', $status);
+
         return view('users.statuses.edit', compact('status'));
     }
 
@@ -88,7 +92,8 @@ class StatusController extends Controller
         $status->update([
             'body' => clean($validated['body']),
         ]);
-        return redirect(route('users.show', auth()->user()) . '?refresh=' . now()->timestamp);
+
+        return redirect(route('users.show', auth()->user()).'?refresh='.now()->timestamp);
     }
 
     /**
@@ -102,6 +107,7 @@ class StatusController extends Controller
         $this->authorize('delete', $status);
         $user = $status->user;
         $status->delete();
-        return redirect(route('users.show', $user) . '?refresh=' . now()->timestamp);
+
+        return redirect(route('users.show', $user).'?refresh='.now()->timestamp);
     }
 }

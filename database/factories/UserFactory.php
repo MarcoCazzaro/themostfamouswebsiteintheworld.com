@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Enums\UserTypes;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
-use App\Enums\UserTypes;
 
 class UserFactory extends Factory
 {
@@ -27,7 +27,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'email' => Str::random(13) . '.' . $this->faker->unique()->safeEmail(),
+            'email' => Str::random(13).'.'.$this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => bcrypt(\Str::random(31)),
             'remember_token' => Str::random(10),

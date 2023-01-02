@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tag>
@@ -17,7 +16,7 @@ class TagFactory extends Factory
      */
     public function definition()
     {
-        switch (rand(1,4)) {
+        switch (rand(1, 4)) {
             case 1:
                 $name = fake()->name();
                 break;
@@ -38,6 +37,7 @@ class TagFactory extends Factory
         $name = formatTagName($name);
         $slug = $name;
         $locale = 'en_US';
+
         return compact('name', 'slug', 'locale');
     }
 }

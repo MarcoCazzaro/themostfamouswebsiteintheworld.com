@@ -2,11 +2,11 @@
 
 namespace App\Actions\Fortify;
 
+use App\Enums\UserInfoTypes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
-use App\Enums\UserInfoTypes;
 use Spatie\ResponseCache\Facades\ResponseCache;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
@@ -41,12 +41,12 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             foreach ($input['socialLinks'] as $socialLink) {
                 if ($socialLink) {
                     $socialName = getSocialNameFromLink($socialLink);
-                    if ( array_search($socialName, array_column($data, 'name')) === false) {
+                    if (array_search($socialName, array_column($data, 'name')) === false) {
                         $data[] = [
                             'user_id' => $user->id,
                             'type' => UserInfoTypes::SOCIAL->value,
                             'name' => $socialName,
-                            'value' => $socialLink
+                            'value' => $socialLink,
                         ];
                     }
                 }
@@ -79,7 +79,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         }
         ResponseCache::forget('/dashboard');
         ResponseCache::forget('/user/profile');
-        ResponseCache::forget('/users/' . $user->slug);
+        ResponseCache::forget('/users/'.$user->slug);
     }
 
     /**

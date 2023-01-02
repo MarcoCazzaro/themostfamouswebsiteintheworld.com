@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use App\Events\StatusDelete;
+use App\Events\StatusEdit;
+use App\Events\StatusNew;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use App\Events\StatusNew;
-use App\Events\StatusEdit;
-use App\Events\StatusDelete;
 
 class Status extends Model
 {

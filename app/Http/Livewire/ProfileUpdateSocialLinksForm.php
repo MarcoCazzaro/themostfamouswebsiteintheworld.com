@@ -3,23 +3,25 @@
 namespace App\Http\Livewire;
 
 use Illuminate\Support\Facades\Auth;
-use Laravel\Jetstream\Http\Livewire\UpdateProfileInformationForm;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
+use Laravel\Jetstream\Http\Livewire\UpdateProfileInformationForm;
 
 class ProfileUpdateSocialLinksForm extends UpdateProfileInformationForm
 {
     protected function getListeners()
     {
         $listeners = [];
-        for ($i=0; $i < 5; $i++) {
-            $listeners['linkSelected:' . $i] = 'linkSelected';
+        for ($i = 0; $i < 5; $i++) {
+            $listeners['linkSelected:'.$i] = 'linkSelected';
         }
+
         return $listeners;
     }
 
-    private function refreshFromDB() {
+    private function refreshFromDB()
+    {
         $this->state = [
-            'socialLinks' => array_pad(Auth::user()->socialLinks->pluck('value')->toArray(), 3, null)
+            'socialLinks' => array_pad(Auth::user()->socialLinks->pluck('value')->toArray(), 3, null),
         ];
     }
 

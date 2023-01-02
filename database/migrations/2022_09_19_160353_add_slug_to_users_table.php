@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        if (Schema::hasColumn('users', 'slug')){
+        if (Schema::hasColumn('users', 'slug')) {
             Schema::table('users', function (Blueprint $table) {
                 $table->dropUnique(['slug']);
                 $table->dropColumn('slug');

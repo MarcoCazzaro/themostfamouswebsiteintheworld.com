@@ -2,13 +2,12 @@
 
 namespace App\Jobs;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\User;
 
 class RecountUserPoints implements ShouldQueue
 {
@@ -35,7 +34,7 @@ class RecountUserPoints implements ShouldQueue
     {
         $total_points = $this->user->famousPoints()->sum('ajeje') ?? 0;
         $this->user->latestFamousPoints()->update([
-            'brazorf' => $total_points
+            'brazorf' => $total_points,
         ]);
     }
 }

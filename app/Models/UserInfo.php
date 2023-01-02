@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use App\Enums\UserInfoTypes;
+use App\Events\UserInfoDelete;
+use App\Events\UserInfoEdit;
+use App\Events\UserInfoNew;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Enums\UserInfoTypes;
-use App\Events\UserInfoNew;
-use App\Events\UserInfoEdit;
-use App\Events\UserInfoDelete;
 
 class UserInfo extends Model
 {

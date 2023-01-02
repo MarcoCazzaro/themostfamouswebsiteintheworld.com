@@ -2,26 +2,32 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
-use Livewire\WithPagination;
 use App\Models\User;
 use App\Repositories\CacheRepository;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class UsersList extends Component
 {
     use WithPagination;
 
     public $readyToLoad = false;
+
     public $users;
+
     public $highlightFirst;
+
     public $showPosition;
+
     public $tag_id;
+
     public $scope;
 
     public function loadUsers()
     {
         $this->readyToLoad = true;
     }
+
     public function render(CacheRepository $cache)
     {
         $data = [];
@@ -46,14 +52,14 @@ class UsersList extends Component
                 case 'full_ranking_of_people_by_tag':
                     if (isset($this->tag_id) && $this->tag_id) {
                         $ranked_users = User::orderByFamousPointsReceived()
-                            ->whereHas('tags', function($query){
+                            ->whereHas('tags', function ($query) {
                                 $query->where('tags.id', $this->tag_id);
                             })
                             ->take(999)
                             ->paginate(33);
                         $data = [
                             'ranked_users' => $ranked_users,
-                            'first_element_index' => $ranked_users->firstItem()
+                            'first_element_index' => $ranked_users->firstItem(),
                         ];
                     }
                     break;
@@ -63,6 +69,7 @@ class UsersList extends Component
                     break;
             }
         }
+
         return view('livewire.users-list', $data);
     }
 }

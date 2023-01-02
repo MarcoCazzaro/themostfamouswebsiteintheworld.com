@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Traits;
 
 use Spatie\ResponseCache\Facades\ResponseCache;

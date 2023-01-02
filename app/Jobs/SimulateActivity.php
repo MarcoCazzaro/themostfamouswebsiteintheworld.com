@@ -2,14 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Models\FamousPoint;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\User;
-use App\Models\FamousPoint;
 
 class SimulateActivity implements ShouldQueue
 {
@@ -38,13 +37,13 @@ class SimulateActivity implements ShouldQueue
             $counter = 0;
             foreach ($users as $user) {
                 $brazorf = $user->total_famous_points;
-                for ($i=0; $i < rand(7, 17); $i++) {
+                for ($i = 0; $i < rand(7, 17); $i++) {
                     $brazorf++;
                     $counter++;
                     FamousPoint::factory([
                         'user_id' => $user->id,
                         'sender_id' => $senders->random()->id,
-                        'brazorf' => $brazorf
+                        'brazorf' => $brazorf,
                     ])->create();
                 }
             }
@@ -53,7 +52,7 @@ class SimulateActivity implements ShouldQueue
             FamousPoint::factory([
                 'user_id' => $gE->id,
                 'sender_id' => $senders->random()->id,
-                'brazorf' => $brazorf
+                'brazorf' => $brazorf,
             ])->create();
         } catch (\Exception $e) {
             report($e);

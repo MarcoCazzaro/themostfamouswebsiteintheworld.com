@@ -2,21 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Tag;
+use Illuminate\Http\Request;
+use App\Repositories\CacheRepository;
 
 class TagController extends Controller
 {
-    /**
-     * Instantiate a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('can:supadupaadminshit');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,6 +16,7 @@ class TagController extends Controller
     public function index()
     {
         $tags = Tag::withCount('users')->orderBy('users_count', 'desc')->paginate('67');
+
         return view('tags.index', compact('tags'));
     }
 
@@ -56,7 +48,8 @@ class TagController extends Controller
             'slug' => $request->slug,
             'locale' => $request->locale,
         ]);
-        return redirect('/tags/' . $tag->slug);
+
+        return redirect('/tags/'.$tag->slug);
     }
 
     /**
@@ -109,7 +102,7 @@ class TagController extends Controller
             'locale' => $request->locale,
         ]);
 
-        return redirect('/tags/' . $tag->slug);
+        return redirect('/tags/'.$tag->slug);
     }
 
     /**
@@ -121,6 +114,16 @@ class TagController extends Controller
     public function destroy(Tag $tag)
     {
         $tag->delete();
+
         return redirect('/tags');
+    }
+
+    public function most_famous_tags(CacheRepository $cache)
+    {
+        $most_famous_tags = $cache->most_famous_tags('received');
+        $title = __('The Most Famous Tags');
+        $subjects = 'tags';
+
+        return view('tags.the-most-famous-tags', compact('most_famous_tags', 'title', 'subjects'));
     }
 }

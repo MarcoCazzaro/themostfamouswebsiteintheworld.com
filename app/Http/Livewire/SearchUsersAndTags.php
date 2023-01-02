@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
-use App\Models\User;
 use App\Models\Tag;
+use App\Models\User;
+use Livewire\Component;
 
 class SearchUsersAndTags extends Component
 {
@@ -24,23 +24,23 @@ class SearchUsersAndTags extends Component
         $found_tags_contains = null;
         if ($this->stuff) {
             $search_string = $this->stuff;
-            if (!\Str::startsWith($search_string, '#')) {
-                $found_users_starts_with = User::selectRaw("users.*, CONCAT('users.', id) AS ssnailkey")->where('name', 'like', $search_string . '%')
+            if (! \Str::startsWith($search_string, '#')) {
+                $found_users_starts_with = User::selectRaw("users.*, CONCAT('users.', id) AS ssnailkey")->where('name', 'like', $search_string.'%')
                     ->orderBy('name', 'asc')
                     ->take(20)
                     ->get();
 
-                $found_users_contains = User::selectRaw("users.*, CONCAT('users.', id) AS ssnailkey")->where('name', 'like', '%' . $search_string . '%')
+                $found_users_contains = User::selectRaw("users.*, CONCAT('users.', id) AS ssnailkey")->where('name', 'like', '%'.$search_string.'%')
                     ->orderByFamousPointsReceived()
                     ->take(20)
                     ->get();
             }
             $search_string = ltrim($search_string, '#');
-            $found_tags_starts_with = Tag::selectRaw("tags.*, CONCAT('tags.', id) AS ssnailkey")->where('name', 'like', $search_string . '%')
+            $found_tags_starts_with = Tag::selectRaw("tags.*, CONCAT('tags.', id) AS ssnailkey")->where('name', 'like', $search_string.'%')
                 ->orderBy('name', 'asc')
                 ->take(20)
                 ->get();
-            $found_tags_contains = Tag::selectRaw("tags.*, CONCAT('tags.', id) AS ssnailkey")->where('name', 'like', '%' . $search_string . '%')
+            $found_tags_contains = Tag::selectRaw("tags.*, CONCAT('tags.', id) AS ssnailkey")->where('name', 'like', '%'.$search_string.'%')
                 ->orderByFamousPointsReceived()
                 ->take(20)
                 ->get();
@@ -58,6 +58,7 @@ class SearchUsersAndTags extends Component
             }
             $found_stuff = $found_stuff->unique('ssnailkey');
         }
+
         return view('livewire.search-users-and-tags', compact('found_stuff'));
     }
 }

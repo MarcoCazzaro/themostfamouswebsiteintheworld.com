@@ -2,22 +2,22 @@
 
 namespace App\Models;
 
+use App\Enums\UserInfoTypes;
+use App\Enums\UserTypes;
+use App\Traits\HasTags;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\Notifiable; //https://github.com/spatie/laravel-sluggable
+use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+//https://github.com/spatie/laravel-responsecache
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Sluggable\HasSlug; //https://github.com/spatie/laravel-sluggable
-use Spatie\Sluggable\SlugOptions;
-use App\Traits\HasTags;
-use App\Traits\ClearsResponseCache; //https://github.com/spatie/laravel-responsecache
 use Spatie\Permission\Traits\HasRoles;
-use Lab404\Impersonate\Models\Impersonate;
-use App\Enums\UserTypes;
-use App\Enums\UserInfoTypes;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 //TODO: SOFT DELETE
 
@@ -43,7 +43,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'slug',
         'password',
-        'type'
+        'type',
     ];
 
     /**
@@ -75,7 +75,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $appends = [
         'profile_photo_url',
-        'total_famous_points'
+        'total_famous_points',
     ];
 
     /**
@@ -88,7 +88,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get the options for generating the slug.
      */
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
@@ -107,14 +107,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return 'slug';
     }
 
-    public function getUrlAttribute() {
+    public function getUrlAttribute()
+    {
         return route('users.show', ['user' => $this]);
     }
 
     protected function nameWithYou(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => $this->name . (((auth()->id() ?? false) === $attributes['id']) ? ' (' . __('You') . ')' : '')
+            get: fn ($value, $attributes) => $this->name.(((auth()->id() ?? false) === $attributes['id']) ? ' ('.__('You').')' : '')
         );
     }
 
@@ -170,12 +171,13 @@ class User extends Authenticatable implements MustVerifyEmail
             ->where('user_id', $this->id)
             ->groupBy('sender_id');
         $best_followers = User::select('users.*', 'worshippers.worship_amount')
-            ->joinSub($worshippers, 'worshippers', function($join) {
+            ->joinSub($worshippers, 'worshippers', function ($join) {
                 $join->on('users.id', '=', 'worshippers.sender_id');
             })
             ->orderBy('worshippers.worship_amount', 'desc')
             ->take(24)
             ->get();
+
         return $best_followers;
     }
 
@@ -185,12 +187,13 @@ class User extends Authenticatable implements MustVerifyEmail
             ->where('user_id', $this->id)
             ->groupBy('sender_id');
         $latest_followers = User::select('users.*', 'worshippers.worship_amount', 'worshippers.most_recent_worship')
-            ->joinSub($worshippers, 'worshippers', function($join) {
+            ->joinSub($worshippers, 'worshippers', function ($join) {
                 $join->on('users.id', '=', 'worshippers.sender_id');
             })
             ->orderBy('worshippers.most_recent_worship', 'desc')
             ->take(24)
             ->get();
+
         return $latest_followers;
     }
 
@@ -199,6 +202,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $users_count = FamousPoint::selectRaw('COUNT(DISTINCT(sender_id)) as counter')
             ->where('user_id', $this->id)
             ->first();
+
         return humanNumber($users_count->counter);
     }
 
@@ -208,12 +212,13 @@ class User extends Authenticatable implements MustVerifyEmail
             ->where('sender_id', $this->id)
             ->groupBy('user_id');
         $best_following = User::select('users.*', 'worshipping.worship_amount')
-            ->joinSub($worshipping, 'worshipping', function($join) {
+            ->joinSub($worshipping, 'worshipping', function ($join) {
                 $join->on('users.id', '=', 'worshipping.user_id');
             })
             ->orderBy('worshipping.worship_amount', 'desc')
             ->take(24)
             ->get();
+
         return $best_following;
     }
 
@@ -222,6 +227,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $users_count = FamousPoint::selectRaw('COUNT(DISTINCT(user_id)) as counter')
             ->where('sender_id', $this->id)
             ->first();
+
         return humanNumber($users_count->counter);
     }
 
@@ -260,7 +266,7 @@ class User extends Authenticatable implements MustVerifyEmail
         if (is_numeric($position)) {
             return humanNumber($position + 1);
         } else {
-            return "1k+";
+            return '1k+';
         }
     }
 
@@ -274,7 +280,7 @@ class User extends Authenticatable implements MustVerifyEmail
         if (is_numeric($position)) {
             return humanNumber($position + 1);
         } else {
-            return "100+";
+            return '100+';
         }
     }
 

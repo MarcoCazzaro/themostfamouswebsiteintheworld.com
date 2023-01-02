@@ -6,12 +6,6 @@
             <h1 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Dashboard') }}
             </h1>
-            @if(! $show_onboarding)
-            <span x-text="$store.showOnboarding"></span>
-                <div x-data="{}">
-                    <button x-on:click="Livewire.emit('openOnboarding')" class="float-right text-amber-500">{{ __('Help') }} <i class="fas fa-book"></i></button>
-                </div>
-            @endif
         </div>
     </x-slot>
 
@@ -64,6 +58,18 @@
             </div>
         </div>
     </section>
+
+    @if(! $show_onboarding)
+    <section class="py-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+                <div x-data="{}">
+                    <p>{{ __('If you want to see the on boarding procedure again, click on') }} <button x-on:click="Livewire.emit('openOnboarding');window.scrollTo(0,0)" class="text-amber-500">{{ __('Getting started') }} <i class="fas fa-book"></i></button></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
 
     @push('scripts')
         <script>

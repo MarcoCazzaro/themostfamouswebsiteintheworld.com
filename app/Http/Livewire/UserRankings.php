@@ -2,12 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Repositories\CacheRepository;
+use Livewire\Component;
 
 class UserRankings extends Component
 {
     public $readyToLoad = false;
+
     public $user;
 
     public function loadRankings()
@@ -21,9 +22,10 @@ class UserRankings extends Component
         if ($this->readyToLoad) {
             $data['global_position'] = $this->user->getGlobalRankingPosition($cache);
             foreach ($this->user->tags as $tag) {
-                $data[$tag->slug . '_position'] = $this->user->getTagRankingPosition($tag->id, $cache);
+                $data[$tag->slug.'_position'] = $this->user->getTagRankingPosition($tag->id, $cache);
             }
         }
+
         return view('livewire.user-rankings', $data);
     }
 }

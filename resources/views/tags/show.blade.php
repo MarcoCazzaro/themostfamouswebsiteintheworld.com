@@ -7,8 +7,7 @@
                         {{ $tag->name }}
                     </h1>
                     <div>
-                        @php($subject = request()->routeIs('users.most-famous-fans.show') ? 'fans' : 'people')
-                        <a href="{{ route('users.most-famous-' . $subject) }}" class="mr-4 text-gray-500"><i class="fas fa-arrow-left"></i> <span class="text-sm">{{ __('See all the rankings') }}</span></a>
+                        <a href="{{ route('tags.most-famous-tags') }}" class="mr-4 text-gray-500"><i class="fas fa-arrow-left"></i> <span class="text-sm">{{ __('See all the rankings') }}</span></a>
                     </div>
                 </div>
                 <span class="mr-8 mt-4 sm:mt-0">{{ $tag->users()->count() }} users</span>
