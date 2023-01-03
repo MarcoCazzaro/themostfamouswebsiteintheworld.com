@@ -57,7 +57,7 @@
                 <h3 class="font-semibold">{{ __('Your status') }}</h3>
                 <div class="ssnail-user-status">
                     @if($user->has('lastStatus') && !is_null($user->lastStatus))
-                        {!! $user->lastStatus->body !!}
+                        <div class="bg-amber-100 border border-amber-500 my-4 p-8 sm:rounded-lg">{!! $user->lastStatus->body !!}</div>
                         <?php
                             $status_link = route('statuses.index');
                             $status_text = __('Edit Status');
