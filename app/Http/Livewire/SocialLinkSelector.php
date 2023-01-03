@@ -38,10 +38,10 @@ class SocialLinkSelector extends Component
 
     public function refreshLink($socialLinks = null)
     {
-        if ($socialLinks && isset($socialLinks[$this->linkIndex ?? -1])) {
-            $this->socialLink = $socialLinks[$this->linkIndex];
-        } else {
-            $this->socialLink = null;
+        if (!is_null($socialLinks)) {
+            if ($socialLinks && isset($socialLinks[$this->linkIndex ?? -1])) {
+                $this->socialLink = $socialLinks[$this->linkIndex];
+            }
         }
     }
 }

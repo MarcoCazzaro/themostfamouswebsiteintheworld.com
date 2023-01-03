@@ -199,6 +199,22 @@ class User extends Authenticatable implements MustVerifyEmail
         return $best_following;
     }
 
+    public function getLatestFollowingAttribute()
+    {
+        $worshipping = FamousPoint::selectRaw('user_id, sum(famous_points.ajeje) as worship_amount, max(famous_points.id) as most_recent_worship')
+            ->where('sender_id', $this->id)
+            ->groupBy('user_id');
+        $latest_following = User::select('users.*', 'worshipping.worship_amount', 'worshipping.most_recent_worship')
+            ->joinSub($worshipping, 'worshipping', function ($join) {
+                $join->on('users.id', '=', 'worshipping.user_id');
+            })
+            ->orderBy('worshipping.most_recent_worship', 'desc')
+            ->take(24)
+            ->get();
+
+        return $latest_following;
+    }
+
     public function getFollowingCountAttribute()
     {
         $users_count = FamousPoint::selectRaw('COUNT(DISTINCT(user_id)) as counter')

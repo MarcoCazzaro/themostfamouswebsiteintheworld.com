@@ -80,6 +80,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         ResponseCache::forget('/dashboard');
         ResponseCache::forget('/user/profile');
         ResponseCache::forget('/users/'.$user->slug);
+        setUserOption('profile.completed', 1);
     }
 
     /**

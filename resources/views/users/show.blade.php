@@ -67,11 +67,11 @@
                         {!! $user->lastStatus->body !!}
                         @if($user->id === auth()->user()->id)
                             <p class="text-right"><a href="{{ route('statuses.index') }}" class="text-amber-500"><i class="fas fa-pen-to-square"></i> {{ __('Edit Status') }}</a><p>
-                        @endcan
+                        @endif
                     @else
                         @if($user->id === auth()->user()->id)
                             <p>{{ __('Click here to add a status:') }} <a href="{{ route('statuses.create') }}" class="text-amber-500"><i class="fas fa-plus"></i> {{ __('Add Status') }}</a></p>
-                        @endcan
+                        @endif
                     @endif
                 </div>
             </div>

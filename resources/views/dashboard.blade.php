@@ -1,5 +1,9 @@
 <x-app-layout>
-    @php($show_onboarding = !filter_var(getUserOption('onboarding.shown'), FILTER_VALIDATE_BOOLEAN))
+    <?php
+        $user = auth()->user();
+        $show_onboarding = !filter_var(getUserOption('onboarding.shown'), FILTER_VALIDATE_BOOLEAN);
+        $show_complete_profile_suggestion = !filter_var(getUserOption('profile.completed'), FILTER_VALIDATE_BOOLEAN);
+    ?>
     <div x-data x-init="Alpine.store('showOnboarding', {{ $show_onboarding }})"></div>
     <x-slot name="header">
         <div class="flex justify-between items-center">
@@ -17,13 +21,71 @@
         </div>
     </section>
 
+    @if($show_complete_profile_suggestion)
+        <section class="py-6">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8">
+                    <h3 class="font-semibold">{{ __('Complete your profile') }}</h3>
+                    <p>{{__('Change your profile picture, set your tags, add up to 3 social links')}}.</p>
+                    <div class="pt-4 text-center">
+                        <form method="GET" action="{{ route('profile.show') }}">
+                            <x-jet-button type="submit" class="">{{ __('Complete') }}</x-jet-button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    <section class="py-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8">
+                <h3 class="font-semibold">{{ __('Follow new people') }}</h3>
+                <p>{{__('Search for your idols and start following them')}}!</p>
+                <div class="pt-4 text-center">
+                    <form method="GET" action="{{ route('search') }}">
+                        <x-jet-button type="submit" class="w-36">{{ __('Search') }}</x-jet-button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8">
+                <h3 class="font-semibold">{{ __('Your status') }}</h3>
+                <div class="ssnail-user-status">
+                    @if($user->has('lastStatus') && !is_null($user->lastStatus))
+                        {!! $user->lastStatus->body !!}
+                        <?php
+                            $status_link = route('statuses.index');
+                            $status_text = __('Edit Status');
+                        ?>
+                    @else
+                        <p>{{ __('Tell us something about yourself') }}.</p>
+                        <?php
+                            $status_link = route('statuses.create');
+                            $status_text = __('Add Status');
+                        ?>
+                    @endif
+                    <div class="pt-4 text-center">
+                        <form method="GET" action="{{ $status_link }}">
+                            <x-jet-button type="submit" class="w-36">{{ $status_text }}</x-jet-button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8">
                 <div class="pb-8">
                     <h3 class="font-semibold">{{ __('Your tags') }}</h3>
                     <p>{{__('You can appear in up to 5 rankings by selecting tags')}}.</p>
-                    @php($user = auth()->user())
+
                     @if($user->tags->count() > 0)
                         <div class="mt-4">
                             <x-tags-list :tags="$user->tags"></x-tags-list>
@@ -35,13 +97,57 @@
                     @endif
                     <div class="mt-4 text-center">
                         <form method="GET" action="{{ route('profile.show') }}#edit-tags">
-                            <x-jet-button type="submit" class="w-36 m-4">{{ $tags_label }}</x-jet-button>
+                            <x-jet-button type="submit" class="w-36">{{ $tags_label }}</x-jet-button>
                         </form>
                     </div>
                 </div>
                 <div>
                     <h3 class="font-semibold">{{ __('Your rankings') }}</h3>
                     <livewire:user-rankings :user="$user"></livewire:user-rankings>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8">
+                <h3 class="font-semibold">{{ __('Latest followers') }}</h3>
+                <?php
+                    $followers = $user->latest_followers->take(4);
+                ?>
+                <div class="ssnail-followers latest">
+                    @if($followers->count() > 0)
+                        @livewire('users-list', ['users' => $followers])
+                    @else
+                        <p class="py-4">{{ __("You have no followers yet, why don't you share the") }} ❤️?</p>
+                        <div class="pt-4">
+                            <x-share-profile />
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8">
+                <h3 class="font-semibold">{{ __('Latest following') }}</h3>
+                <?php
+                    $following = $user->latest_following->take(4);
+                ?>
+                <div class="ssnail-following latest">
+                    @if($following->count() > 0)
+                        @livewire('users-list', ['users' => $following])
+                    @else
+                        <p class="py-4">{{ __("You are not following anyone yet, why don't you search for someone famous") }}?</p>
+                        <div class="pt-4 text-center">
+                            <form method="GET" action="{{ route('search') }}">
+                                <x-jet-button type="submit" class="w-36">{{ __('Search') }}</x-jet-button>
+                            </form>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -64,7 +170,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="overflow-hidden">
                 <div x-data="{}">
-                    <p class="px-8 sm:px-0">{{ __('If you want to see the on boarding procedure again, click on') }} <button x-on:click="Livewire.emit('openOnboarding');window.scrollTo(0,0)" class="text-amber-500">{{ __('Getting started') }} <i class="fas fa-book"></i></button></p>
+                    <p class="px-8 sm:px-0">{{ __('If you want to see the onboarding procedure again, click on') }} <button x-on:click="Livewire.emit('openOnboarding');window.scrollTo(0,0)" class="text-amber-500">{{ __('Getting started') }} <i class="fas fa-book"></i></button></p>
                 </div>
             </div>
         </div>

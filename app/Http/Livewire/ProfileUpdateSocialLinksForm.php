@@ -14,15 +14,7 @@ class ProfileUpdateSocialLinksForm extends UpdateProfileInformationForm
         for ($i = 0; $i < 5; $i++) {
             $listeners['linkSelected:'.$i] = 'linkSelected';
         }
-
         return $listeners;
-    }
-
-    private function refreshFromDB()
-    {
-        $this->state = [
-            'socialLinks' => array_pad(Auth::user()->socialLinks->pluck('value')->toArray(), 3, null),
-        ];
     }
 
     /**
@@ -32,7 +24,8 @@ class ProfileUpdateSocialLinksForm extends UpdateProfileInformationForm
      */
     public function mount()
     {
-        $this->refreshFromDB();
+        $this->state = Auth::user()->withoutRelations()->toArray();
+        $this->state['socialLinks'] = array_pad(Auth::user()->socialLinks->pluck('value')->toArray(), 3, null);
     }
 
     public function render()
@@ -52,8 +45,7 @@ class ProfileUpdateSocialLinksForm extends UpdateProfileInformationForm
             Auth::user(),
             $this->state
         );
-        $this->refreshFromDB();
-        $this->emit('saved', $this->state['socialLinks']);
+        $this->emit('saved');
         $this->emit('refresh-navigation-menu');
     }
 }
