@@ -64,7 +64,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="overflow-hidden">
                 <div x-data="{}">
-                    <p>{{ __('If you want to see the on boarding procedure again, click on') }} <button x-on:click="Livewire.emit('openOnboarding');window.scrollTo(0,0)" class="text-amber-500">{{ __('Getting started') }} <i class="fas fa-book"></i></button></p>
+                    <p class="px-8 sm:px-0">{{ __('If you want to see the on boarding procedure again, click on') }} <button x-on:click="Livewire.emit('openOnboarding');window.scrollTo(0,0)" class="text-amber-500">{{ __('Getting started') }} <i class="fas fa-book"></i></button></p>
                 </div>
             </div>
         </div>

@@ -40,16 +40,16 @@ class CacheRepository
         return self::most_famous_users_ids_by_tag_id($tag_id, 'people', $take);
     }
 
-    public function most_famous_users($subjects)
+    public function most_famous_users($subjects, $take = 13)
     {
-        return cache()->remember('most_famous_'.$subjects, self::CACHE_TTL_SECONDS, function () use ($subjects) {
+        return cache()->remember('most_famous_'.$subjects.'_'.$take, self::CACHE_TTL_SECONDS, function () use ($subjects, $take) {
             if ($subjects === 'people') {
                 return User::orderByFamousPointsReceived()
-                        ->take(13)
+                        ->take($take)
                         ->get();
             } else {
                 return User::orderByFamousPointsGiven()
-                        ->take(13)
+                        ->take($take)
                         ->get();
             }
         });

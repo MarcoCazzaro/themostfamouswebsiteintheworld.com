@@ -34,6 +34,9 @@ class UsersList extends Component
         if ($this->readyToLoad) {
             switch ($this->scope) {
                 case 'most_famous_people' :
+                    $data['loaded_users'] = $cache->most_famous_users('people', 113);
+                    break;
+                case 'most_famous_people_welcome' :
                     $data['loaded_users'] = $cache->most_famous_users('people');
                     break;
                 case 'most_famous_fans' :
