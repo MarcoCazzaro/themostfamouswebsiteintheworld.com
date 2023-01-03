@@ -44,6 +44,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'slug',
         'password',
         'type',
+        'points_received',
+        'points_given',
     ];
 
     /**
@@ -75,15 +77,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $appends = [
         'profile_photo_url',
-        'total_famous_points',
     ];
-
-    /**
-     * The relationships that should always be loaded.
-     *
-     * @var array
-     */
-    protected $with = ['latestFamousPoints'];
 
     /**
      * Get the options for generating the slug.
@@ -124,45 +118,28 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(FamousPoint::class);
     }
 
-    public function latestFamousPoints()
-    {
-        return $this->hasOne(FamousPoint::class)->latest('id');
-    }
-
-    protected function totalFamousPoints(): Attribute
+    protected function famousPointsReceivedHuman(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => $this->latestFamousPoints->brazorf ?? 0
+            get: fn ($value, $attributes) => humanNumber($this->points_received)
         );
     }
 
-    protected function totalFamousPointsHuman(): Attribute
+    protected function famousPointsGivenHuman(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => humanNumber($this->total_famous_points)
+            get: fn ($value, $attributes) => humanNumber($this->points_given)
         );
     }
 
     public function scopeOrderByFamousPointsReceived($query, $direction = 'desc')
     {
-        // https://reinink.ca/articles/ordering-database-queries-by-relationship-columns-in-laravel#ordering-by-has-many-relationships
-        $query->orderBy(FamousPoint::select('brazorf')
-            ->whereColumn('famous_points.user_id', 'users.id')
-            ->latest('id')
-            ->take(1),
-            $direction
-        );
+        $query->orderBy('points_received', $direction);
     }
 
     public function scopeOrderByFamousPointsGiven($query, $direction = 'desc')
     {
-        // https://reinink.ca/articles/ordering-database-queries-by-relationship-columns-in-laravel#ordering-by-has-many-relationships
-        $query->orderBy(FamousPoint::selectRaw('sum(ajeje) as ajeje_sum')
-            ->whereColumn('famous_points.sender_id', 'users.id')
-            ->latest('id')
-            ->take(1),
-            $direction
-        );
+        $query->orderBy('points_given', $direction);
     }
 
     public function getBestFollowersAttribute()
@@ -259,9 +236,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getGlobalRankingPosition($cache): string
     {
-        $users = $cache->most_famous_users('people', 999);
+        $users = $cache->most_famous_users_ids('people', 999);
         $position = $users->search(function ($user, $key) {
-            return $user->id === $this->id;
+            return $user->id == $this->id;
         });
         if (is_numeric($position)) {
             return humanNumber($position + 1);
@@ -272,8 +249,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getTagRankingPosition($tag_id, $cache): string
     {
-        $users = $cache->most_famous_people_by_tag_id($tag_id, 100);
-        $ajeje = $users->pluck('slug');
+        $users = $cache->most_famous_people_ids_by_tag_id($tag_id, 100);
         $position = $users->search(function ($user, $key) {
             return $user->id === $this->id;
         });

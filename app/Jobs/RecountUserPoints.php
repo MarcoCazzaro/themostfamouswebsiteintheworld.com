@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\DB;
 
 class RecountUserPoints implements ShouldQueue
 {
@@ -32,9 +33,21 @@ class RecountUserPoints implements ShouldQueue
      */
     public function handle()
     {
-        $total_points = $this->user->famousPoints()->sum('ajeje') ?? 0;
-        $this->user->latestFamousPoints()->update([
-            'brazorf' => $total_points,
+        $user_famous_points_received = DB::table('famous_points')
+            ->selectRaw('user_id, sum(ajeje) as ajeje_sum')
+            ->where('user_id', $this->user->id)
+            ->groupBy('user_id')
+            ->get()
+            ->ajeje_sum ?? 0;
+        $user_famous_points_given = DB::table('famous_points')
+            ->selectRaw('sender_id, sum(ajeje) as ajeje_sum')
+            ->where('sender_id', $this->user->id)
+            ->groupBy('sender_id')
+            ->get()
+            ->ajeje_sum ?? 0;
+        $this->user->update([
+            'points_received' => $user_famous_points_received,
+            'points_given' => $user_famous_points_given,
         ]);
     }
 }

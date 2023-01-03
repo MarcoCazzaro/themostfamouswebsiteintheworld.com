@@ -32,6 +32,8 @@ class UserFactory extends Factory
             'password' => bcrypt(\Str::random(31)),
             'remember_token' => Str::random(10),
             'type' => UserTypes::DUMMY->value,
+            'points_received' => 0,
+            'points_given' => 0,
         ];
     }
 

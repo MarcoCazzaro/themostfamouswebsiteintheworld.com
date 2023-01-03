@@ -17,7 +17,6 @@ class FamousPoint extends Model
         'sender_id',
         'type',
         'ajeje',
-        'brazorf',
     ];
 
     protected $casts = [

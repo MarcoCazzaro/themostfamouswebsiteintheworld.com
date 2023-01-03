@@ -62,8 +62,7 @@ class Tag extends Model
 
     public function scopeOrderByFamousPointsReceived($query, $direction = 'desc')
     {
-        $points_by_tag = FamousPoint::selectRaw('taggables.tag_id as ref_id, sum(ajeje) as worship_amount')
-                ->join('users', 'famous_points.user_id', '=', 'users.id')
+        $points_by_tag = User::selectRaw('taggables.tag_id as ref_id, sum(users.points_received) as worship_amount')
                 ->join('taggables', 'users.id', '=', 'taggables.taggable_id')
                 ->where('taggables.taggable_type', User::class)
                 ->groupBy('ref_id');
@@ -78,8 +77,7 @@ class Tag extends Model
 
     public function scopeOrderByFamousPointsGiven($query, $direction = 'desc')
     {
-        $points_by_tag = FamousPoint::selectRaw('taggables.tag_id as ref_id, sum(ajeje) as worship_amount')
-                ->join('users', 'famous_points.sender_id', '=', 'users.id')
+        $points_by_tag = User::selectRaw('taggables.tag_id as ref_id, sum(users.points_given) as worship_amount')
                 ->join('taggables', 'users.id', '=', 'taggables.taggable_id')
                 ->where('taggables.taggable_type', User::class)
                 ->groupBy('ref_id');

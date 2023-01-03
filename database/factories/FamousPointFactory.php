@@ -23,7 +23,6 @@ class FamousPointFactory extends Factory
             'sender_id' => User::factory(),
             'type' => FamousPointTypes::WORSHIP,
             'ajeje' => 1,
-            'brazorf' => rand(1, 313),
         ];
     }
 }

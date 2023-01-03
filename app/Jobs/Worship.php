@@ -39,28 +39,22 @@ class Worship implements ShouldQueue
     public function handle()
     {
         $latest_famous_points_attribution = $this->recipient->famousPoints()
-            ->select('id', 'created_at')
             ->where('sender_id', $this->sender->id)
-            ->orderBy('id', 'desc')
-            ->first();
-        if ($latest_famous_points_attribution && $latest_famous_points_attribution->created_at > now()->subSeconds($this::COOLDOW_TIME)->toDateTimeString()) {
+            ->max('created_at');
+        if ($latest_famous_points_attribution && $latest_famous_points_attribution > now()->subSeconds($this::COOLDOW_TIME)->toDateTimeString()) {
             //nope!
+            //MAYBE ONE DAY WE WANT TO MONITOR THIS SHIT
         } else {
-            $latest_famous_points_attribution = $this->recipient->famousPoints()
-                ->select('id', 'brazorf')
-                ->orderBy('id', 'desc')
-                ->first();
-            $total_points = $latest_famous_points_attribution->brazorf ?? 0;
-            if ($total_points > 0 && $total_points % 100 === 0) {
-                // Every 100 points given, we check the sum in the database to correct potential erroneous counts
-                $total_points = $this->recipient->famousPoints()->sum('ajeje') ?? 0;
-            }
-            $this->recipient->famousPoints()->create([
+            $this->recipient->famousPoints()->insert([
+                'user_id' => $this->recipient->id,
                 'sender_id' => $this->sender->id,
                 'type' => FamousPointTypes::WORSHIP,
                 'ajeje' => 1,
-                'brazorf' => $total_points + 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
+            $this->recipient->increment('points_received');
+            $this->sender->increment('points_given');
         }
     }
 }

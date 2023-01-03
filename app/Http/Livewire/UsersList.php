@@ -39,15 +39,8 @@ class UsersList extends Component
                 case 'most_famous_fans' :
                     $data['loaded_users'] = $cache->most_famous_users('fans');
                     break;
-                case 'most_famous_people_by_tag' :
-                    if (isset($this->tag_id) && $this->tag_id) {
-                        $data['loaded_users'] = $cache->most_famous_people_by_tag_id($this->tag_id);
-                    }
-                    break;
-                case 'most_famous_fans_by_tag' :
-                    if (isset($this->tag_id) && $this->tag_id) {
-                        $data['loaded_users'] = $cache->most_famous_fans_by_tag_id($this->tag_id);
-                    }
+                case 'latest_users' :
+                    $data['loaded_users'] = $cache->latest_users();
                     break;
                 case 'full_ranking_of_people_by_tag':
                     if (isset($this->tag_id) && $this->tag_id) {

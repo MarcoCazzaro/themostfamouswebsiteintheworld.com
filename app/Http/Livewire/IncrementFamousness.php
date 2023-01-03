@@ -16,7 +16,7 @@ class IncrementFamousness extends Component
 
     public function mount()
     {
-        $this->famous_points = $this->user->total_famous_points;
+        $this->famous_points = $this->user->points_received;
         $this->blinker_id = uniqid('ssnail-blinker-');
     }
 
@@ -27,7 +27,7 @@ class IncrementFamousness extends Component
 
     public function hydrate()
     {
-        $this->famous_points = $this->user->total_famous_points;
+        $this->famous_points = $this->user->points_received;
         $this->famous_points++;
         if (app()->environment() === 'local') {
             Worship::dispatchSync(auth()->user(), $this->user);
