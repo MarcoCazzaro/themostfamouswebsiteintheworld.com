@@ -40,7 +40,7 @@ class UsersList extends Component
                     $data['loaded_users'] = $cache->most_famous_users('people');
                     break;
                 case 'most_famous_fans' :
-                    $data['loaded_users'] = $cache->most_famous_users('fans');
+                    $data['loaded_users'] = $cache->most_famous_users('fans', 113);
                     break;
                 case 'latest_users' :
                     $data['loaded_users'] = $cache->latest_users();
