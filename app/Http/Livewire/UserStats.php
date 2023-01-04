@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use \Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
+use \App\Models\FamousPoint;
 
 class UserStats extends Component
 {
@@ -79,33 +79,22 @@ class UserStats extends Component
 
         if (!is_null($newStartDate) && !is_null($newEndDate)) {
             $stats = [];
-            $stats["received"]["famous_points"] = DB::table('famous_points')
-                ->where('user_id', $this->user->id)
+            $stats["received"]["famous_points"] = FamousPoint::where('user_id', $this->user->id)
                 ->whereBetween('created_at', [$newStartDate, $newEndDate])
                 ->sum('ajeje');
-            $stats["received"]["users"] = DB::table('famous_points')
-                ->selectRaw('COUNT(DISTINCT(sender_id)) as counter')
+            $stats["received"]["users"] = FamousPoint::selectRaw('COUNT(DISTINCT(sender_id)) as counter')
                 ->where('user_id', $this->user->id)
                 ->whereBetween('created_at', [$newStartDate, $newEndDate])
                 ->first()->counter;
-            $stats["given"]["famous_points"] = DB::table('famous_points')
-                ->where('sender_id', $this->user->id)
+            $stats["given"]["famous_points"] = FamousPoint::where('sender_id', $this->user->id)
                 ->whereBetween('created_at', [$newStartDate, $newEndDate])
                 ->sum('ajeje');
-            $stats["given"]["users"] = DB::table('famous_points')
-                ->selectRaw('COUNT(DISTINCT(user_id)) as counter')
+            $stats["given"]["users"] = FamousPoint::selectRaw('COUNT(DISTINCT(user_id)) as counter')
                 ->where('sender_id', $this->user->id)
                 ->whereBetween('created_at', [$newStartDate, $newEndDate])
                 ->first()->counter;
             $data["stats"] = $stats;
         }
-
-        /*
-        Stats: negli ultimi N giorni hai visualizzato N profili, hai dato N punti, N persone hanno visualizzato il tuo profilo e hai ricevuto N punti
-        */
-
-
-
         return view('livewire.user-stats', $data);
     }
 }
