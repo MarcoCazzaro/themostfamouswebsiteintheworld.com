@@ -250,6 +250,11 @@ class User extends Authenticatable implements MustVerifyEmail
         $query->whereIn('type', [UserTypes::DUMMY->value, UserTypes::CELEB->value]);
     }
 
+    public function scopeNotFakes($query)
+    {
+        $query->whereNotIn('type', [UserTypes::DUMMY->value, UserTypes::CELEB->value]);
+    }
+
     public function getGlobalRankingPosition($cache): string
     {
         $users = $cache->most_famous_users_ids('people', 999);

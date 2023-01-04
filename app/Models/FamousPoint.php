@@ -30,6 +30,6 @@ class FamousPoint extends Model
 
     public function sender()
     {
-        return $this->belongsTo(User::class, 'user_id', 'sender_id');
+        return $this->belongsTo(User::class, 'sender_id', 'id');
     }
 }
