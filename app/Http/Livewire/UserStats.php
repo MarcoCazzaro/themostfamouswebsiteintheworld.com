@@ -5,8 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use \Carbon\Carbon;
 use \App\Models\FamousPoint;
-use App\Enums\UserTypes;
-use Illuminate\Database\Eloquent\Builder;
+use App\Enums\FamousPointTypes;
 
 class UserStats extends Component
 {
@@ -97,25 +96,10 @@ class UserStats extends Component
                 ->first()->counter;
             if (auth()->user()->can('supadupaadminshit')) {
                 $stats["admin"]["received"]["famous_points"] = FamousPoint::whereBetween('created_at', [$newStartDate, $newEndDate])
-                    ->whereHas('user', function (Builder $query) {
-                        $query->whereNotIn('type', [UserTypes::DUMMY->value, UserTypes::CELEB->value]);
-                    })
+                    ->where('type', FamousPointTypes::WORSHIP)
                     ->sum('ajeje');
                 $stats["admin"]["received"]["users"] = FamousPoint::selectRaw('COUNT(DISTINCT(sender_id)) as counter')
-                    ->whereHas('user', function (Builder $query) {
-                        $query->whereNotIn('type', [UserTypes::DUMMY->value, UserTypes::CELEB->value]);
-                    })
-                    ->whereBetween('created_at', [$newStartDate, $newEndDate])
-                    ->first()->counter;
-                $stats["admin"]["given"]["famous_points"] = FamousPoint::whereBetween('created_at', [$newStartDate, $newEndDate])
-                    ->whereHas('sender', function (Builder $query) {
-                        $query->whereNotIn('type', [UserTypes::DUMMY->value, UserTypes::CELEB->value]);
-                    })
-                    ->sum('ajeje');
-                $stats["admin"]["given"]["users"] = FamousPoint::selectRaw('COUNT(DISTINCT(user_id)) as counter')
-                    ->whereHas('sender', function (Builder $query) {
-                        $query->whereNotIn('type', [UserTypes::DUMMY->value, UserTypes::CELEB->value]);
-                    })
+                    ->where('type', FamousPointTypes::WORSHIP)
                     ->whereBetween('created_at', [$newStartDate, $newEndDate])
                     ->first()->counter;
             }
