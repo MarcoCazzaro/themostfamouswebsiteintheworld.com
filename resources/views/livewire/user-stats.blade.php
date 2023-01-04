@@ -3,9 +3,8 @@
         <x-jet-dropdown align="left" width="60">
             <x-slot name="trigger">
                 <span class="inline-flex rounded-md">
-                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
+                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-gray-50 hover:bg-amber-100 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
                         {{ $timePeriod }}
-
                         <i class="fas fa-chevron-down ml-1"></i>
                     </button>
                 </span>
@@ -31,13 +30,13 @@
             <x-jet-input id="endDate" type="date" wire:model="endDate"/>
         </div>
     </div>
-    <div class="ssnail-content">
-        <div wire:loading>
+    <div class="ssnail-content relative">
+        <div wire:loading class="absolute">
             <div class="text-center text-gray-400">
                 <i class="fas fa-rotate animate-spin"></i>
             </div>
         </div>
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 my-8">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 mt-8">
             <div class="flex flex-col items-center">
                 <span class="text-2xl">{{ $stats["received"]["famous_points"] ?? 0 }}</span>
                 <label class="text-xs text-gray-500">{{ __('famous points received') }}</label>
