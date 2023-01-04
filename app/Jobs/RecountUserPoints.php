@@ -34,17 +34,11 @@ class RecountUserPoints implements ShouldQueue
     public function handle()
     {
         $user_famous_points_received = DB::table('famous_points')
-            ->selectRaw('user_id, sum(ajeje) as ajeje_sum')
             ->where('user_id', $this->user->id)
-            ->groupBy('user_id')
-            ->get()
-            ->ajeje_sum ?? 0;
+            ->sum('ajeje');
         $user_famous_points_given = DB::table('famous_points')
-            ->selectRaw('sender_id, sum(ajeje) as ajeje_sum')
             ->where('sender_id', $this->user->id)
-            ->groupBy('sender_id')
-            ->get()
-            ->ajeje_sum ?? 0;
+            ->sum('ajeje');
         $this->user->update([
             'points_received' => $user_famous_points_received,
             'points_given' => $user_famous_points_given,
