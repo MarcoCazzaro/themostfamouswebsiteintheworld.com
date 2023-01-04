@@ -43,5 +43,6 @@ class RecountUserPoints implements ShouldQueue
             'points_received' => $user_famous_points_received,
             'points_given' => $user_famous_points_given,
         ]);
+        ResponseCache::forget('/users/'.$this->user->slug);
     }
 }
