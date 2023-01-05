@@ -13,7 +13,7 @@
                             <p>Ciao, {{ auth()->user()->name }}.</p>
                             <p>Here are the 13 most famous users in The Most Famous Website In The World:</p>
                         </div>
-                        @livewire('users-list', ['scope' => 'welcome', 'highlightFirst' => true, 'showPosition' => true])
+                        @livewire('users-list', ['scope' => 'most_famous_people_welcome', 'highlightFirst' => true, 'showPosition' => true])
                     </section>
                     <section class="mb-8">
                         <div>
