@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Repositories\CacheRepository;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Enums\UserTypes;
 
 class UserController extends Controller
 {
@@ -32,11 +33,13 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')],
+            'type' => ['required', Rule::in(array_column(UserTypes::cases(), 'value'))],
             'slug' => 'required|unique:users|max:255',
         ]);
         $data = [
             'name' => $request->name,
             'email' => $request->email,
+            'type' => $request->type,
             'slug' => $request->slug,
             'password' => bcrypt(\Str::random(31)),
         ];
@@ -68,12 +71,14 @@ class UserController extends Controller
         $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'type' => ['required', Rule::in(array_column(UserTypes::cases(), 'value'))],
             'slug' => ['required', 'max:255', Rule::unique('users')->ignore($user->id)],
         ];
         $validated = $request->validate($rules);
         $data = [
             'name' => $request->name,
             'email' => $request->email,
+            'type' => $request->type,
             'slug' => $request->slug,
         ];
         if ($request->has('password') && trim($request->password) !== '') {

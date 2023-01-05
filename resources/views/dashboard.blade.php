@@ -54,7 +54,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8">
                 <h3 class="font-semibold">{{ __('Follow new people') }}</h3>
-                <p>{{__('Search for your idols and start following them')}}!</p>
+                <p>{{__('Search for your favourite ones and start following them')}}</p>
                 <div class="pt-4 text-center">
                     <form method="GET" action="{{ route('search') }}">
                         <x-jet-button type="submit" class="w-36">{{ __('Search') }}</x-jet-button>
@@ -97,7 +97,7 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8">
                 <div class="pb-8">
                     <h3 class="font-semibold">{{ __('Your tags') }}</h3>
-                    <p>{{__('You can appear in up to 5 rankings by selecting tags')}}.</p>
+                    <p>{{__('You can appear in up to 5 rankings by selecting tags')}}</p>
 
                     @if($user->tags->count() > 0)
                         <div class="mt-4">
@@ -170,7 +170,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-xl sm:rounded-lg p-8">
                 <h3 class="font-semibold">{{ __('Your stats') }}</h3>
-                <p>{{__('See how you are going in The Most Famous Website In The World')}}</p>
+                <p>{{__('See how you are going in The Most Famous Website In The World (previous period data in brachets)')}}</p>
                 <div class="pt-4">
                     @livewire('user-stats')
                 </div>

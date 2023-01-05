@@ -51,6 +51,21 @@
                 </div>
 
                 <div class="col-span-6 sm:col-span-3">
+                    <x-jet-label for="slug" value="{{ __('Type') }}" />
+                    <select id="type" name="type" class="border-gray-300 focus:border-amber-900 focus:ring focus:ring-amber-300 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
+                        <option disabled>{{ __('Choose user type') }}</option>
+                        @foreach(\App\Enums\UserTypes::cases() as $user_type)
+                            <option value="{{ $user_type->value }}"
+                                @if($user->type->value == $user_type->value)
+                                selected
+                                @endif
+                            >{{ $user_type->name }}</option>
+                        @endforeach
+                    </select>
+                    <x-jet-input-error for="slug" class="mt-2" />
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
                     <x-jet-label for="password" value="{{ __('Password') }}" />
                     <x-jet-input id="password" name="password" type="password" class="mt-1 block w-full" />
                     <x-jet-input-error for="password" class="mt-2" />

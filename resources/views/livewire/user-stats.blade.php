@@ -40,6 +40,20 @@
             @foreach($stats ?? [] as $stat)
                 <div class="flex flex-col items-center">
                     <span class="text-2xl">{{ $stat["value"] ?? 0 }}</span>
+                    <div class="flex items-center">
+                        <?php
+                            $diff = (int)($stat["value"] ?? 0) - (int)($stat["prev_value"] ?? 0);
+                            if (($stat["value"] ?? 0) !== 0) {
+                                $perc = round($diff / $stat["value"], 2) * 100;
+                                $perc_class = $perc > 0 ? "text-green-500 before:content-['+']" : ($perc < 0 ? "text-red-500": "hidden");
+                            } else {
+                                $perc = false;
+                                $perc_class = "hidden";
+                            }
+                        ?>
+                        <span class="text-gray-500">({{ $stat["prev_value"] ?? 0 }})</span>
+                        <span class="text-xs ml-2 {{ $perc_class }}">{{ $perc }}%</span>
+                    </div>
                     <label class="text-xs text-gray-500">{{ __($stat["label"] ?? '-') }}</label>
                 </div>
             @endforeach
