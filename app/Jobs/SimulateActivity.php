@@ -33,7 +33,7 @@ class SimulateActivity implements ShouldQueue
     public function handle()
     {
         try {
-            $users = User::fakes()->inRandomOrder()->take(31)->get();
+            $users = User::inRandomOrder()->take(31)->get();
             $senders = User::fakes()->inRandomOrder()->take(31)->get();
             $counter = 0;
             foreach ($users as $user) {
