@@ -22,6 +22,10 @@
             <x-form method="POST" action="{{ $action }}">
                 <x-slot:title>
                     {{ __($title) }}
+                    @if(!is_null($user ?? null))
+                        <div class="text-xs text-gray-500">{{ $user->created_at->toDateTimeString() }}</div>
+                        <div class="text-xs text-gray-500">{{ $user->updated_at->toDateTimeString() }}</div>
+                    @endif
                 </x-slot>
 
                 @if(!is_null($user ?? null))
