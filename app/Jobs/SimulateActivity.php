@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\FamousPoint;
+use App\Enums\FamousPointTypes;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -43,6 +44,7 @@ class SimulateActivity implements ShouldQueue
                     FamousPoint::factory([
                         'user_id' => $user->id,
                         'sender_id' => $sender->id,
+                        'type' => FamousPointTypes::FAKE
                     ])->create();
                     $sender->increment('points_given');
                     $points_received++;

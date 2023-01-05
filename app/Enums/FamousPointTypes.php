@@ -5,6 +5,7 @@ namespace App\Enums;
 enum FamousPointTypes: int
 {
     case WORSHIP = 0;
-    case MONEY = 1;
-    case ADMIN = 2;
+    case FAKE = 1;
+    case MONEY = 2;
+    case ADMIN = 3;
 }
