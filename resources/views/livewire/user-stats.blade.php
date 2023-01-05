@@ -37,43 +37,12 @@
             </div>
         </div>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 mt-8">
-            <div class="flex flex-col items-center">
-                <span class="text-2xl">{{ $stats["received"]["famous_points"] ?? 0 }}</span>
-                <label class="text-xs text-gray-500">{{ __('famous points received') }}</label>
-            </div>
-            <div class="flex flex-col items-center">
-                <span class="text-2xl">{{ $stats["received"]["users"] ?? 0 }}</span>
-                <label class="text-xs text-gray-500">{{ __('fans') }}</label>
-            </div>
-            <div class="flex flex-col items-center">
-                <span class="text-2xl">{{ $stats["given"]["famous_points"] ?? 0 }}</span>
-                <label class="text-xs text-gray-500">{{ __('famous points given') }}</label>
-            </div>
-            <div class="flex flex-col items-center">
-                <span class="text-2xl">{{ $stats["given"]["users"] ?? 0 }}</span>
-                <label class="text-xs text-gray-500">{{ __('users you supported') }}</label>
-            </div>
+            @foreach($stats ?? [] as $stat)
+                <div class="flex flex-col items-center">
+                    <span class="text-2xl">{{ $stat["value"] ?? 0 }}</span>
+                    <label class="text-xs text-gray-500">{{ __($stat["label"] ?? '-') }}</label>
+                </div>
+            @endforeach
         </div>
-        @can('supadupaadminshit')
-            <h4 class="font-semibold mt-8">Website stats</h4>
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 mt-8">
-                <div class="flex flex-col items-center">
-                    <span class="text-2xl">{{ $stats["admin"]["received"]["famous_points"] ?? 0 }}</span>
-                    <label class="text-xs text-gray-500">{{ __('famous points received') }}</label>
-                </div>
-                <div class="flex flex-col items-center">
-                    <span class="text-2xl">{{ $stats["admin"]["received"]["users"] ?? 0 }}</span>
-                    <label class="text-xs text-gray-500">{{ __('fans') }}</label>
-                </div>
-                <div class="flex flex-col items-center">
-                    <span class="text-2xl">{{ $stats["admin"]["given"]["famous_points"] ?? 0 }}</span>
-                    <label class="text-xs text-gray-500">{{ __('famous points given') }}</label>
-                </div>
-                <div class="flex flex-col items-center">
-                    <span class="text-2xl">{{ $stats["admin"]["given"]["users"] ?? 0 }}</span>
-                    <label class="text-xs text-gray-500">{{ __('users supported') }}</label>
-                </div>
-            </div>
-        @endcan
     </div>
 </div>

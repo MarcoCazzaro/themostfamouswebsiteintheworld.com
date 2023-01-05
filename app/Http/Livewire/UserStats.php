@@ -25,7 +25,7 @@ class UserStats extends Component
 
     public $endDate;
 
-    public $user = null;
+    public $scope = "user";
 
     public function loadStats()
     {
@@ -38,36 +38,88 @@ class UserStats extends Component
         $newStartDate = null;
         $newEndDate = null;
         if ($this->readyToLoad) {
-            if (is_null($this->user)) {
-                $this->user = auth()->user();
+            $this->updateDatesFilter($newStartDate, $newEndDate);
+            $stats = [];
+            if ($this->scope === 'user') {
+                $user = auth()->user();
+                if (!is_null($newStartDate) && !is_null($newEndDate)) {
+                    $stats[] = [
+                        "label" => "famous points received",
+                        "value" => FamousPoint::where('user_id', $user->id)
+                            ->whereBetween('created_at', [$newStartDate, $newEndDate])
+                            ->sum('ajeje')
+                    ];
+                    $stats[] = [
+                        "label" => "fans",
+                        "value" => FamousPoint::selectRaw('COUNT(DISTINCT(sender_id)) as counter')
+                            ->where('user_id', $user->id)
+                            ->whereBetween('created_at', [$newStartDate, $newEndDate])
+                            ->first()->counter
+                    ];
+                    $stats[] = [
+                        "label" => "famous points given",
+                        "value" => FamousPoint::where('sender_id', $user->id)
+                            ->whereBetween('created_at', [$newStartDate, $newEndDate])
+                            ->sum('ajeje')
+                    ];
+                    $stats[] = [
+                        "label" => "people endorsed",
+                        "value" => FamousPoint::selectRaw('COUNT(DISTINCT(user_id)) as counter')
+                            ->where('sender_id', $user->id)
+                            ->whereBetween('created_at', [$newStartDate, $newEndDate])
+                            ->first()->counter
+                    ];
+                }
+            } else {
+                if (auth()->user()->can('supadupaadminshit')) {
+                    $stats[] = [
+                        "label" => "famous points",
+                        "value" => FamousPoint::whereBetween('created_at', [$newStartDate, $newEndDate])
+                            ->where('type', FamousPointTypes::WORSHIP)
+                            ->sum('ajeje')
+                    ];
+                    $stats[] = [
+                        "label" => "active users",
+                        "value" => FamousPoint::selectRaw('COUNT(DISTINCT(sender_id)) as counter')
+                            ->where('type', FamousPointTypes::WORSHIP)
+                            ->whereBetween('created_at', [$newStartDate, $newEndDate])
+                            ->first()->counter
+                    ];
+                }
             }
-            switch ($this->timePeriod) {
-                case 'Last 7 days':
-                    $newEndDate = now();
-                    $newStartDate = now()->subDays(7);
-                    break;
-                case 'Last 30 days':
-                    $newEndDate = now();
-                    $newStartDate = now()->subDays(30);
-                    break;
-                case 'This year':
-                    $newEndDate = now();
-                    $newStartDate = Carbon::create('First day of this year');
-                    break;
-                case 'Last year':
-                    $newEndDate = Carbon::create('Last day of December ' . now()->subYears(1)->format('Y'));
-                    $newStartDate = Carbon::create('First day of last year');
-                    break;
+            $data["stats"] = $stats;
+        }
+        return view('livewire.user-stats', $data);
+    }
 
-                default:
-                    if (!is_null($this->startDate)) {
-                        $newStartDate = Carbon::parse($this->startDate);
-                    }
-                    if (!is_null($this->endDate)) {
-                        $newEndDate = Carbon::parse($this->endDate);
-                    }
-                    break;
-            }
+    private function updateDatesFilter(&$newStartDate, &$newEndDate)
+    {
+        switch ($this->timePeriod) {
+            case 'Last 7 days':
+                $newEndDate = now();
+                $newStartDate = now()->subDays(7);
+                break;
+            case 'Last 30 days':
+                $newEndDate = now();
+                $newStartDate = now()->subDays(30);
+                break;
+            case 'This year':
+                $newEndDate = now();
+                $newStartDate = Carbon::create('First day of this year');
+                break;
+            case 'Last year':
+                $newEndDate = Carbon::create('Last day of December ' . now()->subYears(1)->format('Y'));
+                $newStartDate = Carbon::create('First day of last year');
+                break;
+
+            default:
+                if (!is_null($this->startDate)) {
+                    $newStartDate = Carbon::parse($this->startDate);
+                }
+                if (!is_null($this->endDate)) {
+                    $newEndDate = Carbon::parse($this->endDate);
+                }
+                break;
         }
         if (!is_null($newStartDate)) {
             $newStartDate->startOfDay();
@@ -77,34 +129,5 @@ class UserStats extends Component
             $newEndDate->endOfDay();
             $this->endDate = $newEndDate->format('Y-m-d');
         }
-
-        if (!is_null($newStartDate) && !is_null($newEndDate)) {
-            $stats = [];
-            $stats["received"]["famous_points"] = FamousPoint::where('user_id', $this->user->id)
-                ->whereBetween('created_at', [$newStartDate, $newEndDate])
-                ->sum('ajeje');
-            $stats["received"]["users"] = FamousPoint::selectRaw('COUNT(DISTINCT(sender_id)) as counter')
-                ->where('user_id', $this->user->id)
-                ->whereBetween('created_at', [$newStartDate, $newEndDate])
-                ->first()->counter;
-            $stats["given"]["famous_points"] = FamousPoint::where('sender_id', $this->user->id)
-                ->whereBetween('created_at', [$newStartDate, $newEndDate])
-                ->sum('ajeje');
-            $stats["given"]["users"] = FamousPoint::selectRaw('COUNT(DISTINCT(user_id)) as counter')
-                ->where('sender_id', $this->user->id)
-                ->whereBetween('created_at', [$newStartDate, $newEndDate])
-                ->first()->counter;
-            if (auth()->user()->can('supadupaadminshit')) {
-                $stats["admin"]["received"]["famous_points"] = FamousPoint::whereBetween('created_at', [$newStartDate, $newEndDate])
-                    ->where('type', FamousPointTypes::WORSHIP)
-                    ->sum('ajeje');
-                $stats["admin"]["received"]["users"] = FamousPoint::selectRaw('COUNT(DISTINCT(sender_id)) as counter')
-                    ->where('type', FamousPointTypes::WORSHIP)
-                    ->whereBetween('created_at', [$newStartDate, $newEndDate])
-                    ->first()->counter;
-            }
-            $data["stats"] = $stats;
-        }
-        return view('livewire.user-stats', $data);
     }
 }

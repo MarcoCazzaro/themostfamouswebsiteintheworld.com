@@ -13,6 +13,19 @@
         </div>
     </x-slot>
 
+    @can('supadupaadminshit')
+        <section class="py-6">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white shadow-xl sm:rounded-lg p-8">
+                    <h3 class="font-semibold">{{ __('Website stats') }}</h3>
+                    <div class="pt-4">
+                        @livewire('user-stats', ['scope' => 'website'])
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endcan
+
     <section class="pt-12 pb-6" x-data x-show="$store.showOnboarding">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8">
