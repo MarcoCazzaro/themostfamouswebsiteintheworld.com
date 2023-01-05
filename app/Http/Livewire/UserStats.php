@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use \Carbon\Carbon;
+use \App\Models\User;
 use \App\Models\FamousPoint;
 use App\Enums\FamousPointTypes;
 
@@ -82,6 +83,21 @@ class UserStats extends Component
                         "label" => "active users",
                         "value" => FamousPoint::selectRaw('COUNT(DISTINCT(sender_id)) as counter')
                             ->where('type', FamousPointTypes::WORSHIP)
+                            ->whereBetween('created_at', [$newStartDate, $newEndDate])
+                            ->first()->counter
+                    ];
+                    $stats[] = [
+                        "label" => "new users",
+                        "value" => User::selectRaw('COUNT(DISTINCT(id)) as counter')
+                            ->members()
+                            ->whereBetween('created_at', [$newStartDate, $newEndDate])
+                            ->first()->counter
+                    ];
+                    $stats[] = [
+                        "label" => "tagged users",
+                        "value" => User::selectRaw('COUNT(DISTINCT(id)) as counter')
+                            ->members()
+                            ->whereHas('tags')
                             ->whereBetween('created_at', [$newStartDate, $newEndDate])
                             ->first()->counter
                     ];
