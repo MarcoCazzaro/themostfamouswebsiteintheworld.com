@@ -24,6 +24,9 @@
                     <section class="mb-8">
                         <p class="text-center">Find out more:</p>
                         <div class="flex justify-center items-center flex-wrap">
+                            <form method="GET" action="{{ route('dashboard') }}">
+                                <x-jet-button type="submit" class="w-56 m-4">Your dashboard</x-jet-button>
+                            </form>
                             <form method="GET" action="{{ route('users.most-famous-people') }}">
                                 <x-jet-button type="submit" class="w-56 m-4">Most famous people</x-jet-button>
                             </form>
