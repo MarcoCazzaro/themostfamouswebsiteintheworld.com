@@ -15,9 +15,9 @@ class CacheRepository
     {
         return cache()->remember('most_famous_tags_'.$type, self::CACHE_TTL_SECONDS, function () use ($type) {
             if ($type === 'received') {
-                return Tag::withCount('users')->orderByFamousPointsReceived()->take(67)->get();
+                return Tag::orderByFamousPointsReceived()->take(67)->get();
             } else {
-                return Tag::withCount('users')->orderByFamousPointsGiven()->take(67)->get();
+                return Tag::orderByFamousPointsGiven()->take(67)->get();
             }
         });
     }
