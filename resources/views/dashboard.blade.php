@@ -170,7 +170,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-xl sm:rounded-lg p-8">
                 <h3 class="font-semibold">{{ __('Your stats') }}</h3>
-                <p>{{__('See how you are going in The Most Famous Website In The World (previous period data in brachets)')}}</p>
+                <p>{{__('See how you are going in The Most Famous Website In The World (previous period data in brackets)')}}</p>
                 <div class="pt-4">
                     @livewire('user-stats')
                 </div>
