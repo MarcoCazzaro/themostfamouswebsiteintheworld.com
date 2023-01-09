@@ -26,6 +26,6 @@ class SEOServiceProvider extends ServiceProvider
     public function boot()
     {
         // Using class based composers...
-        View::composer(['layouts.app', 'layouts.guest'], SEOComposer::class);
+        View::composer(['layouts.guest', 'layouts.app'], SEOComposer::class);
     }
 }

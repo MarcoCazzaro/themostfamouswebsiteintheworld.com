@@ -39,33 +39,31 @@ class SEOComposer
                 'SNAIL_SEO_KEYWORDS' => trans('seo.default_keywords'),
             ];
 
-            $path_without_locale = explode("/", request()->path());
-            //array_shift($path_without_locale);
-            $seo_key = 'seo.' . implode(".", $path_without_locale);
+            $route_name = str_ireplace(".", "_", $request->route()->getName());
+            $seo_key = 'seo.' . $route_name;
             $args = ['title', 'description', 'keywords'];
             foreach ($args as $arg) {
                 $seo_full_key = $seo_key . "_" . $arg;
                 switch (true) {
                     case \Lang::has($seo_full_key):
-                        $seo_args["SNAIL_SEO_".strtoupper($arg)] = trans($seo_full_key);
+                        $search_stuff = $request->stuff ?? null;
+                        if ($search_stuff) {
+                            $search_stuff  = ": " . $search_stuff;
+                        }
+                        $seo_args["SNAIL_SEO_".strtoupper($arg)] = trans($seo_full_key, [
+                            'user_full_name' => optional($request->user)->name ?? '',
+                            'tag_name' => optional($request->tag)->name ?? '',
+                            'stuff' => $search_stuff,
+                        ]);
                         break;
-                    case request()->route()->getName() === 'suggest':
-                        //dd($view);
-                        /*
-                        $seo_args["SNAIL_SEO_".strtoupper($arg)] = trans('seo.suggest_user_' . $arg, [
-                                'name' => $view->user->name
+                    case (isset($request->user)) && $request->route()->getName() === 'suggest':
+                        $user = $request->user ?? false;
+                        if ($user) {
+                            $seo_args["SNAIL_SEO_".strtoupper($arg)] = trans('seo.suggest_user_' . $arg, [
+                                'user_full_name' => $user->name
                             ]);
-                            */
+                        }
                         break;
-                    /*
-                    case isset($view->work):
-                        $seo_args["SNAIL_SEO_".strtoupper($arg)] = trans('seo.work_' . $arg, [
-                                'title' => $view->work->title,
-                                'work_description' => strip_tags($view->work->description . ' ' . $view->work->full_info),
-                                'work_keywords' => $view->work->techniques()->first()->label
-                            ]);
-                        break;
-                    */
                     
                     default:
                         //
