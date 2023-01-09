@@ -19,6 +19,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->job(new CacheWarmer)->everyFourMinutes(); REMOVED, IT SLOWS DOWN EVERYTHING
         $schedule->job(new SimulateActivity)->everyFifteenMinutes();
+
+        $schedule->command('sitemap:generate')->daily(); //AWESOME https://github.com/spatie/laravel-sitemap#generating-the-sitemap-frequently
     }
 
     /**
