@@ -31,4 +31,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+        'analytics' => [
+            'tracking_id' => env('GOOGLE_ANALYTICS_TRACKING_ID'),
+        ]
+    ],
+
 ];
