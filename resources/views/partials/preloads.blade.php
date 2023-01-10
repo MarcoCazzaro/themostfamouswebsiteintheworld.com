@@ -20,16 +20,18 @@
 </noscript>
 @auth()
     <?php
-        $all_prefetch_urls = [
-            'route' => ['most-famous-people', 'most-famous-fans', 'most-famous-tags', 'search', 'dashboard', 'profile.show'],
-            'url' => [
-                route('users.show', ['user' => auth()->user() ]),
-            ]
-        ];
-        foreach ($all_prefetch_urls as $url_type => $prefetch_urls) {
-            ?>
-            @include('partials.prefetch-urls', compact('prefetch_urls', 'url_type'))
-            <?php
+        if (auth()->user()->hasVerifiedEmail()) {
+            $all_prefetch_urls = [
+                'route' => ['most-famous-people', 'most-famous-fans', 'most-famous-tags', 'search', 'dashboard', 'profile.show'],
+                'url' => [
+                    route('users.show', ['user' => auth()->user() ]),
+                ]
+            ];
+            foreach ($all_prefetch_urls as $url_type => $prefetch_urls) {
+                ?>
+                @include('partials.prefetch-urls', compact('prefetch_urls', 'url_type'))
+                <?php
+            }
         }
     ?>
 @endauth
