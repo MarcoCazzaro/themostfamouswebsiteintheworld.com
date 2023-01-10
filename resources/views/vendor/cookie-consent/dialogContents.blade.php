@@ -4,7 +4,7 @@
             <div class="flex items-center justify-between flex-wrap">
                 <div class="items-center">
                     <p class="ml-3 text-black cookie-consent__message">
-                        {!! trans('cookie-consent::texts.message') !!}
+                        {!! trans('cookie-consent::texts.message') !!} Check out our <a href="{{ route('cookies') }}" target="_blank" class="text-amber-500 font-bold">Cookie Policy</a>.
                     </p>
                 </div>
                 <div class="mt-2 w-full sm:w-auto sm:mt-0">

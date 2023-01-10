@@ -57,6 +57,13 @@
                     @livewire('profile.delete-user-form')
                 </div>
             @endif
+
+            <x-jet-section-border />
+
+            <div class="mt-10 sm:mt-0 flex flex-wrap justify-center p-4 text-gray-600">
+                <p>{{ __('If you have any request regarding your profile and / or GDPR, please send an email to') }}</p>
+                <img class="m-2" src="{{ asset('img/privacy-email.png') }}" alt="privacy at snappysnail dot io">
+            </div>
         </div>
     </div>
 </x-app-layout>

@@ -44,3 +44,4 @@ Route::middleware([
     Route::get('/search-tags/{stuff?}', SearchTags::class)->name('tags.search')->middleware('cacheResponse');
 });
 Route::get('suggest/{user}', [UserController::class, 'suggest'])->name('suggest')->middleware('cacheResponse');
+Route::get('cookie-policy', [WelcomeController::class, 'cookie_policy'])->name('cookies')->middleware('cacheResponse');

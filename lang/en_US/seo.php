@@ -71,7 +71,11 @@ return [
     'cookies_description' => 'Cookies policy.',
     'cookies_keywords' => 'cookies,cookies policy',
     
-    'privacy-policy_title' => 'Privacy Policy',
-    'privacy-policy_description' => 'Privacy policy.',
-    'privacy-policy_keywords' => 'privacy,privacy policy',
+    'policy_show_title' => 'Privacy Policy',
+    'policy_show_description' => 'Privacy policy.',
+    'policy_show_keywords' => 'privacy,privacy policy',
+
+    'terms_show_title' => 'Terms of Service',
+    'terms_show_description' => 'Terms of Service.',
+    'terms_show_keywords' => 'Terms of Service',
 ];
