@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [WelcomeController::class, 'index'])->name('frontpage')->middleware('cacheResponse');
+Route::get('/', [WelcomeController::class, 'index'])->name('frontpage');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
