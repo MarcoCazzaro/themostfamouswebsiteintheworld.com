@@ -21,37 +21,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [WelcomeController::class, 'index'])->name('frontpage');
+Route::get('/', [WelcomeController::class, 'index'])->name('frontpage')->middleware('cacheResponse');
 Route::middleware([
-    'auth:sanctum', // ISSUE: https://github.com/404labfr/laravel-impersonate/issues/154
+    'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
-    })->name('dashboard')->middleware('doNotCacheResponse');
-    Route::resource('tags', TagController::class)->middleware(['can:supadupaadminshit', 'doNotCacheResponse']);
-    Route::get('/most-famous-people', [UserController::class, 'most_famous_people'])->name('most-famous-people');
-    Route::get('/most-famous-people/{tag}', [UserController::class, 'show_famous_people_by_tag'])->name('most-famous-people-by-tag');
-    Route::get('/most-famous-fans', [UserController::class, 'most_famous_fans'])->name('most-famous-fans');
-    Route::get('/most-famous-fans/{tag}', [UserController::class, 'show_famous_fans_by_tag'])->name('most-famous-fans-by-tag');
-    Route::get('/most-famous-tags', [TagController::class, 'most_famous_tags'])->name('most-famous-tags');
+    })->name('dashboard');
+    Route::resource('tags', TagController::class)->middleware(['can:supadupaadminshit']);
+    Route::get('/most-famous-people', [UserController::class, 'most_famous_people'])->name('most-famous-people')->middleware('cacheResponse');
+    Route::get('/most-famous-people/{tag}', [UserController::class, 'show_famous_people_by_tag'])->name('most-famous-people-by-tag')->middleware('cacheResponse');
+    Route::get('/most-famous-fans', [UserController::class, 'most_famous_fans'])->name('most-famous-fans')->middleware('cacheResponse');
+    Route::get('/most-famous-fans/{tag}', [UserController::class, 'show_famous_fans_by_tag'])->name('most-famous-fans-by-tag')->middleware('cacheResponse');
+    Route::get('/most-famous-tags', [TagController::class, 'most_famous_tags'])->name('most-famous-tags')->middleware('cacheResponse');
     Route::post('/users/{user}/recount', [UserController::class, 'recount_points'])->name('users.user-recount-points');
-    Route::resource('user/statuses', StatusController::class)->middleware('doNotCacheResponse');
+    Route::resource('user/statuses', StatusController::class);
     Route::resource('users', UserController::class);
     Route::impersonate();
-    Route::get('/search/{stuff?}', SearchUsersAndTags::class)->name('search');
-    Route::get('/search-tags/{stuff?}', SearchTags::class)->name('tags.search');
+    Route::get('/search/{stuff?}', SearchUsersAndTags::class)->name('search')->middleware('cacheResponse');
+    Route::get('/search-tags/{stuff?}', SearchTags::class)->name('tags.search')->middleware('cacheResponse');
 });
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware(['auth', 'doNotCacheResponse'])->name('verification.notice');
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('/dashboard');
-})->middleware(['auth', 'signed', 'doNotCacheResponse'])->name('verification.verify');
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-Route::get('suggest/{user}', [UserController::class, 'suggest'])->name('suggest');
+Route::get('suggest/{user}', [UserController::class, 'suggest'])->name('suggest')->middleware('cacheResponse');

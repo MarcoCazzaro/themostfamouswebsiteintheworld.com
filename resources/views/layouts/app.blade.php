@@ -2,8 +2,8 @@
 <html lang="{{ str_replace('_', '-', $SNAIL_SEO_LANGUAGE) }}">
     <head>
         @include('partials.seo')
-        @stack('page-preloads')
         @include('partials.preloads')
+        @stack('page-preloads')
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- Fonts -->

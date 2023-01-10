@@ -1,3 +1,9 @@
+<?php
+    /*
+    ATTENZIONE - ATTENZIONE - ATTENZIONE - ATTENZIONE - ATTENZIONE - ATTENZIONE - ATTENZIONE - ATTENZIONE - ATTENZIONE
+    Per il futuro me: se vuoi evitarti giornate di debug, fa' attenzione quando fai il prefetch delle pagine perché se lo fai con le pagine di registrazione ti parte la sessione e, ad esempio, l'utente non resta loggato subito dopo la registrazione.
+    */
+?>
 <link rel="preload" href="{{ asset('img/logo.png') }}" as="image">
 <link
     rel="preload"
@@ -12,23 +18,18 @@
         type="text/css"
     />
 </noscript>
-<?php
-    $prefetch_urls = ['most-famous-people', 'most-famous-fans', 'most-famous-tags', 'search'];
-    if (auth()->check()) {
-        $prefetch_urls[] = 'dashboard';
-        $prefetch_urls[] = 'profile.show';
-    }
-    $url_type = 'route';
-?>
-@include('partials.prefetch-urls', compact('prefetch_urls', 'url_type'))
 @auth()
     <?php
-        $prefetch_urls = [
-            route('users.show', ['user' => auth()->user() ]),
+        $all_prefetch_urls = [
+            'route' => ['most-famous-people', 'most-famous-fans', 'most-famous-tags', 'search', 'dashboard', 'profile.show'],
+            'url' => [
+                route('users.show', ['user' => auth()->user() ]),
+            ]
         ];
-        $url_type = 'url';
+        foreach ($all_prefetch_urls as $url_type => $prefetch_urls) {
+            ?>
+            @include('partials.prefetch-urls', compact('prefetch_urls', 'url_type'))
+            <?php
+        }
     ?>
-    @include('partials.prefetch-urls', compact('prefetch_urls', 'url_type'))
 @endauth
-
-
