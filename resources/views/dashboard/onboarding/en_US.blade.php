@@ -20,7 +20,7 @@
 </section>
 <section class="mt-8">
     <h3 class="font-semibold">What can I do here?</h3>
-    <p>You can become famous! Either in the <a href="{{ route('users.most-famous-people') }}" target="_blank" class="text-amber-500 font-bold">Most Famous People</a> ranking or in the <a href="{{ route('users.most-famous-fans') }}" target="_blank" class="text-amber-500 font-bold">Most Famous Fans</a> ranking.</p>
+    <p>You can become famous! Either in the <a href="{{ route('most-famous-people') }}" target="_blank" class="text-amber-500 font-bold">Most Famous People</a> ranking or in the <a href="{{ route('most-famous-fans') }}" target="_blank" class="text-amber-500 font-bold">Most Famous Fans</a> ranking.</p>
 </section>
 <section class="mt-8">
     <h3 class="font-semibold">How can I become a Most Famous Fan?</h3>
@@ -28,6 +28,6 @@
 </section>
 <section class="mt-8">
     <h3 class="font-semibold">Why do I need tags?</h3>
-    <p>You can <a href="{{ route('profile.show') }}#edit-tags" target="_blank" class="text-amber-500 font-bold">select up to 5 tags</a> to appear on those tags' rankings, in the <a href="{{ route('tags.most-famous-tags') }}" target="_blank" class="text-amber-500 font-bold">Most Famous Tags</a> page and on each tag page.</p>
+    <p>You can <a href="{{ route('profile.show') }}#edit-tags" target="_blank" class="text-amber-500 font-bold">select up to 5 tags</a> to appear on those tags' rankings, in the <a href="{{ route('most-famous-tags') }}" target="_blank" class="text-amber-500 font-bold">Most Famous Tags</a> page and on each tag page.</p>
 </section>
 <div class="mb-8"></div>

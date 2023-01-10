@@ -31,11 +31,11 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard')->middleware('doNotCacheResponse');
     Route::resource('tags', TagController::class)->middleware(['can:supadupaadminshit', 'doNotCacheResponse']);
-    Route::get('/most-famous-people', [UserController::class, 'most_famous_people'])->name('users.most-famous-people');
-    Route::get('/most-famous-people/{tag}', [UserController::class, 'show_famous_people_by_tag'])->name('users.most-famous-people.show');
-    Route::get('/most-famous-fans', [UserController::class, 'most_famous_fans'])->name('users.most-famous-fans');
-    Route::get('/most-famous-fans/{tag}', [UserController::class, 'show_famous_fans_by_tag'])->name('users.most-famous-fans.show');
-    Route::get('/most-famous-tags', [TagController::class, 'most_famous_tags'])->name('tags.most-famous-tags');
+    Route::get('/most-famous-people', [UserController::class, 'most_famous_people'])->name('most-famous-people');
+    Route::get('/most-famous-people/{tag}', [UserController::class, 'show_famous_people_by_tag'])->name('most-famous-people-by-tag');
+    Route::get('/most-famous-fans', [UserController::class, 'most_famous_fans'])->name('most-famous-fans');
+    Route::get('/most-famous-fans/{tag}', [UserController::class, 'show_famous_fans_by_tag'])->name('most-famous-fans-by-tag');
+    Route::get('/most-famous-tags', [TagController::class, 'most_famous_tags'])->name('most-famous-tags');
     Route::post('/users/{user}/recount', [UserController::class, 'recount_points'])->name('users.user-recount-points');
     Route::resource('user/statuses', StatusController::class)->middleware('doNotCacheResponse');
     Route::resource('users', UserController::class);

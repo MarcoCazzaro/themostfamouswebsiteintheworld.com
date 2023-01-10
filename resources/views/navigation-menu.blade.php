@@ -20,13 +20,13 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('users.most-famous-people') }}" :active="request()->routeIs('users.most-famous-people')">
+                    <x-jet-nav-link href="{{ route('most-famous-people') }}" :active="request()->routeIs('most-famous-people')">
                         {{ __('Most Famous People') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('users.most-famous-fans') }}" :active="request()->routeIs('users.most-famous-fans')">
+                    <x-jet-nav-link href="{{ route('most-famous-fans') }}" :active="request()->routeIs('most-famous-fans')">
                         {{ __('Most Famous Fans') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('tags.most-famous-tags') }}" :active="request()->routeIs('tags.most-famous-tags')">
+                    <x-jet-nav-link href="{{ route('most-famous-tags') }}" :active="request()->routeIs('most-famous-tags')">
                         {{ __('Most Famous Tags') }}
                     </x-jet-nav-link>
                     @can('supadupaadminshit')
@@ -178,13 +178,13 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
-            <x-jet-responsive-nav-link href="{{ route('users.most-famous-people') }}" :active="request()->routeIs('users.most-famous-people')">
+            <x-jet-responsive-nav-link href="{{ route('most-famous-people') }}" :active="request()->routeIs('most-famous-people')">
                 {{ __('Most Famous People') }}
             </x-jet-responsive-nav-link>
-            <x-jet-responsive-nav-link href="{{ route('users.most-famous-fans') }}" :active="request()->routeIs('users.most-famous-fans')">
+            <x-jet-responsive-nav-link href="{{ route('most-famous-fans') }}" :active="request()->routeIs('most-famous-fans')">
                 {{ __('Most Famous Fans') }}
             </x-jet-responsive-nav-link>
-            <x-jet-responsive-nav-link href="{{ route('tags.most-famous-tags') }}" :active="request()->routeIs('tags.most-famous-tags')">
+            <x-jet-responsive-nav-link href="{{ route('most-famous-tags') }}" :active="request()->routeIs('most-famous-tags')">
                 {{ __('Most Famous Tags') }}
             </x-jet-responsive-nav-link>
             @can('supadupaadminshit')

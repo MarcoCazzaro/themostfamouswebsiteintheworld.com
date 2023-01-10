@@ -42,13 +42,13 @@
             <div class="ssnail-global-ranking-position bg-white rounded-lg border p-6 flex flex-wrap items-center justify-between">
                 <div class="flex items-center">
                     <h2 class="font-semibold mr-4">Global ranking position</h2>
-                    <a href="{{ route('users.most-famous-people') }}">
+                    <a href="{{ route('most-famous-people') }}">
                         <div class="ssnail-grp rounded-full text-white bg-amber-500 text-2xl flex justify-center items-center font-bold w-14 h-14">
                             {{ $user_ranking_position ?? '' }}
                         </div>
                     </a>
                 </div>
-                <a class="float-right text-gray-500" href="{{ route('users.most-famous-people') }}"><span class="hidden md:inline">See full ranking</span> <i class="fas fa-arrow-right"></i></a>
+                <a class="float-right text-gray-500" href="{{ route('most-famous-people') }}"><span class="hidden md:inline">See full ranking</span> <i class="fas fa-arrow-right"></i></a>
             </div>
             <div class="bg-white rounded-lg border p-6 flex flex-wrap items-center justify-between">
                 <h2 class="font-semibold mr-4">Social links</h2>
