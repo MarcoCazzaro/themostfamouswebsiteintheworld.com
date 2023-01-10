@@ -9,9 +9,11 @@
         <meta property="og:title" content="{{$SNAIL_SEO_TITLE}}" />
         <meta property="og:url" content="{{request()->url()}}" />
         <meta property="og:description" content="{{$SNAIL_SEO_DESCRIPTION}}" />
+        <meta property="og:image" content="{{ asset('img/placeholder.jpg') }}" />
         <meta name="twitter:card" content="summary"></meta>
         <meta name="twitter:title" content="{{$SNAIL_SEO_TITLE}}"></meta>
         <meta name="twitter:description" content="{{$SNAIL_SEO_DESCRIPTION}}"></meta>
+        <meta name="twitter:image" content="{{ asset('img/placeholder.jpg') }}"></meta>
         <meta name="theme-color" content="#f59e0b" />
         <title>{{ $SNAIL_SEO_TITLE_FULL }}</title>
         @yield('open-graph')
