@@ -3,6 +3,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Sitemap\Tags\Url;
 
 // https://github.com/spatie/laravel-sitemap#generating-the-sitemap-frequently
 
@@ -31,6 +32,12 @@ class GenerateSitemap extends Command
     {
         // modify this to your own needs
         SitemapGenerator::create(config('app.url'))
-            ->writeToFile(public_path('sitemap.xml'));
+        ->getSitemap()
+            ->add(Url::create('/forgot-password')
+                ->setLastModificationDate(now())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                ->setPriority(0.1)
+            )
+        ->writeToFile(public_path('sitemap.xml'));
     }
 }
