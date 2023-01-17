@@ -85,6 +85,8 @@ class UploadCelebs extends Component
                             $item["updated_at"] = now();
                             unset($item["user_slug"]);
                             unset($item["tag_name"]);
+                        } else {
+                            unset($tags_data[$key]);
                         }
                     });
                     $result = DB::table('taggables')->insertOrIgnore($tags_data);
