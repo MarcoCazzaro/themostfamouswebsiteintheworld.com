@@ -14,6 +14,9 @@
         </h1>
         <div>
             <a href="{{ route('users.index') }}" class="mr-4 text-gray-500"><i class="fas fa-arrow-left"></i> <span class="text-sm">{{ __('See all the users') }}</span></a>
+            @if($user)
+                <a href="{{ route('users.show', $user) }}" class="mr-4 text-gray-500"><i class="fas fa-arrow-right"></i> <span class="text-sm">{{ $user->name }}'s {{ __('profile') }}</span></a>
+            @endif
         </div>
     </x-slot>
 

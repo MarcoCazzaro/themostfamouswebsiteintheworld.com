@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Livewire\SearchTags;
 use App\Http\Livewire\SearchUsersAndTags;
+use App\Http\Livewire\UploadCelebs;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,7 @@ Route::middleware([
     Route::impersonate();
     Route::get('/search/{stuff?}', SearchUsersAndTags::class)->name('search')->middleware('cacheResponse');
     Route::get('/search-tags/{stuff?}', SearchTags::class)->name('tags.search')->middleware('cacheResponse');
+    Route::get('/upload-celebs', UploadCelebs::class)->name('upload-celebs')->middleware('can:supadupaadminshit');
 });
 Route::get('suggest/{user}', [UserController::class, 'suggest'])->name('suggest')->middleware('cacheResponse');
 Route::get('cookie-policy', [WelcomeController::class, 'cookie_policy'])->name('cookies')->middleware('cacheResponse');

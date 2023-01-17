@@ -7,6 +7,7 @@
             @can('supadupaadminshit')
                 <div class="h-100 items-center">
                     <a href="{{ route('users.create') }}"><i class="fas fa-plus"></i> {{ __('Add User') }}</a>
+                    <a href="{{ route('upload-celebs') }}" class="ml-3"><i class="fas fa-star"></i> {{ __('Upload celebs') }}</a>
                 </div>
             @endcan
         </div>
