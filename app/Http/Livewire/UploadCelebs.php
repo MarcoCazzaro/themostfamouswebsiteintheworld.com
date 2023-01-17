@@ -29,30 +29,34 @@ class UploadCelebs extends Component
             foreach($chunk as $line) {
                 $parts = explode(";", $line);
                 $name = $parts[0] ?? false;
-                if ($name) {
-                    $slug = Str::slug($name);
-                    $email = $slug . "@tmfwitw.com";
-                    $users_data[] = [
-                        'name' => Str::limit($name, 100),
-                        'slug' => $slug,
-                        'email' => $email,
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                        'email_verified_at' => now(),
-                        'password' => bcrypt(\Str::random(31)),
-                        'remember_token' => Str::random(10),
-                        'type' => UserTypes::CELEB->value,
-                        'points_received' => 0,
-                        'points_given' => 0,
-                    ];
-                    $tags = $parts[1] ?? false;
-                    if ($tags) {
-                        $tags = explode(",", $tags);
-                        foreach ($tags as $tag) {
-                            $tags_data[] = [
-                                "user_slug" => $slug,
-                                "tag_name" => $tag
-                            ];
+                if ($name === 'reset') {
+                    User::celebs()->delete();
+                } else {
+                    if ($name) {
+                        $slug = Str::slug($name);
+                        $email = $slug . "@tmfwitw.com";
+                        $users_data[] = [
+                            'name' => Str::limit($name, 100),
+                            'slug' => $slug,
+                            'email' => $email,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                            'email_verified_at' => now(),
+                            'password' => bcrypt(\Str::random(31)),
+                            'remember_token' => Str::random(10),
+                            'type' => UserTypes::CELEB->value,
+                            'points_received' => 0,
+                            'points_given' => 0,
+                        ];
+                        $tags = $parts[1] ?? false;
+                        if ($tags) {
+                            $tags = explode(",", $tags);
+                            foreach ($tags as $tag) {
+                                $tags_data[] = [
+                                    "user_slug" => $slug,
+                                    "tag_name" => $tag
+                                ];
+                            }
                         }
                     }
                 }
@@ -67,21 +71,21 @@ class UploadCelebs extends Component
                         $celeb = $celebs->firstWhere("slug", $item["user_slug"]);
                         if ($celeb) {
                             $item["taggable_id"] = $celeb->id;
+                            $tag = $tags->firstWhere("name", $item["tag_name"]);
+                            if (!$tag) {
+                                $tag = Tag::firstOrCreate([
+                                    'name' => $item["tag_name"],
+                                    'slug' => Str::slug($item["tag_name"]),
+                                    'locale' => 'en_US',
+                                ]);
+                            }
+                            $item["tag_id"] = $tag->id;
+                            $item["taggable_type"] = User::class;
+                            $item["created_at"] = now();
+                            $item["updated_at"] = now();
+                            unset($item["user_slug"]);
+                            unset($item["tag_name"]);
                         }
-                        $tag = $tags->firstWhere("name", $item["tag_name"]);
-                        if (!$tag) {
-                            $tag = Tag::firstOrCreate([
-                                'name' => $item["tag_name"],
-                                'slug' => Str::slug($item["tag_name"]),
-                                'locale' => 'en_US',
-                            ]);
-                        }
-                        $item["tag_id"] = $tag->id;
-                        $item["taggable_type"] = User::class;
-                        $item["created_at"] = now();
-                        $item["updated_at"] = now();
-                        unset($item["user_slug"]);
-                        unset($item["tag_name"]);
                     });
                     $result = DB::table('taggables')->insertOrIgnore($tags_data);
                 }
