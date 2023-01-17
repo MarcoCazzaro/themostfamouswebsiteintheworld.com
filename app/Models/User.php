@@ -304,4 +304,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(UserOption::class);
     }
+
+    protected function isCeleb(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, $attributes) => ($this->type === UserTypes::CELEB)
+        );
+    }
 }
