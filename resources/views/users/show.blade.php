@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout padded-footer="1">
     <x-slot name="header">
         <div class="flex justify-between">
             <div class="flex items-center flex-wrap">

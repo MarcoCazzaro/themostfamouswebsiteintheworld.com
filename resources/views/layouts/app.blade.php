@@ -33,7 +33,7 @@
                 {{ $slot }}
             </main>
         </div>
-        @include('partials.site-footer')
+        @include('partials.site-footer', compact('paddedFooter'))
 
         @stack('modals')
 
