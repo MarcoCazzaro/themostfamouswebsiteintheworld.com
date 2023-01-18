@@ -47,3 +47,4 @@ Route::middleware([
 });
 Route::get('suggest/{user}', [UserController::class, 'suggest'])->name('suggest')->middleware('cacheResponse');
 Route::get('cookie-policy', [WelcomeController::class, 'cookie_policy'])->name('cookies')->middleware('cacheResponse');
+Route::get('info', [WelcomeController::class, 'info'])->name('info')->middleware('cacheResponse');

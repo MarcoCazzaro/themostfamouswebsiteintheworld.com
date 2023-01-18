@@ -20,4 +20,9 @@ class WelcomeController extends Controller
             'cookies' => Str::markdown(file_get_contents($cookiesFile)),
         ]);
     }
+
+    public function info()
+    {
+        return view('info');
+    }
 }
