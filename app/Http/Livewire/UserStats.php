@@ -134,6 +134,15 @@ class UserStats extends Component
                             ->whereBetween('created_at', [$prevStartDate, $prevEndDate])
                             ->first()->counter,
                     ];
+                    $stats[] = [
+                        "label" => "fake famous points",
+                        "value" => FamousPoint::whereBetween('created_at', [$currentStartDate, $currentEndDate])
+                            ->where('type', FamousPointTypes::FAKE)
+                            ->sum('ajeje'),
+                        "prev_value" => FamousPoint::whereBetween('created_at', [$prevStartDate, $prevEndDate])
+                            ->where('type', FamousPointTypes::FAKE)
+                            ->sum('ajeje'),
+                    ];
                 }
             }
             $data["stats"] = $stats;
