@@ -8,7 +8,7 @@
             <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 <section class="mt-8">
                     <h2 class="font-semibold">What is The Most Famous Website In The World?</h2>
-                    <p>It's a website created by <a href="{{ $gE->url ?? '' }}" target="_blank" class="text-amber-500 font-bold">gE</a> where users are ranked by their popularity.</p>
+                    <p>It's a website where users are ranked by their popularity, accordingly to their famous points.</p>
                 </section>
                 <section class="mt-8">
                     <h2 class="font-semibold">What are famous points?</h2>
