@@ -50,7 +50,7 @@ class Tag extends Model
     public function getUrlAttribute()
     {
         $subject = request()->routeIs('most-famous-fans') ? 'fans' : 'people';
-        return route('users.most-famous-' . $subject . '.show', $this);
+        return route('most-famous-' . $subject . '-by-tag', $this);
     }
 
     /**
