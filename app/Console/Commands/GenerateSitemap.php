@@ -38,6 +38,11 @@ class GenerateSitemap extends Command
                 ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
                 ->setPriority(0.1)
             )
+            ->add(Url::create('/info')
+                ->setLastModificationDate(now())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+                ->setPriority(0.1)
+            )
         ->writeToFile(public_path('sitemap.xml'));
     }
 }
