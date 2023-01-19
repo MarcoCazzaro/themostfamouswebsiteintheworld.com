@@ -19,7 +19,9 @@
                 </div>
 
                 <span class="mr-8 mt-4 sm:mt-0">{{ $user->followers_count }} followers</span>
-                <span class="mr-8 mt-4 sm:mt-0">{{ $user->following_count }} following</span>
+                @if(!$user->isCeleb())
+                    <span class="mr-8 mt-4 sm:mt-0">{{ $user->following_count }} following</span>
+                @endif
             </div>
             @can('supadupaadminshit')
                 <div class="h-100 flex flex-col text-amber-500">
