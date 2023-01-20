@@ -6,6 +6,7 @@ use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Enums\UserTypes;
+use App\Enums\UserInfoTypes;
 use App\Models\User;
 use App\Models\Tag;
 
@@ -26,6 +27,7 @@ class UploadCelebs extends Component
         foreach ($rows->chunk(50) as $chunk) {
             $users_data = [];
             $tags_data = [];
+            $socials_data = [];
             foreach($chunk as $line) {
                 $parts = explode(";", $line);
                 $name = $parts[0] ?? false;
@@ -55,6 +57,18 @@ class UploadCelebs extends Component
                                 $tags_data[] = [
                                     "user_slug" => $slug,
                                     "tag_name" => $tag
+                                ];
+                            }
+                        }
+                        $socials = $parts[2] ?? false;
+                        if ($socials) {
+                            $socials = explode(",", $socials);
+                            foreach ($socials as $social_link) {
+                                $socials_data[] = [
+                                    "user_slug" => $slug,
+                                    "type" => UserInfoTypes::SOCIAL->value,
+                                    "name" => getSocialNameFromLink($social_link),
+                                    "value" => $social_link
                                 ];
                             }
                         }
@@ -91,6 +105,21 @@ class UploadCelebs extends Component
                         return isset($item["tag_id"]);
                     });
                     $result = DB::table('taggables')->insertOrIgnore($tags_data);
+                }
+                if (!empty($socials_data)) {
+                    array_walk($socials_data, function(&$item, $key) use ($celebs) {
+                        $celeb = $celebs->firstWhere("slug", $item["user_slug"]);
+                        if ($celeb) {
+                            $item["user_id"] = $celeb->id;
+                            $item["created_at"] = now();
+                            $item["updated_at"] = now();
+                            unset($item["user_slug"]);
+                        }
+                    });
+                    $socials_data = array_filter($socials_data, function($item){
+                        return isset($item["user_id"]);
+                    });
+                    $result = DB::table('user_infos')->insertOrIgnore($socials_data);
                 }
             }
         }
