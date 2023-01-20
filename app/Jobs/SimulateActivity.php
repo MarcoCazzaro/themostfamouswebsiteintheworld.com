@@ -33,12 +33,12 @@ class SimulateActivity implements ShouldQueue
     public function handle()
     {
         try {
-            $celebs = User::celebs()->inRandomOrder()->take(131)->get();
-            $senders = User::dummies()->inRandomOrder()->take(131)->get();
+            $celebs = User::celebs()->inRandomOrder()->take(31)->get();
+            $senders = User::dummies()->inRandomOrder()->take(31)->get();
             $counter = 0;
             foreach ($celebs as $user) {
                 $points_received = 0;
-                for ($i = 0; $i < rand(17, 77); $i++) {
+                for ($i = 0; $i < rand(8, 17); $i++) {
                     $sender = $senders->random();
                     $counter++;
                     FamousPoint::factory([
