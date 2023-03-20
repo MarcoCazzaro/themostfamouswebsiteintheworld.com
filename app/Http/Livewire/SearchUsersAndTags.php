@@ -58,7 +58,6 @@ class SearchUsersAndTags extends Component
             }
             $found_stuff = $found_stuff->unique('ssnailkey');
         }
-
         return view('livewire.search-users-and-tags', compact('found_stuff'));
     }
 }

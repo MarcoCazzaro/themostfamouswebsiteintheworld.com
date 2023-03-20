@@ -3,6 +3,9 @@
         <div class="flex flex-col items-center justify-center p-8">
             <x-jet-application-logo class="h-12 mb-5" />
             <x-jet-application-mark class="" />
+            <div class="flex items-center justify-center flex-wrap p-4">
+                <p>What is The Most Famous Website In The World? <a href="{{ route('info') }}" class="text-amber-500 font-semibold">Find out more <i class="fas fa-arrow-right"></i></a></p>
+            </div>
         </div>
     </div>
     <div class="flex justify-center content-center min-w-screen">
