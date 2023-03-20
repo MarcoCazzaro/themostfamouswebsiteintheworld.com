@@ -59,7 +59,7 @@
                                         <div class="flex justify-end">
                                             @can('supadupaadminshit')
                                                 <a href="{{ route('tags.edit', $found_object ?? null) }}" class="mr-3"><i class="fas fa-pen-to-square"></i> <span class="hidden lg:inline text-sm">{{ __('Edit') }}</span></a>
-                                                <x-forms.delete-model :tag="$found_object" label-class="hidden lg:inline text-sm"></x-forms.delete-model>
+                                                <x-delete-model :tag="$found_object" label-class="hidden lg:inline text-sm"></x-delete-model>
                                             @endcan
                                         </div>
                                     </td>
