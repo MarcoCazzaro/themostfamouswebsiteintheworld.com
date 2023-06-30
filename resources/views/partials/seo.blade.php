@@ -1,4 +1,3 @@
-        @include('cookie-consent::index')
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="{{$SNAIL_SEO_DESCRIPTION}}">
@@ -19,3 +18,4 @@
         @yield('open-graph')
         <link rel="favicon" href="{{asset('favicon.ico')}}" type="image/x-icon"/>
         <link rel="shortcut icon" href="{{asset('favicon.ico')}}" type="image/x-icon"/>
+        @include('cookie-consent::index')
