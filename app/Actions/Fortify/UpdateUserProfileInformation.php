@@ -12,16 +12,6 @@ use Spatie\ResponseCache\Facades\ResponseCache;
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
     /**
-     * Prepare the component.
-     *
-     * @return void
-     */
-    public function mount()
-    {
-        $this->state = Auth::user()->withoutRelations()->toArray();
-    }
-
-    /**
      * Validate and update the given user's profile information.
      *
      * @param  mixed  $user

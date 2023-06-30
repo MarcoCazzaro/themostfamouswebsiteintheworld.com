@@ -1,21 +1,31 @@
+<script>
+    <?php
+        //ORIGINAL PACKAGE: SPATIE COOKIE CONSENT
+        //CREDITS: https://stackoverflow.com/questions/60173853/how-to-set-the-google-analytics-cookie-only-after-another-consent-cookie-is-set
+
+        //it is absolutely crucial to define gtag in the global scope
+    ?>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){
+        dataLayer.push(arguments);
+    }
+    function appendGoogleTagScript() {
+        //ADDING GA
+        var s = document.createElement('script');
+        s.type = "text/javascript"
+        s.async = "true";
+        s.src = "https://www.googletagmanager.com/gtag/js?id={{ config('services.google.analytics.tracking_id') }}";
+        var x = document.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(s, x);
+    }
+    gtag('js', new Date());
+    gtag('config', "{{ config('services.google.analytics.tracking_id') }}", {'anonymize_ip': true});
+</script>
 @if($cookieConsentConfig['enabled'] && ! $alreadyConsentedWithCookies)
 
     @include('cookie-consent::dialogContents')
 
     <script>
-        <?php
-            //ORIGINAL PACKAGE: SPATIE COOKIE CONSENT
-            //CREDITS: https://stackoverflow.com/questions/60173853/how-to-set-the-google-analytics-cookie-only-after-another-consent-cookie-is-set
-
-            //it is absolutely crucial to define gtag in the global scope
-        ?>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', "{{ config('services.google.analytics.tracking_id') }}", {'anonymize_ip': true});
-
         window.laravelCookieConsent = (function () {
 
             const COOKIE_VALUE = 1;
@@ -50,12 +60,7 @@
                     + '{{ config('session.same_site') ? ';samesite='.config('session.same_site') : null }}';
 
                 //ADDING GA
-                var s = document.createElement('script');
-                s.type = "text/javascript"
-                s.async = "true";
-                s.src = "https://www.googletagmanager.com/gtag/js?id={{ config('services.google.analytics.tracking_id') }}";
-                var x = document.getElementsByTagName('script')[0];
-                x.parentNode.insertBefore(s, x);
+                appendGoogleTagScript();
             }
 
             function deleteCookie(name) {
@@ -82,5 +87,8 @@
             };
         })();
     </script>
-
+@else
+    <script>
+        appendGoogleTagScript();
+    </script>
 @endif
