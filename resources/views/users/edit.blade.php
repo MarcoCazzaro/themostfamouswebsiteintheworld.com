@@ -14,7 +14,7 @@
         </h1>
         <div>
             <a href="{{ route('users.index') }}" class="mr-4 text-gray-500"><i class="fas fa-arrow-left"></i> <span class="text-sm">{{ __('See all the users') }}</span></a>
-            @if($user)
+            @if($user ?? false)
                 <a href="{{ route('users.show', $user) }}" class="mr-4 text-gray-500"><i class="fas fa-arrow-right"></i> <span class="text-sm">{{ $user->name }}'s {{ __('profile') }}</span></a>
             @endif
         </div>
@@ -59,7 +59,7 @@
                         <option disabled>{{ __('Choose user type') }}</option>
                         @foreach(\App\Enums\UserTypes::cases() as $user_type)
                             <option value="{{ $user_type->value }}"
-                                @if($user->type->value == $user_type->value)
+                                @if(($user ?? false) && $user->type->value == $user_type->value)
                                 selected
                                 @endif
                             >{{ $user_type->name }}</option>
