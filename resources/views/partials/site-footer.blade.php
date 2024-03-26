@@ -7,7 +7,7 @@
                 <div class="ml-4">
                     <p>&copy;{{ date('Y') }} | All rights reserved</p>
                     <p><b class="font-semibold text-amber-500">The Most Famous Website In The World</b> is owned by:</p>
-                    <p class="text-sm">Snappysnail di Marco Cazzaro <br> Via IV Novembre 9 22045 Lambrugo (CO) Italy <br> VAT NUMBER: IT03919560130</p>
+                    <p class="text-sm">Snappysnail di Marco Cazzaro <br> Via Monte Grappa 119 - 35018 San Martino di Lupari (PD) Italy <br> VAT NUMBER: IT03919560130</p>
                     <div class="ssnail-social-links text-amber-500 mt-4">
                         <a href="https://twitter.com/tmfwitw" target="_blank" rel="noopener nofollow" class="mr-4"><i class="fab fa-twitter fa-xl"></i></a>
                         <a href="https://www.facebook.com/profile.php?id=100089300353495" target="_blank" rel="noopener nofollow" class="mr-4"><i class="fab fa-facebook-f fa-xl"></i></a>

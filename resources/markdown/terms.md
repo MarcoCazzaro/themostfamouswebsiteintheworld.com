@@ -1,7 +1,7 @@
 # Terms of Service
 
 ## Purpose
-[The Most Famous Website In The World](https://themostfamouswebsiteintheworld.com) (this website, aka TMFWITW) is owned by [Snappysnail di Marco Cazzaro](https://snappysnail.io) (aka Snappysnail), with registered address at Via IV Novembre 9 22045 Lambrugo (CO) Italy.
+[The Most Famous Website In The World](https://themostfamouswebsiteintheworld.com) (this website, aka TMFWITW) is owned by [Snappysnail di Marco Cazzaro](https://snappysnail.io) (aka Snappysnail), with registered address at Via Monte Grappa 119 - 35018 San Martino di Lupari (PD) Italy.
 
 This website's purpose is solely informational and promotional. Therefore, it is expressly forbidden to use TMFWITW for any other purposes such as, as a way of mere example, close any possible kind of agreement, including those relating to bank, insurance and finance products.
 
@@ -21,7 +21,7 @@ Means TMFWITW, the Algorithm, patents, utility models, designs and models, copyr
 Means the web-based platform with informative and advertising purposes owned by Snappysnail and accessible, in particular, at the Internet address [https://themostfamouswebsiteintheworld.com](https://themostfamouswebsiteintheworld.com).
 
 ### Snappysnail
-Means Snappysnail di Marco Cazzaro, an Italian company with registered address at ia IV Novembre 9 22045 Lambrugo (CO) Italy.
+Means Snappysnail di Marco Cazzaro, an Italian company with registered address at Via Monte Grappa 119 - 35018 San Martino di Lupari (PD) Italy.
 
 ### Member
 Means a registered User on TMFWITW.

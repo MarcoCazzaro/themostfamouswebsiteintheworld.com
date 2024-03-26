@@ -19,7 +19,7 @@ Our affiliated companies are listed below:
 
 Company: Snappysnail di Marco Cazzaro
 
-Registered Office: Via IV Novembre 9 22045 Lambrugo (CO) Italy
+Registered Office: Via Monte Grappa 119 - 35018 San Martino di Lupari (PD) Italy
 
 Registered VAT Number: IT03919560130
 
