@@ -26,7 +26,7 @@ if (! function_exists('humanNumber')) {
 if (! function_exists('supportedSocialPlatforms')) {
     function supportedSocialPlatforms()
     {
-        return ['youtube', 'twitter', 'facebook', 'instagram', 'tiktok', 'twitch', 'discord', 'pinterest', 'linkedin', 'reddit', 'stack-exchange'];
+        return ['youtube', 'x-twitter', 'facebook', 'instagram', 'tiktok', 'twitch', 'discord', 'pinterest', 'linkedin', 'reddit', 'stack-exchange'];
     }
 }
 if (! function_exists('getSocialNameFromLink')) {

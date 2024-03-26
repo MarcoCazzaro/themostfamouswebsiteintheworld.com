@@ -42,7 +42,7 @@
     <x-layout.container>
         @if($user->isCeleb)
             <div class="bg-gray-100 text-gray-500 text-center p-2 mb-5">
-                <p>{{ __('This profile page has not been claimed by :name yet. If you have the rights to claim it, please contact us on our Twitter page:', ['name' => $user->name]) }} <a target="_blank" class="font-bold" href="https://twitter.com/tmfwitw">@tmfwitw</a></p>
+                <p>{{ __('This profile page has not been claimed by :name yet. If you have the rights to claim it, please contact us on our X.com page:', ['name' => $user->name]) }} <a target="_blank" class="font-bold" href="https://twitter.com/tmfwitw">@tmfwitw</a></p>
             </div>
         @endif
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">

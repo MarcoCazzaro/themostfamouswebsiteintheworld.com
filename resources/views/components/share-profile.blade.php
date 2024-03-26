@@ -10,7 +10,7 @@
                 <a href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}" target="_blank"><i class="fab fa-facebook-f fa-xl"></i></a>
             </div>
             <div class="mx-3">
-                <a target="_blank" href="https://twitter.com/intent/tweet?text=<?= $title ?>&url={{ $url }}&via=<?= $via ?>"><i class="fab fa-twitter fa-xl"></i></a>
+                <a target="_blank" href="https://twitter.com/intent/tweet?text=<?= $title ?>&url={{ $url }}&via=<?= $via ?>"><i class="fab fa-x-twitter fa-xl"></i></a>
             </div>
             <div class="mx-3">
                 <a target="_blank" href="http://www.reddit.com/submit?url={{ $url }}"><i class="fab fa-reddit fa-xl"></i></a>
