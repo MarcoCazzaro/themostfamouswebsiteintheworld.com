@@ -42,7 +42,7 @@
                     <p>{{__('Change your profile picture, set your tags, add up to 3 social links')}}.</p>
                     <div class="pt-4 text-center">
                         <form method="GET" action="{{ route('profile.show') }}">
-                            <x-jet-button type="submit" class="">{{ __('Complete') }}</x-jet-button>
+                            <x-button type="submit" class="">{{ __('Complete') }}</x-button>
                         </form>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                 <p>{{__('Search for your favourite ones and start following them')}}</p>
                 <div class="pt-4 text-center">
                     <form method="GET" action="{{ route('search') }}">
-                        <x-jet-button type="submit" class="w-36">{{ __('Search') }}</x-jet-button>
+                        <x-button type="submit" class="w-36">{{ __('Search') }}</x-button>
                     </form>
                 </div>
             </div>
@@ -84,7 +84,7 @@
                     @endif
                     <div class="pt-4 text-center">
                         <form method="GET" action="{{ $status_link }}">
-                            <x-jet-button type="submit" class="w-36">{{ $status_text }}</x-jet-button>
+                            <x-button type="submit" class="w-36">{{ $status_text }}</x-button>
                         </form>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                     @endif
                     <div class="mt-4 text-center">
                         <form method="GET" action="{{ route('profile.show') }}#edit-tags">
-                            <x-jet-button type="submit" class="w-36">{{ $tags_label }}</x-jet-button>
+                            <x-button type="submit" class="w-36">{{ $tags_label }}</x-button>
                         </form>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                         <p class="py-4">{{ __("You are not following anyone yet, why don't you search for someone famous") }}?</p>
                         <div class="pt-4 text-center">
                             <form method="GET" action="{{ route('search') }}">
-                                <x-jet-button type="submit" class="w-36">{{ __('Search') }}</x-jet-button>
+                                <x-button type="submit" class="w-36">{{ __('Search') }}</x-button>
                             </form>
                         </div>
                     @endif
@@ -195,7 +195,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="overflow-hidden">
                 <div x-data="{}">
-                    <p class="px-8 sm:px-0">{{ __('If you want to see the onboarding procedure again, click on') }} <button x-on:click="Livewire.emit('openOnboarding');window.scrollTo(0,0)" class="text-amber-500">{{ __('Getting started') }} <i class="fas fa-book"></i></button></p>
+                    <p class="px-8 sm:px-0">{{ __('If you want to see the onboarding procedure again, click on') }} <button x-on:click="Livewire.dispatch('openOnboarding');window.scrollTo(0,0)" class="text-amber-500">{{ __('Getting started') }} <i class="fas fa-book"></i></button></p>
                 </div>
             </div>
         </div>

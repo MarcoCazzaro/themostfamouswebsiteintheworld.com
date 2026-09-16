@@ -1,8 +1,8 @@
 <x-guest-layout>
     <div class="flex justify-center content-center min-h-screen min-w-screen">
         <div class="flex flex-col items-center justify-center p-8">
-            <x-jet-application-logo class="h-12 mb-5" />
-            <x-jet-application-mark class="" />
+            <x-application-logo class="h-12 mb-5" />
+            <x-application-mark class="" />
             <div class="flex items-center justify-center flex-wrap p-4">
                 <p>What is The Most Famous Website In The World? <a href="{{ route('info') }}" class="text-amber-500 font-semibold">Find out more <i class="fas fa-arrow-right"></i></a></p>
             </div>
@@ -28,13 +28,13 @@
                         <p class="text-center">Find out more:</p>
                         <div class="flex justify-center items-center flex-wrap">
                             <form method="GET" action="{{ route('dashboard') }}">
-                                <x-jet-button type="submit" class="w-56 m-4">Your dashboard</x-jet-button>
+                                <x-button type="submit" class="w-56 m-4">Your dashboard</x-button>
                             </form>
                             <form method="GET" action="{{ route('most-famous-people') }}">
-                                <x-jet-button type="submit" class="w-56 m-4">Most famous people</x-jet-button>
+                                <x-button type="submit" class="w-56 m-4">Most famous people</x-button>
                             </form>
                             <form method="GET" action="{{ route('most-famous-fans') }}">
-                                <x-jet-button type="submit" class="w-56 m-4">Most famous fans</x-jet-button>
+                                <x-button type="submit" class="w-56 m-4">Most famous fans</x-button>
                             </form>
                         </div>
                     </section>
@@ -44,10 +44,10 @@
                     <p>Join us, if you want to be in The Most Famous Website In The World.</p>
                     <div class="flex p-8">
                         <form method="GET" action="{{ route('register') }}">
-                            <x-jet-button type="submit" class="w-24 m-4">Join</x-jet-button>
+                            <x-button type="submit" class="w-24 m-4">Join</x-button>
                         </form>
                         <form method="GET" action="{{ route('login') }}">
-                            <x-jet-button type="submit" class="w-24 m-4">Login</x-jet-button>
+                            <x-button type="submit" class="w-24 m-4">Login</x-button>
                         </form>
                     </div>
                 </div>

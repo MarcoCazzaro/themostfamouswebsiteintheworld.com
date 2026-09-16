@@ -2,7 +2,7 @@
 
 //https://devdojo.com/tnylea/laravel-livewire-trix-editor-component
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 

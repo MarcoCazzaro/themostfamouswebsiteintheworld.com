@@ -8,8 +8,8 @@
 </section>
 <section class="mt-8">
     <h3 class="font-semibold">What are famous points?</h3>
-    <p>The more famous points <x-jet-application-logo class="inline h-3 w-auto" /> you have, the more popular you are.</p>
-    <p>Every time you visit a user's profile page, let's say <a href="{{ $gE->url ?? '' }}" target="_blank" class="text-amber-500 font-bold">gE's</a>, you can see a progress bar on the bottom of the page. Once the progress is 100%, a famous point <x-jet-application-logo class="inline h-3 w-auto" /> is given to that person.</p>
+    <p>The more famous points <x-application-logo class="inline h-3 w-auto" /> you have, the more popular you are.</p>
+    <p>Every time you visit a user's profile page, let's say <a href="{{ $gE->url ?? '' }}" target="_blank" class="text-amber-500 font-bold">gE's</a>, you can see a progress bar on the bottom of the page. Once the progress is 100%, a famous point <x-application-logo class="inline h-3 w-auto" /> is given to that person.</p>
     <div class="my-8">
         <div class="bg-white shadow w-full h-64 sm:h-48">
             <div class="max-w-7xl mx-auto py-3 px-6 lg:px-8">

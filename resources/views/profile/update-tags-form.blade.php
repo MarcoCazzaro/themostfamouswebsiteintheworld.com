@@ -1,4 +1,4 @@
-<x-jet-form-section submit="updateTags">
+<x-form-section submit="updateTags">
     <x-slot name="title">
         {{ __('Tags') }}
     </x-slot>
@@ -14,24 +14,24 @@
     <x-slot name="form">
         <!-- Tags -->
         <div class="col-span-6">
-            <x-jet-label value="{{ __('Tags') }}" />
+            <x-label value="{{ __('Tags') }}" />
         </div>
         @for($i = 0; $i < 5; $i++)
             <div class="col-span-6 sm:col-span-3 md:col-span-2">
                 @php($tag = $state['tags'][$i] ?? '')
                 @livewire('tag-selector', ['tag' => $tag, 'tag_index' => $i], key('tag-selector-' . $i))
-                <x-jet-input-error for="tags-{{ $i }}" class="mt-2" />
+                <x-input-error for="tags-{{ $i }}" class="mt-2" />
             </div>
         @endfor
     </x-slot>
 
     <x-slot name="actions">
-        <x-jet-action-message class="mr-3" on="saved">
+        <x-action-message class="mr-3" on="saved">
             {{ __('Saved') }} <i class="fas fa-check"></i>
-        </x-jet-action-message>
+        </x-action-message>
 
-        <x-jet-button>
+        <x-button>
             {{ __('Save') }}
-        </x-jet-button>
+        </x-button>
     </x-slot>
-</x-jet-form-section>
+</x-form-section>

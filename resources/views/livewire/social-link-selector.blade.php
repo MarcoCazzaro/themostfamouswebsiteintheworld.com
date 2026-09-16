@@ -9,10 +9,10 @@
                 </a>
             @endif
         </div>
-        <x-jet-input
+        <x-input
                 type="url"
                 class="mt-1 block w-full pl-4"
-                wire:model.debounce.500ms="socialLink"
+                wire:model.live.debounce.500ms="socialLink"
                 placeholder="..."
                 autocomplete="off"
                 aria-label="Select social link"

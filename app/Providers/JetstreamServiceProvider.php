@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use App\Actions\Jetstream\DeleteUser;
-use App\Http\Livewire\ProfileUpdateSocialLinksForm;
-use App\Http\Livewire\ProfileUpdateTagsForm;
+use App\Livewire\ProfileUpdateSocialLinksForm;
+use App\Livewire\ProfileUpdateTagsForm;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
 use Livewire;

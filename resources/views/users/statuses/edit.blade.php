@@ -28,8 +28,8 @@
 
                 <div class="col-span-6">
                     <?php /*
-                    <x-jet-input id="body" name="body" type="text" class="block w-full" autocomplete="body" value="{{ old('body') ?? $status->body ?? null }}"/>
-                    <x-jet-input-error for="body" class="mt-2" />
+                    <x-input id="body" name="body" type="text" class="block w-full" autocomplete="body" value="{{ old('body') ?? $status->body ?? null }}"/>
+                    <x-input-error for="body" class="mt-2" />
                     */ ?>
 
                     @php($body = old('body') ?? $status->body ?? null)

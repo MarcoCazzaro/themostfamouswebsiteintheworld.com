@@ -29,19 +29,19 @@
                 @endif
 
                 <div class="col-span-6 sm:col-span-2">
-                    <x-jet-label for="name" value="{{ __('Name') }}" />
-                    <x-jet-input id="name" name="name" type="text" class="mt-1 block w-full" autocomplete="name" value="{{ old('name') ?? $tag->name ?? null }}"/>
-                    <x-jet-input-error for="name" class="mt-2" />
+                    <x-label for="name" value="{{ __('Name') }}" />
+                    <x-input id="name" name="name" type="text" class="mt-1 block w-full" autocomplete="name" value="{{ old('name') ?? $tag->name ?? null }}"/>
+                    <x-input-error for="name" class="mt-2" />
                 </div>
                 <div class="col-span-6 sm:col-span-2">
-                    <x-jet-label for="slug" value="{{ __('Slug') }}" />
-                    <x-jet-input id="slug" name="slug" type="text" class="mt-1 block w-full" autocomplete="slug" value="{{ old('slug') ?? $tag->slug ?? null }}" />
-                    <x-jet-input-error for="slug" class="mt-2" />
+                    <x-label for="slug" value="{{ __('Slug') }}" />
+                    <x-input id="slug" name="slug" type="text" class="mt-1 block w-full" autocomplete="slug" value="{{ old('slug') ?? $tag->slug ?? null }}" />
+                    <x-input-error for="slug" class="mt-2" />
                 </div>
                 <div class="col-span-6 sm:col-span-2">
-                    <x-jet-label for="locale" value="{{ __('Locale') }}" />
-                    <x-jet-input id="locale" name="locale" type="text" class="mt-1 block w-full" autocomplete="locale" value="{{ old('locale') ?? $tag->locale ?? app()->getLocale() }}" />
-                    <x-jet-input-error for="locale" class="mt-2" />
+                    <x-label for="locale" value="{{ __('Locale') }}" />
+                    <x-input id="locale" name="locale" type="text" class="mt-1 block w-full" autocomplete="locale" value="{{ old('locale') ?? $tag->locale ?? app()->getLocale() }}" />
+                    <x-input-error for="locale" class="mt-2" />
                 </div>
             </x-form>
         </div>

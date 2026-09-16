@@ -3,7 +3,7 @@
         <span class="ssnail-points font-bold text-sm text-amber-900">{{ $famous_points }}</span>
         <div class="relative">
             <span id="{{ $blinker_id }}" class="absolute inline-flex left-1 -top-1 h-5 w-5 rounded-full bg-amber-400 opacity-0"></span>
-            <x-jet-application-logo class="block h-3 w-auto ml-1" />
+            <x-application-logo class="block h-3 w-auto ml-1" />
         </div>
     </div>
     <style>
@@ -25,7 +25,7 @@
     </div>
     <div class="ssnail-explanation mt-10">
         <h5 class="font-semibold text-amber-900">Make {{ $user->name }} more famous!</h5>
-        <p class="my-2">The more you stay on this page, the more famous points <x-jet-application-logo class="inline h-3 w-auto" /> you give to this person.</p>
+        <p class="my-2">The more you stay on this page, the more famous points <x-application-logo class="inline h-3 w-auto" /> you give to this person.</p>
     </div>
 
     <script>

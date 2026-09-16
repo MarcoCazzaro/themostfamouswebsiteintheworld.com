@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
@@ -45,7 +45,7 @@ class ProfileUpdateSocialLinksForm extends UpdateProfileInformationForm
             Auth::user(),
             $this->state
         );
-        $this->emit('saved');
-        $this->emit('refresh-navigation-menu');
+        $this->dispatch('saved');
+        $this->dispatch('refresh-navigation-menu');
     }
 }

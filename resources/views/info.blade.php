@@ -12,8 +12,8 @@
                 </section>
                 <section class="mt-8">
                     <h2 class="font-semibold">What are famous points?</h2>
-                    <p>The more famous points <x-jet-application-logo class="inline h-3 w-auto" /> you have, the more popular you are.</p>
-                    <p>Every time you visit a user's profile page, you can see a progress bar on the bottom of the page. Once the progress is 100%, a famous point <x-jet-application-logo class="inline h-3 w-auto" /> is given to that person.</p>
+                    <p>The more famous points <x-application-logo class="inline h-3 w-auto" /> you have, the more popular you are.</p>
+                    <p>Every time you visit a user's profile page, you can see a progress bar on the bottom of the page. Once the progress is 100%, a famous point <x-application-logo class="inline h-3 w-auto" /> is given to that person.</p>
                 </section>
                 <section class="mt-8">
                     <h2 class="font-semibold">What can I do here?</h2>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 
@@ -28,6 +28,6 @@ class Onboarding extends Component
     public function openOnboarding()
     {
         $this->shown = true;
-        $this->dispatchBrowserEvent('open-onboarding');
+        $this->dispatch('open-onboarding');
     }
 }

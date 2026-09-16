@@ -13,10 +13,10 @@
                 <div class="ssnail-search-box flex items-center mb-6">
                     <h2>Search: </h2>
                     <div class="relative grow ml-5">
-                        <x-jet-input id="searchStuff"
+                        <x-input id="searchStuff"
                             type="text"
                             class="mt-1 block w-full pl-4"
-                            wire:model.debounce.500ms="stuff"
+                            wire:model.live.debounce.500ms="stuff"
                             placeholder="..."
                             autocomplete="off"
                             aria-label="Search tags"

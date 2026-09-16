@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Jobs\Worship;
 use App\Models\User;
@@ -34,6 +34,6 @@ class IncrementFamousness extends Component
         } else {
             Worship::dispatch(auth()->user(), $this->user);
         }
-        $this->dispatchBrowserEvent('ssnail-points-updated');
+        $this->dispatch('ssnail-points-updated');
     }
 }

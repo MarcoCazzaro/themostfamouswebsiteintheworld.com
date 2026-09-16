@@ -3,7 +3,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 p-8">
         <div class="px-0 md:px-8">
             <div class="flex">
-                <div class="shrink-0 inline-flex"><x-jet-application-mark class="h-20 mb-8 md:mb-0" /></div>
+                <div class="shrink-0 inline-flex"><x-application-mark class="h-20 mb-8 md:mb-0" /></div>
                 <div class="ml-4">
                     <p>&copy;{{ date('Y') }} | All rights reserved</p>
                     <p><b class="font-semibold text-amber-500">The Most Famous Website In The World</b> is owned by:</p>

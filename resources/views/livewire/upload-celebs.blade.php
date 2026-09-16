@@ -16,10 +16,10 @@
                     </div>
                 </div>
                 <div class="mb-8">
-                    <x-jet-button wire:click="process">Import</x-jet-button>
+                    <x-button wire:click="process">Import</x-button>
                 </div>
                 <div class="ssnail-input-area h-full">
-                    <textarea wire:model.defer="celebs" class="w-full h-full border-gray-300 focus:border-amber-900 focus:ring focus:ring-amber-300 focus:ring-opacity-50 rounded-md shadow-sm"></textarea>
+                    <textarea wire:model="celebs" class="w-full h-full border-gray-300 focus:border-amber-900 focus:ring focus:ring-amber-300 focus:ring-opacity-50 rounded-md shadow-sm"></textarea>
                 </div>
             </div>
         </div>

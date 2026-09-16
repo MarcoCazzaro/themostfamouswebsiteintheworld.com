@@ -1,6 +1,6 @@
 <div wire:init="loadStats">
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        <x-jet-dropdown align="left" width="60">
+        <x-dropdown align="left" width="60">
             <x-slot name="trigger">
                 <span class="inline-flex rounded-md">
                     <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-gray-50 hover:bg-amber-100 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
@@ -16,18 +16,18 @@
                         {{ __('Select time period') }}
                     </div>
                     @foreach ($availableTimePeriods as $availableTimePeriod)
-                        <x-jet-dropdown-link href="javascript:void(0)" x-on:click="$wire.set('timePeriod', '{{ $availableTimePeriod }}')">
+                        <x-dropdown-link href="javascript:void(0)" x-on:click="$wire.set('timePeriod', '{{ $availableTimePeriod }}')">
                             {{ __($availableTimePeriod) }}
-                        </x-jet-dropdown-link>
+                        </x-dropdown-link>
                     @endforeach
                 </div>
             </x-slot>
-        </x-jet-dropdown>
+        </x-dropdown>
         <div x-data x-show="$wire.timePeriod == 'Custom dates'">
-            <x-jet-input id="startDate" type="date" wire:model="startDate"/>
+            <x-input id="startDate" type="date" wire:model.live="startDate"/>
         </div>
         <div x-data x-show="$wire.timePeriod == 'Custom dates'">
-            <x-jet-input id="endDate" type="date" wire:model="endDate"/>
+            <x-input id="endDate" type="date" wire:model.live="endDate"/>
         </div>
     </div>
     <div class="ssnail-content relative">

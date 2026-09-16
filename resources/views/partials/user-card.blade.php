@@ -19,7 +19,7 @@
                     <h5 class="mb-1 text-lg font-medium text-gray-900 md:truncate w-auto md:w-40">{{ $user->nameWithYou }}</h5>
                     <div class="ssnail-points text-xs inline-flex items-center">
                         <span>{{ $user->famous_points_received_human }}</span>
-                        <x-jet-application-logo class="inline h-3 w-auto ml-1" />
+                        <x-application-logo class="inline h-3 w-auto ml-1" />
                     </div>
                 </div>
             </div>

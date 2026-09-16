@@ -4,7 +4,7 @@
             @include('dashboard.onboarding.' . app()->getLocale())
         </div>
         <div class="flex justify-end">
-            <x-jet-button x-on:click="$wire.okGotIt(); $store.showOnboarding = false">{{ __('OK, got it!') }}</x-jet-button>
+            <x-button x-on:click="$wire.okGotIt(); $store.showOnboarding = false">{{ __('OK, got it!') }}</x-button>
         </div>
     </div>
 </div>

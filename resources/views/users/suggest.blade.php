@@ -8,8 +8,8 @@
                 </div>
             </div>
             <p class="mb-8">{{ __('is on') }}</p>
-            <x-jet-application-logo class="h-12 mb-5" />
-            <x-jet-application-mark class="h-48" />
+            <x-application-logo class="h-12 mb-5" />
+            <x-application-mark class="h-48" />
         </div>
     </div>
     <div class="flex justify-center content-center min-w-screen">
@@ -20,10 +20,10 @@
                     <p>Join us, if you want to be in The Most Famous Website In The World.</p>
                     <div class="flex p-8">
                         <form method="GET" action="{{ route('register') }}">
-                            <x-jet-button type="submit" class="w-24 m-4">Join</x-jet-button>
+                            <x-button type="submit" class="w-24 m-4">Join</x-button>
                         </form>
                         <form method="GET" action="{{ route('login') }}">
-                            <x-jet-button type="submit" class="w-24 m-4">Login</x-jet-button>
+                            <x-button type="submit" class="w-24 m-4">Login</x-button>
                         </form>
                     </div>
                 </div>
