@@ -60,13 +60,13 @@ return new class extends Migration
                     );
                 }
             });
-            if (Schema::hasColumn('famous_points', 'brazorf'))
-            {
-                Schema::table('famous_points', function (Blueprint $table) {
-                    $table->dropColumn('brazorf');
-                });
-            }
         });
+        if (Schema::hasColumn('famous_points', 'brazorf'))
+        {
+            Schema::table('famous_points', function (Blueprint $table) {
+                $table->dropColumn('brazorf');
+            });
+        }
     }
 
     /**

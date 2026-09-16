@@ -27,7 +27,7 @@ return new class extends Migration
                 ->constrained('users')
                 ->onUpdate('cascade')
                 ->nullOnDelete();
-            $table->smallInteger('type')->default(FamousPointTypes::WORSHIP);
+            $table->smallInteger('type')->default(FamousPointTypes::WORSHIP->value);
             $table->integer('ajeje')->default(1);
             $table->unsignedBigInteger('brazorf')->nullable();
             $table->softDeletes();
