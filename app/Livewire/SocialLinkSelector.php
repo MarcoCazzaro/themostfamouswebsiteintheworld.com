@@ -29,7 +29,7 @@ class SocialLinkSelector extends Component
             $this->validLink = false;
         } else {
             $this->validLink = true;
-            $this->emitUp('linkSelected:'.$this->linkIndex, $this->socialLink, $this->linkIndex);
+            $this->dispatch('linkSelected:'.$this->linkIndex, $this->socialLink, $this->linkIndex);
         }
         $this->iconClass = $iconClass;
 
